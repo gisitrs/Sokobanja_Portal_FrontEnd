@@ -11,7 +11,7 @@ class SokobanjaRestaurantsENG{
                             "5432421.8815",
                             "SokoBanja_Portal.html?xCoord=43.6421&yCoord=5432421.8815&locationText=Restaurant Stara Vodenica"];
         
-        this.Restaurant2 = ["Župan", 
+        this.Restaurant2 = ["Župan 1234", 
                             "Župan is a private restaurant with the longest tradition in Sokobanja. It was founded back in 1968 and since then it has hosted thousands of spa guests; actors, politicians, musicians, athletes and other celebrities. In the menu you will find top specialties from barbecue to charcoal, a large selection of dishes to order, fresh trout, and during the summer season for lunch you have a daily selection of over 15 of the highest quality, home-cooked food.",
                             "https://sokobanja.rs/gastronomija/restoran-zupan/",
                             "www.zupan.com",
