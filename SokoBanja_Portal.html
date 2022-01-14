@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+
+    <!-- leaflet css link  -->
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    />
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+
+	<link rel="stylesheet" href="./main.css">
+
+    <title>Web-GIS with geoserver and leaflet</title>
+  </head>
+  <body>
+	  <div>
+		<div id="map" class="map"></div>
+		<div id="locationPanel" class="slideshow-container">
+			<div class="imagePanel">
+				<img id="locationImage" src="./images/img_nature_wide.jpg" class="imageClass">
+				<button class="btn" style="background: url('./images/left-arrow-background-1.png') no-repeat; left: 5%;" onclick="minusSlides()"></button>
+				<button class="btn" style="background: url('./images/right-arrow-background.png') no-repeat; left: 95%;" onclick="plusSlides()"></button>
+			</div>
+		</div>
+	</div>
+  </body>
+</html>
+
+<!-- leaflet js link  -->
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+<!-- jquery link  -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<!-- geocoder  -->
+<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+<!-- locations  -->
+<script src="./locations.js"></script>
+
+<!-- betterWMS  -->
+<script src="./L.TileLayer.BetterWMS.js"></script>
+
+<script>
+	$(document).ready(function() {
+		var xCoord = getUrlParameter('xCoord');
+		var yCoord = getUrlParameter('yCoord');
+		var locationText = getUrlParameter('locationText');
+
+		if(xCoord != "" && yCoord != ""){
+			ZoomToLocation([xCoord, yCoord], 18);
+			CreateMarker([xCoord, yCoord], locationText);
+		}
+
+    	changePageLayout();
+	});
+
+	
+
+	const locations = new Locations();
+
+	var mapDivPercentageHeight = '70%';
+	var locationsPanelPercentageHeight = '30%';
+	var isHiddenLocationPanel = false;
+
+	var slideIndex = 0;
+	var imageURLsList = ['./images/img_nature_wide.jpg', './images/img_mountains_wide.jpg', './images/img_snow_wide.jpg'];
+
+	// initialize map
+	var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
+
+	// initialize base layers
+	var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  		maxZoom: 30,
+  		attribution:
+		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	});
+
+	osm.addTo(map);
+
+	var cyclOSM = L.tileLayer('https://{s}.tile-cyclosm.openstreetmap.fr/cyclosm/{z}/{x}/{y}.png', {
+  		maxZoom: 30,
+  		attribution: '<a href="https://github.com/cyclosm/cyclosm-cartocss-style/releases" title="CyclOSM - Open Bicycle render">CyclOSM</a> | Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+	});
+
+	// initialize wms layers (roads, locations and zones)
+	var wmsLayerRoads = L.tileLayer.betterWms('http://localhost:8080/geoserver/Sokobanja_portal/wms', {
+      layers: "Sokobanja_portal:Putevi",
+      format: "image/png",
+      transparent: true,
+      attribution: "mylayer",
+    });
+
+	var wmsLayerLocations = L.tileLayer.betterWms('http://localhost:8080/geoserver/Sokobanja_portal/wms', {
+      layers: "Sokobanja_portal:Lokacije",
+      format: "image/png",
+      transparent: true,
+      attribution: "mylayer",
+    });
+
+	var wmsLayerZones = L.tileLayer.betterWms('http://localhost:8080/geoserver/Sokobanja_portal/wms', {
+      layers: "Sokobanja_portal:Zone",
+      format: "image/png",
+      transparent: true,
+      attribution: "mylayer",
+    });
+
+	// layers control
+	var baseMaps = {
+  		"OSM": osm,
+  		"CycleOSM": cyclOSM
+	}
+
+	var additionalLayers = {
+		"Zone": wmsLayerZones,
+  		"Putevi": wmsLayerRoads,
+		"Lokacije": wmsLayerLocations
+	}
+
+	L.control.layers(baseMaps, additionalLayers).addTo(map);
+
+	//L.Control.geocoder().addTo(map);
+	map.addControl(L.Control.geocoder({ position: "topright" }));
+	$('.leaflet-control-geocoder-icon').css("width", "44px");
+	$('.leaflet-control-geocoder-icon').css("height", "44px");
+	//$('.leaflet-control-geocoder-form input').css("width", "120px");
+	
+	// hide Leaflat control attribution footer
+	$('.leaflet-control-attribution').hide();
+
+	// showing button for show/hide panel 
+	const Coordinates = L.Control.extend({
+  		onAdd: map => {
+			const container = L.DomUtil.create("div");
+			/*map.addEventListener("mousemove", e => {
+            	container.innerHTML = `<h2>Latitude is ${e.latlng.lat.toFixed(4)} <br> and Longitude is  ${e.latlng.lng.toFixed(4)} </h2>`;
+		   	});*/
+			container.innerHTML = `<div><button type="button" class="showHideLocations" onclick="showHideLocations()" style="background: url('./images/fullscreen.png') no-repeat;"></button>`;
+	  	return container;
+	  	}
+  	});
+	  
+  	map.addControl(new Coordinates({ position: "bottomright" }));
+
+	// panel with additional functionalities 
+	const SerbianLanguageButton = L.Control.extend({
+  		onAdd: map => {
+			const container = L.DomUtil.create("div");
+			container.innerHTML = `<div><button type="button" id="serbianLanguageButtonId" class="serbiaLanguageButton" style="background: url('./images/Serbia-Flag-icon.png') no-repeat; margin-left: 10px;"></button>`; 
+		return container;
+	  	}
+  	});
+	
+	map.addControl(new SerbianLanguageButton({ position: "topleft" }));
+
+	// panel with additional functionalities 
+	const EnglishLanguageButton = L.Control.extend({
+  		onAdd: map => {
+			const container = L.DomUtil.create("div");
+			container.innerHTML = `<div><button type="button" id="englishLanguageButtonId" class="englishLanguageButton" style="background: url('./images/GBR-flag-icon.png') no-repeat; margin-left: 65px; margin-top: -10px;"></button>`; 
+		return container;
+	  	}
+  	});
+	
+	map.addControl(new EnglishLanguageButton({ position: "topleft" }));
+
+	// panel with additional functionalities 
+	const PrimaryLocationButton = L.Control.extend({
+  		onAdd: map => {
+			const container = L.DomUtil.create("div");
+			container.innerHTML = `<div><button type="button" id="primaryLocationButtonId" class="primaryLocationButton" onclick="GoToPrimaryLocation()"onclick="GoToPrimaryLocation()" style="background: url('./images/MapImage.png') no-repeat; margin-left: 120px; margin-top: -20px;"></button>`; 
+		return container;
+	  	}
+  	});
+	
+	map.addControl(new PrimaryLocationButton({ position: "topleft" }));
+
+	// panel with additional functionalities 
+	const InfoPageButton = L.Control.extend({
+  		onAdd: map => {
+			const container = L.DomUtil.create("div");
+			container.innerHTML = `<div><button type="button" id="infoPageButtonId" class="infoPageButton" onclick="window.location.href='SokoBanja_Info.html'" style="background: url('./images/InfoImage1.png') no-repeat; margin-top: -30px;"></button>`;
+		return container;
+	  	}
+  	});
+	
+	map.addControl(new InfoPageButton({ position: "topleft" })); 
+
+	// panel with additional functionalities 
+	const MapLegendButton = L.Control.extend({
+  		onAdd: map => {
+			const container = L.DomUtil.create("div");
+			container.innerHTML = `<div><button type="button" id="mapLegendButtonId" class="mapLegendButton" onclick="window.location.href='MapLegend.html'" style="background: url('./images/MapLegend.png') no-repeat; margin-top: -40px;"></button>`;
+		return container;
+	  	}
+  	});
+	
+	map.addControl(new MapLegendButton({ position: "topleft" }));
+
+	// set even listener for resizing page elements
+	window.addEventListener('resize', changePageLayout);
+
+	function changePageLayout(){
+		if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == false){
+			resizeDivElements(mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, '100%', 'top', mapDivPercentageHeight);
+			layout = 'vertical';
+		} 
+		else if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == true){
+			resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+			layout = 'vertical';
+		}
+		else if (($(document).height() > 600 || $(document).width() > 500) && isHiddenLocationPanel == false){
+			resizeDivElements('100%', mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, 'right', mapDivPercentageHeight);
+			layout = 'horizontal';
+		}
+		else if (($(document).height() > 600 || $(document).width() > 500) && isHiddenLocationPanel == true){
+			resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+			layout = 'horizontal';
+		}
+
+		map._onResize(); 
+	}
+	
+	// hide or show location panel 
+	function showHideLocations(){
+		if (isHiddenLocationPanel == false){
+			resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+			showHideAdditionalButtons('hidden');
+			isHiddenLocationPanel = true;
+		}
+		else {
+			isHiddenLocationPanel = false;
+			showHideAdditionalButtons('visible');
+			changePageLayout();
+		}
+		
+		//$('#testImage').toggle('fast');
+
+		map._onResize(); 
+	}
+
+	function showHideAdditionalButtons(visibilityValue){
+		$("#locationPanel").css("visibility", visibilityValue);
+		$("#infoPageButtonId").css("visibility", visibilityValue);
+		$("#mapLegendButtonId").css("visibility", visibilityValue); 
+		$("#serbianLanguageButtonId").css("visibility", visibilityValue);
+		$("#englishLanguageButtonId").css("visibility", visibilityValue);
+		$("#primaryLocationButtonId").css("visibility", visibilityValue);
+		$('.leaflet-control-geocoder').css("visibility", visibilityValue); 
+	}
+
+	function showHideAdditionalPanel(){
+		$("#additionalDivId").css("visibility","visible");
+	}
+
+	function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginType, marginValue){
+		var mapDiv = document.getElementById('map');
+		var locationPanel = document.getElementById('locationPanel');
+
+		mapDiv.style.height = mapHeight;
+		mapDiv.style.width = mapWidth;
+		locationPanel.style.height = panelHeight;
+		locationPanel.style.width = panelWidth;
+
+		var infoPageButtonMarginLeftValue = $("#map").width() - 125;
+		var mapLegendButtonLeftMargin = infoPageButtonMarginLeftValue - 58;
+
+		$("#infoPageButtonId").css("margin-left", infoPageButtonMarginLeftValue + "px");
+		$("#mapLegendButtonId").css("margin-left", mapLegendButtonLeftMargin + "px");
+
+		if(marginType == 'top'){
+			locationPanel.style.right = '0%';
+			locationPanel.style.top= marginValue;
+		}
+		else if (marginType == 'right'){
+			locationPanel.style.right = '0%';
+			locationPanel.style.top= '0%';
+		}
+	}
+
+	// panel with locations
+	startSlideShow();
+
+	function startSlideShow(){
+		setTimeout(automaticPlusSlide, 7000);
+	}
+
+  	function plusSlides() {
+		slideIndex = slideIndex + 1;
+		showSlides(false);
+  	}
+  
+	function minusSlides() {
+		slideIndex = slideIndex - 1;
+		showSlides(false);
+  	}
+
+	function automaticPlusSlide(){
+		slideIndex = slideIndex + 1;
+		showSlides(true);
+	}
+  
+  	function showSlides(isAutomatic) {
+		var imageListCount = imageURLsList.length;
+		var b = slideIndex;
+
+		if (slideIndex == -1){
+			slideIndex = imageListCount - 1;
+			$("#locationImage").attr("src",imageURLsList[slideIndex]);
+		}
+		else if (slideIndex == imageListCount){
+			slideIndex = 0;
+			$("#locationImage").attr("src",imageURLsList[slideIndex]);
+		} 
+		else {
+			$("#locationImage").attr("src",imageURLsList[slideIndex]);
+		}
+
+		if (isAutomatic == true){
+			startSlideShow();
+		}
+  	}
+
+  // get parameters value
+  var getUrlParameter = function getUrlParameter(sParam) {
+    	var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    	for (i = 0; i < sURLVariables.length; i++) {
+        	sParameterName = sURLVariables[i].split('=');
+
+        	if (sParameterName[0] === sParam) {
+            	return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        	}
+    	}
+    	return false;
+	};
+
+  // create marker
+  function CreateMarker(coords, markerName){
+	  var marker = L.marker(coords, {
+        title: markerName
+      }).addTo(map);
+
+	  marker.bindPopup(markerName).openPopup();
+  }
+
+  // zoom to location
+  function GoToPrimaryLocation(){
+	ZoomToLocation(locations.SokoBanjaPrimeLocation, 15);
+  }
+
+  $('#locationImage').click(function(){
+	switch (slideIndex) {
+  		case 0:
+		  	ZoomToLocation(locations.SokoBanjaPrimeLocation, 15);
+    		break;
+  		case 1:
+		  	ZoomToLocation(locations.SokoBanjaFirstLocation, 16);
+    		break;
+  		case 2:
+		  	ZoomToLocation(locations.SokoBanjaSecondLocation, 16);
+    		break;
+	}
+  })
+
+  function ZoomToLocation(coords, zoomValue){
+	map.setView(coords, zoomValue);
+  }
+	
+</script>

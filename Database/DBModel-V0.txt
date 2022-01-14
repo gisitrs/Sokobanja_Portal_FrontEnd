@@ -1,0 +1,75 @@
+
+
+/****** DB Entiteti *******/
+
+1. [City] - [Id]               Guid           NOT NULL
+          - [Name]             NVARCHAR(MAX)  NOT NULL
+          - [Description]      NVARCHAR(MAX)  NULL
+          - [XCoord]           DECIMAL(2,10)  NOT NULL
+          - [YCoord]           DECIMAL(2,10)  NOT NULL
+          - [Point]            Geometry(Point) ? NOT NULL
+          - [ImageURLLocation] NVARCHAR(MAX)  NOT NULL 
+          - [ImageName]        NVARCHAR(MAX)  NOT NULL 
+          - [LocationTypeId]   Guid           NOT NULL
+
+
+2. [Language] - [Id]   Guid           NOT NULL
+              - [Name] NVARCHAR(MAX)  NOT NULL
+
+
+3. [Location] - [Id]                Guid           NOT NULL
+              - [Name]              NVARCHAR(MAX)  NOT NULL
+              - [Description]       NVARCHAR(MAX)  NOT NULL
+              - [WebAddress]        NVARCHAR(MAX)  NULL
+              - [WebName]           NVARCHAR(MAX)  NULL
+              - [FacebookLink]      NVARCHAR(MAX)  NULL
+              - [InstagramLink]     NVARCHAR(MAX)  NULL
+              - [Address]           NVARCHAR(MAX)  NULL
+              - [PhoneNumber]       NVARCHAR(MAX)  NULL
+              - [MobilePhoneNumber] NVARCHAR(MAX)  NULL
+              - [ImageLocationId]   Guid           NOT NULL 
+              - [ImageName]         NVARCHAR(MAX)  NOT NULL
+              - [XCoord]            DECIMAL(2,10)  NOT NULL
+              - [YCoord]            DECIMAL(2,10)  NOT NULL
+              - [Point]             Geometry(Point) ? NOT NULL
+              - [LocationTypeId]    Guid           NOT NULL
+              - [CityId]            Guid           NOT NULL
+
+
+4. [LocationType] - [Id]          Guid          NOT NULL
+                  - [Name]        NVARCHAR(MAX) NOT NULL
+                  - [Description] NVARCHAR(MAX) NULL
+
+
+5. [CityTranslation] - [Id]         Guid          NOT NULL
+                     - [LanguageId] Guid          NOT NULL
+                     - [CityId]     Guid          NOT NULL
+                     - [Text]       NVARCHAR(MAX) NOT NULL
+
+
+6. [LocationTranslation] - [Id]         Guid          NOT NULL
+                         - [LanguageId] Guid          NOT NULL
+                         - [LocationId] Guid          NOT NULL
+                         - [CityId]     Guid          NOT NULL
+                         - [Text]       NVARCHAR(MAX) NOT NULL
+
+7. [LegendAttribute] - [Id]              Guid          NOT NULL
+            	     - [Name]            NVARCHAR(MAX) NOT NULL
+                     - [ImageLocationId] Guid          NOT NULL
+                     - [ImageName]       NVARCHAR(MAX) NOT NULL
+                     - [Description]     NVARCHAR(MAX) NULL
+
+
+8. [LegendAttributeTranslation] - [Id]                Guid          NOT NULL
+                                - [LanguageId]        Guid          NOT NULL
+                                - [LegendAttributeId] Guid          NOT NULL
+                                - [Text]              NVARCHAR(MAX) NOT NULL
+
+
+9. [ImageLocation] - [Id]                  Guid          NOT NULL
+                   - [URLLocation]         NVARCHAR(MAX) NOT NULL
+                   - [ImageLocationTypeId] Guid          NOT NULL
+                   - [CityId]              Guid          NOT NULL
+                   - [LocationTypeId]      Guid          NOT NULL
+
+                     

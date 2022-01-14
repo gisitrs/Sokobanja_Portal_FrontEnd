@@ -1,0 +1,30 @@
+1) Napravljena nova baza podataka 'Sokobanja_portal'
+2) Podaci okačeni na Geoserver:
+	- Workspace: Sokobanja_portal
+	- Slojevi: Lokacije, Putevi, Zone
+3) U QGIS-u napravljena osnovna stilizacija (prema klasama iz atributa) za svaki od slojeva
+4) Stilizacija slojeva u SLD formatu dodata na Geoserver i postavljena kao default-na za svaki od dodatih slojeva
+5) Lokacije:
+Što se tiče slika i teksta lokacija mislim da nije neophodno sada to da komplikujemo.
+Ja bih predložio da staviš 5-6 slajdova, staviš sličice i nekoliko rečenica sa bilo kog izvora sa neta, tipa wikipedije isl.
+Neke od lokacija koje možeš da potražiš su:
+- Sokograd
+- Vodopad Ripaljka
+- Lepterija (izletište)
+- Milošev konak
+- Letnja pozornica
+- Akva park "Podina"
+- Popovica (vidikovac)
+
+Sve ove lokacije imaš u sloju koji se nalazi na Geoserveru, a da nađeš
+Mislim da u ovoj fazi nije neophodno da idemo dalje od toga, čisto da vidimo da to radi i to je to.
+
+6) Basemape:
+
+Bing mape
+https://openlayers.org/en/latest/examples/bing-maps.html
+Ispod web-karte videćeš padajući meni sa nekoliko tipova mapa. Bilo koju od njih možemo postaviti kao basemap-u.
+
+HERE mape
+https://openlayers.org/en/latest/examples/here-maps.html
+Mislim da su za nju potrebni neki kodovi, ja bi trebalo da imam neki, a i ako nemam koliko se sećam lako se dobija

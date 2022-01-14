@@ -1,0 +1,19 @@
+TASKS:
+
+1 - Create Popup on the app for showing attributes from table  Rešeno
+
+2 - Getting attributes from tables without geometry (additional tables) Rešeno
+
+--------------------------------------------
+
+22.10.2021.
+
+1. Nova struktura fajlova! 
+
+2. Promeniti položaj panela sa lokacijama u zavisnosti od veličine ekrana! 
+
+3. Skloniti Leaflat footer!
+
+4. Novo dugme za otvaranje menija sa Informacijama, Pretragom i Legendom
+
+5. Strana sa Informacijama

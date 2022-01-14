@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+  <script src="./map_info_tabs_rs.js"></script>
+  <script src="./map_info_tabs_eng.js"></script>
+  <script src="./sokobanja_restaurants_rs.js"></script>
+  <script src="./sokobanja_restaurants_eng.js"></script>
+  <script src="./sokobanja_museums_rs.js"></script>
+  <script src="./sokobanja_museums_eng.js"></script>
+  <script src="./sokobanja_tourist_guides_rs.js"></script>
+  <script src="./sokobanja_tourist_guides_eng.js"></script>
+</head>
+
+<script>
+  var selectedLanguage = "Serbian";
+
+  const mapInfoTabsRS = new MapInfoTabsRS();
+  const mapInfoTabsENG = new MapInfoTabsENG();
+
+  const restaurantsRS = new SokobanjaRestaurantsRS();
+  const restaurantsENG = new SokobanjaRestaurantsENG();
+
+  const museumClass = new SokobanjaMuseumsRS();
+  const museumsENG = new SokobanjaMuseumsENG();
+
+  const touristGuideClass = new SokobanjaTouristGuidesRS();
+  const touristGuidesENG = new SokobanjaTouristGuidesENG();
+
+  var mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
+  var restaurants = restaurantsRS.getList();
+  var museums = museumClass.getList();
+  var touristGuides = touristGuideClass.getList();
+
+  var htmlContent = "";
+  var collapseId = "";
+  var panelId = "";
+  var panel1Id = "";
+  var imageId = "";
+
+  var paneltextId = "";
+  var panel1textId = "";
+  var webLinkId = "";
+  var webLink1Id = "";
+
+  var facebookLinkId = "";
+  var facebookLink1Id = "";
+  var locationLinkId = "";
+  var locationLink1Id = "";
+
+  var contactTextId = "";
+  var contactText1Id = "";
+  var dataParentId = "";
+
+  var tabParentId = "";
+  var tabHeader = "";
+  var tabHeaderTextId = "";
+  var tabHeaderTextValue = "";
+
+  var tabname = "";
+  var tabValues = [];
+  var tabValuesList = [];
+  var htmlContentList = [];
+
+  var tabHeaderList = [];
+  var dataParentIdList = [];
+  var tabHeaderTextIdList = [];
+
+  (function( $ ){
+   $.fn.setTabValuesForLanguage = function() {
+     if (selectedLanguage == "Serbian"){
+      mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
+     }
+     else if (selectedLanguage == "English"){
+      mapInfoTabValues = mapInfoTabsENG.getMapInfoTabList();
+     }
+    }; 
+  })( jQuery );
+
+  (function( $ ){
+   $.fn.setTextValuesForLanguage = function() {
+     if (selectedLanguage == "Serbian"){
+      tabValuesList = [restaurantsRS.getList(), museumClass.getList(), touristGuideClass.getList()];
+     }
+     else if (selectedLanguage == "English"){
+      tabValuesList = [restaurantsENG.getList(), museumsENG.getList(), touristGuidesENG.getList()];
+     }
+    }; 
+  })( jQuery );
+
+  (function( $ ){
+   $.fn.createTabContent = function(textTab1, textTab2, textTab3) {
+    var divContent = '<li><a data-toggle="pill" id="restaurantsLiId" href="#restaurants">' + textTab1 + '</a></li>' +
+                     '<li><a data-toggle="pill" id="museumsLiId" href="#museums">' + textTab2 + '</a></li>' +
+                     '<li><a data-toggle="pill" id="touristGuidesLiId" href="#touristGuides">' + textTab3 + '</a></li>';
+      return divContent;
+   }; 
+  })( jQuery );
+
+  (function( $ ){
+   $.fn.createDivContent = function(dataParentId, collapseId, panelId, panel1Id, 
+                                    imageId, panelTextId, panel1TextId, webLinkId, 
+                                    webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
+                                    contactText1Id, locationLinkId, locationLink1Id) {
+    var divContent = '<div class="panel panel-default">' +
+                        '<div class="panel-heading">' +
+                          '<h4 class="header-text">' +
+                            '<div id="' + panel1Id + '"></div></a>' + 
+                          '</h4>' +
+                          '<h4 class="panel-title">'   +
+                            '<a data-toggle="collapse" data-parent="#' + dataParentId + '" href="#' + collapseId + '">' + 
+                            '<div id="' + panelId + '"></div></a>' + 
+                          '</h4>' +
+                          '<div class="panel-body">' +
+                            '<div class="row">'+
+                              '<div class="col-md-3">' + 
+                                '<div><img id="' + imageId + '" src="" alt="..."></div>' + 
+                              '</div>'+
+                              '<div class="col-md-9">'+
+                                '<div id="' + panel1TextId + '"></div>'+
+                                '</br>' +
+                                '<div id="' + contactTextId + '"></div>'+
+                                '</br>' +
+                                '<div class="row">' +
+                                  '<div class="col-md-10">' +
+                                    '<a id="' + webLink1Id + '" href=""></a>' +
+                                  '</div>' +
+                                  '<div class="col-md-1">' +
+                                    '<a id="' + locationLink1Id + '" href="" title="" style="visibility: hidden"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                  '</div>' +
+                                  '<div class="col-md-1">' +
+                                    '<a id="' + facebookLinkId + '" href="#" title="" style="visibility: hidden"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
+                                  '</div>' +
+                                '</div>' +
+                              '</div>'+
+                            '</div> '+
+                          '</div>' + 
+                        '</div>'+
+                        '<div id="' + collapseId + '" class="panel-collapse collapse">' +
+                          '<div class="panel-body">' +
+                            '<div id="' + panelTextId + '" class="panel-body-small-size"></div>' +
+                            '</br>' +
+                            '<div id="' + contactText1Id + '" class="panel-body-small-size"></div>'+
+                            '</br>' + 
+                            '<div class="row">' +
+                              '<div class="col-md-10">' +
+                                '<a id="' + webLinkId + '" class="panel-body-small-size" href=""></a>' +
+                              '</div>' +
+                              '<div class="col-md-1">' +
+                                  '<a id="' + locationLinkId + '" href="" title="" style="visibility: hidden" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                              '</div>' +
+                              '<div class="col-md-1">' +
+                                  '<a id="' + facebookLink1Id + '" href="#" title="" style="visibility: hidden; height: 0%;" class="panel-body-small-size"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
+                              '</div>' +
+                             '</div>' +
+                            '</div>' +
+                          '</div>' +
+                        '</div>' +
+                      '</div>';
+      return divContent;
+   }; 
+  })( jQuery );
+
+  (function( $ ){
+   $.fn.insertTextValues = function(listValues, tabHeaderValue) {
+    $.each(listValues, function( index, value ) {
+        panelId = "#" + tabHeaderValue + "Panel" + index + "Id";
+        panel1Id = "#" + tabHeaderValue + "Panel1" + index + "Id";
+        imageId = "#" + tabHeaderValue + "Image" + index + "Id";
+        panelTextId = "#" + tabHeaderValue + "Panel" + index + "TextId";
+        panel1TextId = "#" + tabHeaderValue + "Panel1" + index + "TextId";
+        webLinkId = "#" + tabHeaderValue + "WebLink" + index + "Id";
+        webLink1Id = "#" + tabHeaderValue + "WebLink1" + index + "Id";
+        facebookLinkId = "#" + tabHeaderValue + "FacebookLink" + index + "Id";
+        facebookLink1Id = "#" + tabHeaderValue + "FacebookLink1" + index + "Id";
+        locationLinkId = "#" + tabHeaderValue + "LocationLink" + index + "Id";
+        locationLink1Id = "#" + tabHeaderValue + "LocationLink1" + index + "Id";
+
+        contactTextId = "#" + tabHeaderValue + "ContactText" + index + "Id";
+        contactText1Id = "#" + tabHeaderValue + "ContactText1" + index + "Id";
+
+        $(panelId).text(value[0]); 
+        $(panel1Id).text(value[0]); 
+        $(panelTextId).text(value[1]); 
+        $(panel1TextId).text(value[1]); 
+
+        if (value[2] != "" && value[3] != ""){
+          $(webLinkId).attr("href", value[2]); 
+          $(webLink1Id).attr("href", value[2]); 
+          $(webLinkId).text(value[3]);
+          $(webLink1Id).text(value[3]);
+        }
+
+        $(imageId).attr("src", value[4]);
+
+        if(value[5] != ""){
+          $(facebookLinkId).attr("href", value[5]);
+          $(facebookLinkId).css("visibility", "visible");
+          $(facebookLinkId).css("height", "100%");
+          $(facebookLink1Id).attr("href", value[5]);
+          $(facebookLink1Id).css("visibility", "visible");
+        }
+
+        $(contactTextId).text(value[6]); 
+        $(contactText1Id).text(value[6]); 
+
+        if(value[7] != "" && value[8] != ""){
+          $(locationLinkId).css("visibility", "visible");
+          $(locationLink1Id).css("visibility", "visible");
+          $(locationLinkId).attr("href", value[9]);
+          $(locationLink1Id).attr("href", value[9]);
+        }
+      });
+   }; 
+  })( jQuery );
+
+  (function( $ ){
+   $.fn.updateTabTextValues = function() {
+      $('#restaurantsLiId').text(mapInfoTabValues[0]);
+      $('#museumsLiId').text(mapInfoTabValues[1]);
+      $('#touristGuidesLiId').text(mapInfoTabValues[2]);
+    }
+  })( jQuery );
+
+  (function( $ ){
+   $.fn.updateTextValues = function(tabValuesList, isInitial) {
+    $.each(tabValuesList, function(index, tabValues){
+        if (isInitial == true){
+          $("#" + dataParentIdList[index]).html(htmlContentList[index]);
+        }
+
+        $('#main_container').insertTextValues(tabValues, tabHeaderList[index]);
+
+        $(tabHeaderTextIdList[index]).text(mapInfoTabValues[index]);
+      }); 
+    }
+  })( jQuery );
+
+  $.each(mapInfoTabValues, function( indexTab, valueTab ) {
+      if (indexTab == 0){
+        tabHeader = "restaurants";
+        dataParentId = "restaurantsPanel";
+        tabHeaderTextId = "#restaurantsHeader";
+        tabHeaderTextValue = mapInfoTabValues[0];
+        tabValues = restaurants;
+      }
+      else if (indexTab == 1){
+        tabHeader = "museums";
+        dataParentId = "museumsPanel";
+        tabHeaderTextId = "#museumsHeader";
+        tabHeaderTextValue = mapInfoTabValues[1];
+        tabValues = museums;
+      }
+      else if (indexTab == 2){
+        tabHeader = "touristGuides";
+        dataParentId = "touristGuidesPanel";
+        tabHeaderTextId = "#touristGuidesHeader";
+        tabHeaderTextValue = mapInfoTabValues[2];
+        tabValues = touristGuides;
+      }
+
+      tabHeaderList.push(tabHeader);
+      dataParentIdList.push(dataParentId);
+      tabHeaderTextIdList.push(tabHeaderTextId);
+      tabValuesList.push(tabValues);
+
+      $.each(tabValues, function( index, value ) {
+        collapseId = tabHeader + "Collapse" + index;
+        panelId = tabHeader + "Panel" + index + "Id";
+        panel1Id = tabHeader + "Panel1" + index + "Id";
+        imageId = tabHeader + "Image" + index + "Id";
+        panelTextId = tabHeader + "Panel" + index + "TextId";
+        panel1textId = tabHeader + "Panel1" + index + "TextId";
+        webLinkId = tabHeader + "WebLink" + index + "Id";
+        webLink1Id = tabHeader + "WebLink1" + index + "Id";
+        facebookLinkId = tabHeader + "FacebookLink" + index + "Id";
+        facebookLink1Id = tabHeader + "FacebookLink1" + index + "Id";
+        locationLinkId = tabHeader + "LocationLink" + index + "Id";
+        locationLink1Id = tabHeader + "LocationLink1" + index + "Id";
+
+        contactTextId = tabHeader + "ContactText" + index + "Id";
+        contactText1Id = tabHeader + "ContactText1" + index + "Id";
+
+        var divContent = $('#main_container').createDivContent(dataParentId, collapseId, panelId, panel1Id, 
+                                                               imageId, panelTextId, panel1textId, webLinkId, 
+                                                               webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
+                                                               contactText1Id, locationLinkId, locationLink1Id);
+      
+        htmlContent = htmlContent + divContent;
+      });
+
+      htmlContentList.push(htmlContent);
+      htmlContent = "";
+  });
+
+  (function( $ ){
+   $.fn.updateTextValuesForSelectedLanguage = function() {
+    $('#main_container').setTabValuesForLanguage();
+    $('#main_container').updateTabTextValues();
+
+    $('#main_container').setTextValuesForLanguage();
+    $('#main_container').updateTextValues(tabValuesList, false);
+    }; 
+  })( jQuery );
+
+  function changePageLayout(){
+		if ($(document).width() <= 1000){
+      $('.panel-body-small-size').show(); 
+      $('.panel-title').show();
+      
+      $('.header-text').hide();
+      $('.col-md-9').hide();
+		} 
+    else if($(document).width() > 1000){
+      $('.panel-body-small-size').hide();
+      $('.panel-title').hide();
+
+      $('.header-text').show();
+      $('.col-md-9').show();
+    }
+	}
+
+  $(document).ready(function(){
+      var tabDivContent = $('#main_container').createTabContent(mapInfoTabValues[0], mapInfoTabValues[1], mapInfoTabValues[2]);
+      $("#tabPanelId").html(tabDivContent);
+
+      $('#main_container').updateTextValues(tabValuesList, true);
+
+      $("#serbianLanguageButtonId").click(function(){
+        if (selectedLanguage == "English"){
+          selectedLanguage = "Serbian";
+          $('#main_container').updateTextValuesForSelectedLanguage();
+        }
+      });
+
+      $("#englishLanguageButtonId").click(function(){
+        if (selectedLanguage == "Serbian"){
+          selectedLanguage = "English";
+          $('#main_container').updateTextValuesForSelectedLanguage();
+        }
+      });
+
+      changePageLayout();
+
+      // set even listener for resizing page elements
+	    window.addEventListener('resize', changePageLayout);
+  });
+  
+</script>
+
+<body>
+
+<div class="container" id="main_container">
+</br>
+
+  <div>
+    <button id="serbianLanguageButtonId" class="btn btn-default">
+      <img src="./images/Serbia-Flag-icon.png" width="47" width="47" />
+    </button>
+    <button id="englishLanguageButtonId" class="btn btn-default">
+      <img src="./images/GBR-flag-icon.png" width="47" width="47" />
+    </button>
+    <button type="button" id="mapLegendButtonId" class="btn btn-default" onclick="window.location.href='MapLegend.html'">
+      <img src="./images/MapLegend.png" width="47" width="47" />
+    </button>
+    <button type="button" id="mapLegendButtonId" class="btn btn-default" onclick="window.location.href='SokoBanja_Portal.html'">
+      <img src="./images/MapImage.png" width="47" width="47" />
+    </button>
+  </div>
+
+  </br>
+
+  <ul id="tabPanelId" class="nav nav-pills">
+  </ul>
+  
+  <div class="tab-content">
+    <div id="restaurants" class="tab-pane fade in active"> 
+      <h2 id="restaurantsHeader"></h2>
+        </br>
+        <div class="panel-group" id="restaurantsPanel">
+        </div>
+    </div>
+    <div id="museums" class="tab-pane fade">
+      <h2 id="museumsHeader"></h2>
+        </br>
+        <div class="panel-group" id="museumsPanel">
+        </div>
+    </div>
+    <div id="touristGuides" class="tab-pane fade">
+      <h2 id="touristGuidesHeader"></h2>
+        </br>
+        <div class="panel-group" id="touristGuidesPanel">
+        </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
