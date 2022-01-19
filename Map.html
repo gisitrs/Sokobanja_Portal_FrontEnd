@@ -8,12 +8,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <style>
-        body {
-            margin: 0px;
+        html, body {
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
         }
 
         .my-container {
             border: 1px solid green;
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
         }
 
         .my-row {
@@ -22,16 +27,26 @@
         }
 
         .my-row1 {
-            height: 580px;
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
         }
 
         .my-col {
             border: 1px solid red;
+            height: 100%;
+            overflow: hidden;
+            width: 100%;
         }
 
         .map {
             float:left; 
             position:fixed;
+        }
+
+        #map{
+            width: auto;
+            height: 100%;
         }
 
     </style>
@@ -49,7 +64,7 @@
         </div>
         <div class="row my-row1">
             <div class="col-md-9 col-sm-9 my-col">
-                <div id="map" class="map"></div>
+                <div id="map"></div>
             </div>
             <div class="col-md-3 col-sm-3 my-col">
                 Locations
@@ -70,14 +85,14 @@
     const locations = new Locations();
 
     // initialize map
-	var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
+    var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 18);
 
-    // initialize base layers
-	var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  		maxZoom: 30,
-  		attribution:
-		'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
-	});
+        // initialize base layers
+	    var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+  		    maxZoom: 30,
+  		    attribution:
+		    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
+	    });
 
-	osm.addTo(map);
+	    osm.addTo(map);
 </script>
