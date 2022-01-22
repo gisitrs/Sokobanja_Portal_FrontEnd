@@ -95,12 +95,13 @@ header .tabs a {
     }
 }
 
-/*#map { 
-    height: 100%; 
-    width: 100vw; 
-}*/
-
-/*#map {
+#map {
     width: 600px;
     height: 400px;
-}*/
+}
+
+#map { 
+    height: 100%; 
+    width: 100vw; 
+}
+
