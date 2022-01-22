@@ -1,19 +1,71 @@
 
+.{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
 html, body {
     height: 100%;
     margin: 0;
 }
-#map {
-    width: 600px;
-    height: 400px;
-}
 
-body { 
+
+body {
+    width: 100%;
+    min-height: 100vh;
+    background-color: linear-gradient(95deg, #c9d6ff, #e2e2e2); 
+    font-family: sans-serif;
+
     padding: 0; 
     margin: 0; 
 } 
 
-#map { 
+container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+header {
+    background-color: #439cef;
+    color: #ffffff;
+}
+
+header h1 {
+    padding: 40px 0;
+}
+
+header .tabs {
+    display: flex;
+    overflow-y: auto;
+}
+
+header .tabs a {
+    display: block;
+    padding: 0 40px;
+    font-size: 21px;
+    white-space: nowrap;
+}
+
+tabs a.active {
+    border-bottom: 4px solid #ffb346;
+}
+
+tabcontent {
+    padding: 40px 0;
+    display: none;
+}
+
+tabcontent:first-of-type{
+    display: block;
+}
+
+/*#map { 
     height: 100%; 
     width: 100vw; 
-}
+}*/
+
+/*#map {
+    width: 600px;
+    height: 400px;
+}*/

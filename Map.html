@@ -2,7 +2,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-	
 	<title>Mobile tutorial - Leaflet</title>
 
 	<meta charset="utf-8" />
@@ -22,7 +21,25 @@
 	<style></style>
 </head>
 <body>
-	<div id='map'></div>
+	<header>
+		<div class="container">
+			<h1>Responsive Tabs</h1>
+			<div class="tabs">
+				<a role="Button" tabindex="0" class="active">Slojevi</a>
+				<a role="Button" tabindex="0">Legenda</a>
+			</div>
+		</div>
+
+		<div class="tabContent container" id="tab1">
+			<h3>Slojevi</h3>
+			<p>Test stranica da vidimo kako to izgledaju slojevi</p>
+		</div>
+		<div class="tabContent container" id="tab2">
+			<h3>Legenda</h3>
+			<p>Test stranica da vidimo kako to izgleda</p>
+		</div>
+	</header>
+	<!-- <div id='map'></div> -->
     
 	<script src="./locations.js"></script>
 	<script src="mapScript.js"></script>

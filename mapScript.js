@@ -2,7 +2,7 @@
 const locations = new Locations();
 
 // initialize map
-var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
+/*var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
 
 // initialize base layers
 var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -11,7 +11,7 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors',
 });
 
-osm.addTo(map);
+osm.addTo(map);*/
 
 /*var map = L.map('map').fitWorld();
 
