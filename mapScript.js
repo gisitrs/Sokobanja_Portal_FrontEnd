@@ -15,8 +15,6 @@ function openTab(event, tabName){
 
 const locations = new Locations();
 
-
-
 // initialize map
 var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
 
@@ -28,6 +26,17 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 });
 
 osm.addTo(map);
+
+// panel with additional functionalities 
+const SerbianLanguageButton = L.Control.extend({
+    onAdd: map => {
+      const container = L.DomUtil.create("div");
+      container.innerHTML = `<input type="checkbox" name="" id="check"><div class="container"><label for="check"><span class="fas fa-times" id="times"></span><span class="fas fa-bars" id="bars"></span></label><div class="head">menu</div><ol><li><a href="#"><i class="fas fa-qrcode"></i>dashboard</a></li><li><a href="#"><i class="fas fa-users"></i>services</a></l></ol></div>`; 
+  return container;
+    }
+});
+
+map.addControl(new SerbianLanguageButton({ position: "topleft" }));
 
 /*var map = L.map('map').fitWorld();
 
