@@ -179,3 +179,10 @@ input.form-check-input {
     width: 100%;
     height: 100%;
 }
+
+.image-flag {
+    margin-left: 13px;
+    margin-right: 13px;
+    margin-top: -7px;
+    margin-bottom: -7px;
+}

@@ -32,13 +32,33 @@ const ToggleMenu = L.Control.extend({
                                 <div class="head"><i class="fas fa-bars" style="padding-left:8px;"></i></div>
                                 <div class="toggleMenu">
                                     <li>
-                                       <button id="layerGroupButton" class="buttonClass" onclick="showLayersPanel()">
+                                       <button id="layerGroupButton" class="buttonClass" title="Prikaži slojeve!" onclick="showLayersPanel()">
                                           <i class="fas fa-layer-group"></i>
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="legendMapButton" class="buttonClass" onclick="showMapLegendPanel()">
+                                        <button id="legendMapButton" title="Prikaži legendu!" class="buttonClass" onclick="showMapLegendPanel()">
                                             <i class="fas fa-map"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="window.location.href='SokoBanja_Info.html'">
+                                            <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button id="primeLocationButtonId" title="Vrati na početnu lokaciju!" class="buttonClass" onclick="goToPrimaryLocation()">
+                                            <i class="fas fa-map-marked-alt"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass">
+                                            <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag"></img>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button id="primeLocationButtonId" title="Vrati na početnu lokaciju!" class="buttonClass" onclick="goToPrimaryLocation()">
+                                            <i class="fas fa-map-marked-alt"></i>
                                         </button>
                                     </li>
                                 </div>
@@ -53,29 +73,10 @@ map.addControl(new ToggleMenu({ position: "topleft" }));
 
 function showLayersPanel() {
     showHidePanels('mapLegendContainer', 'layersContainer', layersMenuVisibility);
-    /*document.getElementsByClassName('mapLegendContainer')[0].style.visibility = 'hidden';
-    mapLegendMenuVisibility = false;
-
-    if (layersMenuVisibility == false){
-        ShowHidePanel('layersContainer', 'visible');
-        layersMenuVisibility = true;
-    }
-    else {
-        ShowHidePanel('layersContainer', 'hidden');
-        layersMenuVisibility = false;
-    }*/
 }
 
 function showMapLegendPanel() {
     showHidePanels('layersContainer', 'mapLegendContainer', mapLegendMenuVisibility);
-    /*if (mapLegendMenuVisibility == false){
-        ShowHidePanel('mapLegendContainer', 'visible');
-        mapLegendMenuVisibility = true;
-    }
-    else {
-        ShowHidePanel('mapLegendContainer', 'hidden');
-        mapLegendMenuVisibility = false;
-    }*/
 }
 
 function showHidePanels(containerToHide, containerToShow, visibleVariableValue){
@@ -115,6 +116,15 @@ function hidePanels(){
 function showHidePanel(className, visibility){
     document.getElementsByClassName(className)[0].style.visibility = visibility;
 }
+
+// zoom to location
+function goToPrimaryLocation(){
+	zoomToLocation(locations.SokoBanjaPrimeLocation, 15);
+}
+
+function zoomToLocation(coords, zoomValue){
+	map.setView(coords, zoomValue);
+  }
 
 /* Layers panel */
 
