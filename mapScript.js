@@ -4,6 +4,7 @@ const locations = new Locations();
 /* variables for toggle menu visibility */
 
 var layersMenuVisibility = false;
+var mapLegendMenuVisibility = false;
 
 // initialize map
 var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
@@ -36,7 +37,7 @@ const ToggleMenu = L.Control.extend({
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="legendMapButton" class="buttonClass">
+                                        <button id="legendMapButton" class="buttonClass" onclick="showMapLegendPanel()">
                                             <i class="fas fa-map"></i>
                                         </button>
                                     </li>
@@ -51,6 +52,10 @@ map.addControl(new ToggleMenu({ position: "topleft" }));
 /* Toggle menu functions */
 
 function showLayersPanel() {
+    showHidePanels('mapLegendContainer', 'layersContainer', layersMenuVisibility);
+    /*document.getElementsByClassName('mapLegendContainer')[0].style.visibility = 'hidden';
+    mapLegendMenuVisibility = false;
+
     if (layersMenuVisibility == false){
         ShowHidePanel('layersContainer', 'visible');
         layersMenuVisibility = true;
@@ -58,17 +63,56 @@ function showLayersPanel() {
     else {
         ShowHidePanel('layersContainer', 'hidden');
         layersMenuVisibility = false;
+    }*/
+}
+
+function showMapLegendPanel() {
+    showHidePanels('layersContainer', 'mapLegendContainer', mapLegendMenuVisibility);
+    /*if (mapLegendMenuVisibility == false){
+        ShowHidePanel('mapLegendContainer', 'visible');
+        mapLegendMenuVisibility = true;
+    }
+    else {
+        ShowHidePanel('mapLegendContainer', 'hidden');
+        mapLegendMenuVisibility = false;
+    }*/
+}
+
+function showHidePanels(containerToHide, containerToShow, visibleVariableValue){
+    document.getElementsByClassName(containerToHide)[0].style.visibility = 'hidden';
+    setVisibilityVariable(containerToHide, false);
+
+    if (visibleVariableValue == false){
+        showHidePanel(containerToShow, 'visible');
+        setVisibilityVariable(containerToShow, true);
+    }
+    else if (visibleVariableValue == true){
+        showHidePanel(containerToShow, 'hidden');
+        setVisibilityVariable(containerToShow, false);
+    }
+}
+
+function setVisibilityVariable(containerType, visibility){
+    if (containerType == "mapLegendContainer"){
+        mapLegendMenuVisibility = visibility;
+    }
+    else if (containerType == "layersContainer"){
+        layersMenuVisibility = visibility;
     }
 }
 
 function hidePanels(){
     if (layersMenuVisibility == true){
-        ShowHidePanel('layersContainer', 'hidden');
+        showHidePanel('layersContainer', 'hidden');
         layersMenuVisibility = false;
+    }
+    else if (mapLegendMenuVisibility == true){
+        showHidePanel('mapLegendContainer', 'hidden');
+        mapLegendMenuVisibility = false;
     }
 }
 
-function ShowHidePanel(className, visibility){
+function showHidePanel(className, visibility){
     document.getElementsByClassName(className)[0].style.visibility = visibility;
 }
 
@@ -96,6 +140,30 @@ const LayersPanel = L.Control.extend({
 });
 
 map.addControl(new LayersPanel({ position: "topleft" }));
+
+const MapLegendPanel = L.Control.extend({
+    onAdd: map => {
+      const container = L.DomUtil.create("div");
+      container.innerHTML = `<div class="mapLegendContainer" style="margin-top:45px;">
+                                <img id="mapLegendId" src="./images/SmallLegend.jpg" alt="Map legend"></img>
+                            </div>`; 
+  return container;
+    }
+});
+
+map.addControl(new MapLegendPanel({ position: "topleft" }));
+
+// set even listener for resizing page elements and map legend image
+window.addEventListener('resize', changeMapLegendImage);
+
+function changeMapLegendImage(){
+    if ($(document).height() <= 600 || $(document).width() <= 500){
+        document.getElementById("mapLegendId").src = "./images/SmallLegend.jpg";
+    }
+    else if ($(document).height() > 600 || $(document).width() > 500){
+        document.getElementById("mapLegendId").src = "./images/LegendaSlika.jpg";
+    }
+}
 
 
 /** GET CURRENT LOCATION **/
