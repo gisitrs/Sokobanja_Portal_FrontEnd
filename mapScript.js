@@ -1,19 +1,9 @@
-const tabcontents = document.querySelectorAll(".tabcontent");
-const tabLinks = document.querySelectorAll(".tabs a");
-
-function openTab(event, tabName){
-    /* REMOVE ALL TABCONTENTS */
-    tabcontents.forEach((tabcontent) => (tabcontent.style.display = "none"));
-    
-    /* REMOVE TABLINKS ACTIVE CLASSES */
-    tabLinks.forEach((tabLink) => tabLink.classList.remove("active"));
-
-    /* ADD ACTIVE CLASS ON TABLINK AND OPEN IT */
-    event.currentTarget.classList.add("active");
-    document.getElementById(tabName).style.display = "block";
-}
 
 const locations = new Locations();
+
+/* variables for toggle menu visibility */
+
+var layersMenuVisibility = false;
 
 // initialize map
 var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
@@ -27,16 +17,77 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 osm.addTo(map);
 
-// panel with additional functionalities 
-const SerbianLanguageButton = L.Control.extend({
+// toggle menu 
+
+const ToggleMenu = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
-      container.innerHTML = `<input type="checkbox" name="" id="check"><div class="container"><label for="check"><span class="fas fa-times" id="times"></span><span class="fas fa-bars" id="bars"></span></label><div class="head">menu</div><ol><li><a href="#"><i class="fas fa-qrcode"></i>dashboard</a></li><li><a href="#"><i class="fas fa-users"></i>services</a></l></ol></div>`; 
+      container.innerHTML = `<input type="checkbox" name="" id="check">
+                             <div class="container">
+                                <label for="check">
+                                    <span class="fas fa-times" id="times" onclick="hidePanels()"></span>
+                                    <span class="fas fa-bars" id="bars"></span>
+                                </label>
+                                <div class="head"><i class="fas fa-bars" style="padding-left:8px;"></i></div>
+                                <div class="toggleMenu">
+                                    <li>
+                                       <button id="layerGroupButton" class="buttonClass" onclick="showLayersPanel()">
+                                          <i class="fas fa-layer-group"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button id="legendMapButton" class="buttonClass">
+                                            <i class="fas fa-map"></i>
+                                        </button>
+                                    </li>
+                                </div>
+                            </div>`; 
   return container;
     }
 });
 
-map.addControl(new SerbianLanguageButton({ position: "topleft" }));
+map.addControl(new ToggleMenu({ position: "topleft" }));
+
+/* Toggle menu functions */
+
+function showLayersPanel() {
+    if (layersMenuVisibility == false){
+        ShowHidePanel('layersContainer', 'visible');
+        layersMenuVisibility = true;
+    }
+    else {
+        ShowHidePanel('layersContainer', 'hidden');
+        layersMenuVisibility = false;
+    }
+}
+
+function hidePanels(){
+    if (layersMenuVisibility == true){
+        ShowHidePanel('layersContainer', 'hidden');
+        layersMenuVisibility = false;
+    }
+}
+
+function ShowHidePanel(className, visibility){
+    document.getElementsByClassName(className)[0].style.visibility = visibility;
+}
+
+/* Layers panel */
+
+const LayersPanel = L.Control.extend({
+    onAdd: map => {
+      const container = L.DomUtil.create("div");
+      container.innerHTML = `<div class="layersContainer">
+                                Testiranje sahdgishgad isuadkasud
+                                sdasdgiasgd iuasdkusd
+                              </div>`; 
+  return container;
+    }
+});
+
+map.addControl(new LayersPanel({ position: "topleft" }));
+
+/** GET CURRENT LOCATION **/
 
 /*var map = L.map('map').fitWorld();
 
@@ -66,3 +117,20 @@ map.on('locationfound', onLocationFound);
 map.on('locationerror', onLocationError);
 
 map.locate({setView: true, maxZoom: 16});*/
+
+/* TABS MENU JS CODE */
+
+/*const tabcontents = document.querySelectorAll(".tabcontent");
+const tabLinks = document.querySelectorAll(".tabs a");
+
+function openTab(event, tabName){*/
+    /* REMOVE ALL TABCONTENTS */
+    //tabcontents.forEach((tabcontent) => (tabcontent.style.display = "none"));
+    
+    /* REMOVE TABLINKS ACTIVE CLASSES */
+    //tabLinks.forEach((tabLink) => tabLink.classList.remove("active"));
+
+    /* ADD ACTIVE CLASS ON TABLINK AND OPEN IT */
+    //event.currentTarget.classList.add("active");
+    //document.getElementById(tabName).style.display = "block";
+//}
