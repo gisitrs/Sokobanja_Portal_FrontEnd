@@ -108,9 +108,13 @@ body {
     letter-spacing: 5px;
 }
 
-input {
+/*input {
     -webkit-appearance: none;
     visibility: hidden;
+    display: none;
+}*/
+
+#check {
     display: none;
 }
 
@@ -141,14 +145,31 @@ span{
 /* Layers panel classes */
 
 .layersContainer {
-    height: 100%;
-    width: 590px;
+    height: 500px;
+    width: 250px;
     position: absolute;
-    background: #161616;
+    background: #f0ecec;
     z-index: 1;
     visibility: hidden;
-    border: 1px solid green;
     margin-left: 80px;
     margin-top: 55px;
+    border-radius: 3px;
+    /*border-style:thin;
+    border-color: black;*/
+    border: 1px solid black;
 }
 
+.layersContainer label {
+    padding: 15px 10px 10px 10px;
+    font-size: 22px;
+    letter-spacing: 1px;
+    color: #0d53fb;
+    font-weight: bold;
+}
+
+input.form-check-input {
+    width : 18px;
+    height : 18px;
+    margin-left: 40px;
+    margin-top: 22px;
+}

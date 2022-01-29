@@ -78,14 +78,25 @@ const LayersPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="layersContainer">
-                                Testiranje sahdgishgad isuadkasud
-                                sdasdgiasgd iuasdkusd
-                              </div>`; 
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="restaurantsCB">
+                                    <label class="form-check-label" for="restaurantsCB" id="restaurantsLabel">
+                                        Restorani
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="museumsCB">
+                                    <label class="form-check-label" for="museumsCB" id="museumsLabel">
+                                        Muzeji
+                                    </label>
+                                </div>
+                            </div>`; 
   return container;
     }
 });
 
 map.addControl(new LayersPanel({ position: "topleft" }));
+
 
 /** GET CURRENT LOCATION **/
 
