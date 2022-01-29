@@ -1,5 +1,7 @@
 
 const locations = new Locations();
+const mapLabelsRS = new MapLabelsRS();
+const mapLabelsENG = new MapLabelsENG();
 
 /* variables for toggle menu visibility */
 
@@ -55,12 +57,12 @@ const ToggleMenu = L.Control.extend({
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass">
+                                        <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" onclick="translateOnSerbian()">
                                             <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag"></img> 
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" onclick="goToPrimaryLocation()">
+                                        <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" onclick="translateOnEnglish()">
                                             <img src="./images/GBR-flag-icon.png" alt="" class="image-flag"></img>
                                         </button>
                                     </li>
@@ -118,6 +120,26 @@ function hidePanels(){
 
 function showHidePanel(className, visibility){
     document.getElementsByClassName(className)[0].style.visibility = visibility;
+}
+
+function translateOnSerbian(){
+    translateOnLanguage(mapLabelsRS);
+}
+
+function translateOnEnglish(){
+    translateOnLanguage(mapLabelsENG);
+}
+
+function translateOnLanguage(labels){
+    document.getElementById("restaurantsLabel").innerHTML = labels.RestaurantsLabel;
+    document.getElementById("museumsLabel").innerHTML = labels.MuseumsLabel;
+
+    document.getElementById("layerGroupButton").title = labels.LayerGroupButtonTitle;
+    document.getElementById("legendMapButton").title = labels.LegendMapButtonTitle;
+    document.getElementById("infoPageButtonId").title = labels.InfoPageButtonTitle;
+    document.getElementById("primeLocationButtonId").title = labels.PrimeLocationButtonTitle;
+    document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
+    document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
 }
 
 // zoom to location
