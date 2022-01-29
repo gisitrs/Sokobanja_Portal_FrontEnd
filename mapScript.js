@@ -18,6 +18,9 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 osm.addTo(map);
 
+// add geocoder search
+//L.Control.geocoder().addTo(map);
+
 // toggle menu 
 
 const ToggleMenu = L.Control.extend({
@@ -53,12 +56,12 @@ const ToggleMenu = L.Control.extend({
                                     </li>
                                     <li>
                                         <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass">
-                                            <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag"></img>
+                                            <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag"></img> 
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="primeLocationButtonId" title="Vrati na početnu lokaciju!" class="buttonClass" onclick="goToPrimaryLocation()">
-                                            <i class="fas fa-map-marked-alt"></i>
+                                        <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" onclick="goToPrimaryLocation()">
+                                            <img src="./images/GBR-flag-icon.png" alt="" class="image-flag"></img>
                                         </button>
                                     </li>
                                 </div>

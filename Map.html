@@ -11,9 +11,10 @@
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 	
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
-	
+
 	<link rel="stylesheet" href="mapStyle.css" />
 </head>
 <body>
@@ -21,14 +22,20 @@
 
 	<script src="./locations.js"></script>
 	<script src="mapScript.js"></script>
-	
+
 	<!-- jquery link  -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- geocoder  -->
+	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 	<script>
 		$(document).ready(function() {
     		changeMapLegendImage();
 		});
+
+		// add geocoder search
+		L.Control.geocoder().addTo(map);
 	</script>
 </body>
 </html>
