@@ -7,6 +7,9 @@ const mapLabelsENG = new MapLabelsENG();
 
 var layersMenuVisibility = false;
 var mapLegendMenuVisibility = false;
+var mapDivPercentageHeight = '70%';
+	var locationsPanelPercentageHeight = '30%';
+var isHiddenLocationPanel = false;
 
 // initialize map
 var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
@@ -140,6 +143,8 @@ function translateOnLanguage(labels){
     document.getElementById("primeLocationButtonId").title = labels.PrimeLocationButtonTitle;
     document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
+
+    document.getElementById("locationsButtonId").title = labels.FullScreenPreview;
 }
 
 // zoom to location
@@ -188,8 +193,37 @@ const MapLegendPanel = L.Control.extend({
 
 map.addControl(new MapLegendPanel({ position: "topleft" }));
 
+/* Button for show-hide panel with locations */
+// showing button for show/hide panel 
+const Coordinates = L.Control.extend({
+    onAdd: map => {
+      const container = L.DomUtil.create("div");
+      /*map.addEventListener("mousemove", e => {
+          container.innerHTML = `<h2>Latitude is ${e.latlng.lat.toFixed(4)} <br> and Longitude is  ${e.latlng.lng.toFixed(4)} </h2>`;
+         });*/
+      container.innerHTML = `<div>
+                                <button id="locationsButtonId" 
+                                        type="button"
+                                        title="Prikaži pun ekran!" 
+                                        class="showHideLocations" 
+                                        onclick="showHideLocations()" 
+                                        style="background: url('./images/fullscreen.png') no-repeat;">
+                                </button>`;
+    return container;
+    }
+});
+
+map.addControl(new Coordinates({ position: "bottomright" }));
+
+/* Page layout functions */
+
 // set even listener for resizing page elements and map legend image
-window.addEventListener('resize', changeMapLegendImage);
+window.addEventListener('resize', changePageLayout);
+
+function changePageLayout(){
+    changeMapLegendImage();
+    changePageLayout();
+}
 
 function changeMapLegendImage(){
     if ($(document).height() <= 600 || $(document).width() <= 500){
@@ -200,6 +234,66 @@ function changeMapLegendImage(){
     }
 }
 
+function changePageLayout(){
+    if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == false){
+        resizeDivElements(mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, '100%', 'top', mapDivPercentageHeight);
+        layout = 'vertical';
+    } 
+    else if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == true){
+        resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+        layout = 'vertical';
+    }
+    else if (($(document).height() > 600 || $(document).width() > 500) && isHiddenLocationPanel == false){
+        resizeDivElements('100%', mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, 'right', mapDivPercentageHeight);
+        layout = 'horizontal';
+    }
+    else if (($(document).height() > 600 || $(document).width() > 500) && isHiddenLocationPanel == true){
+        resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+        layout = 'horizontal';
+    }
+
+    map._onResize(); 
+}
+// hide or show location panel 
+function showHideLocations(){
+    if (isHiddenLocationPanel == false){
+        resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+        document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/Exit-full-screen.png')";
+        isHiddenLocationPanel = true;
+    }
+    else {
+        isHiddenLocationPanel = false;
+        document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/fullscreen.png')";
+        changePageLayout();
+    }
+
+    map._onResize(); 
+}
+
+function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginType, marginValue){
+    var mapDiv = document.getElementById('map');
+    //var locationPanel = document.getElementById('locationPanel');
+
+    mapDiv.style.height = mapHeight;
+    mapDiv.style.width = mapWidth;
+    //locationPanel.style.height = panelHeight;
+    //locationPanel.style.width = panelWidth;
+
+    /*var infoPageButtonMarginLeftValue = $("#map").width() - 125;
+    var mapLegendButtonLeftMargin = infoPageButtonMarginLeftValue - 58;
+
+    $("#infoPageButtonId").css("margin-left", infoPageButtonMarginLeftValue + "px");
+    $("#mapLegendButtonId").css("margin-left", mapLegendButtonLeftMargin + "px");
+
+    if(marginType == 'top'){
+        locationPanel.style.right = '0%';
+        locationPanel.style.top= marginValue;
+    }
+    else if (marginType == 'right'){
+        locationPanel.style.right = '0%';
+        locationPanel.style.top= '0%';
+    }*/
+}
 
 /** GET CURRENT LOCATION **/
 

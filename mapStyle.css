@@ -35,7 +35,10 @@ body {
 
 #map { 
     height: 100%; 
-    width: 100vw; 
+    /*width: 100vw; */
+    width: 70%; 
+    float:left; 
+    position:fixed;
 }
 
 /* toggle menu classes */
@@ -199,4 +202,11 @@ input.form-check-input {
 .leaflet-touch .leaflet-control-geocoder-icon{
     width: 35px;
     height: 35px;
+}
+
+/* Locations panel classes */
+.showHideLocations {
+    width:35px; 
+    height:35px; 
+    border:none;
 }

@@ -8,5 +8,7 @@ class MapLabelsENG {
         this.PrimeLocationButtonTitle = "Go to the primary location!";
         this.SerbianLanguageButtonTitle = "Translate on serbian!";
         this.EnglishLanguageButtonTitle = "Translate on english!";
+        this.FullScreenPreview = "Full screen!";
+        this.ExitFullScreenPreview = "Exit full screen!";
     }
   }

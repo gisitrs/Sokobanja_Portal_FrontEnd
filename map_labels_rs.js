@@ -8,5 +8,7 @@ class MapLabelsRS {
         this.PrimeLocationButtonTitle = "Vrati na početnu lokaciju!";
         this.SerbianLanguageButtonTitle = "Prevedi na srpski jezik!";
         this.EnglishLanguageButtonTitle = "Prevedi na engleski jezik!";
+        this.FullScreenPreview = "Prikaži pun ekran!";
+        this.ExitFullScreenPreview = "Izađi iz punog ekrana!";
     }
   }
