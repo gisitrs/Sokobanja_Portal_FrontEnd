@@ -24,8 +24,19 @@ var mapDivPercentageHeight = '70%';
 var locationsPanelPercentageHeight = '30%';
 var isHiddenLocationPanel = false;
 
+/* location images */
+var slideIndex = 0;
+var imageURLsList = ['./images/img_nature_wide.jpg', './images/img_mountains_wide.jpg', './images/img_snow_wide.jpg'];
+var imageHeaderTextRS = ['Lokacija 1', 'Lokacija 2', 'Lokacija 3'];
+var imageHeaderTextENG = ['Location 1', 'Location 2', 'Location 3'];
+
+var imageLocationTextRS = ['Opis lokacije 1', 'Opis lokacije 2', 'Opis lokacije 3'];
+var imageLocationTextENG = ['Location 1 description', 'Location 2 description', 'Location 3 description'];
+var locationCoords = [locations.SokoBanjaPrimeLocation, locations.SokoBanjaFirstLocation, locations.SokoBanjaSecondLocation];
+var locationZoomLevels = [15, 16, 16];
+
 // initialize map
-var map = L.map('map', { zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
+var map = L.map('map', { attributionControl: false, zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
 
 // initialize base layers
 var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
@@ -160,6 +171,7 @@ function translateOnLanguage(labels){
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
     
     translateLocationsPanelButton();
+    translateLocationHeaders();
 }
 
 function translateLocationsPanelButton(){
@@ -180,6 +192,20 @@ function translateLocationsPanelButton(){
     }
 }
 
+function translateLocationHeaders(){
+    if (currentLanguage == appLanguages.Serbian){
+        var currentImageHeaders = imageHeaderTextRS;
+        var currentImageDescriptionText = imageLocationTextRS;
+    }
+    else if (currentLanguage == appLanguages.English){
+        var currentImageHeaders = imageHeaderTextENG;
+        var currentImageDescriptionText = imageLocationTextENG;
+    }
+
+    document.getElementById('locationImageHeader').innerHTML = currentImageHeaders[slideIndex];
+    document.getElementById('locationImageText').innerHTML = currentImageDescriptionText[slideIndex];
+}
+
 // zoom to location
 function goToPrimaryLocation(){
 	zoomToLocation(locations.SokoBanjaPrimeLocation, 15);
@@ -187,7 +213,7 @@ function goToPrimaryLocation(){
 
 function zoomToLocation(coords, zoomValue){
 	map.setView(coords, zoomValue);
-  }
+}
 
 /* Layers panel */
 
@@ -292,12 +318,14 @@ function showHideLocations(){
     if (isHiddenLocationPanel == false){
         resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
         document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/Exit-full-screen.png')";
+        document.getElementById("locationPanel").style.visibility='hidden';
         translateLocationsPanelButton();
         isHiddenLocationPanel = true;
     }
     else {
         isHiddenLocationPanel = false;
         document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/fullscreen.png')";
+        document.getElementById("locationPanel").style.visibility='visible';
         translateLocationsPanelButton();
         changePageLayout();
     }
@@ -307,18 +335,12 @@ function showHideLocations(){
 
 function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginType, marginValue){
     var mapDiv = document.getElementById('map');
-    //var locationPanel = document.getElementById('locationPanel');
+    var locationPanel = document.getElementById('locationPanel');
 
     mapDiv.style.height = mapHeight;
     mapDiv.style.width = mapWidth;
-    //locationPanel.style.height = panelHeight;
-    //locationPanel.style.width = panelWidth;
-
-    /*var infoPageButtonMarginLeftValue = $("#map").width() - 125;
-    var mapLegendButtonLeftMargin = infoPageButtonMarginLeftValue - 58;
-
-    $("#infoPageButtonId").css("margin-left", infoPageButtonMarginLeftValue + "px");
-    $("#mapLegendButtonId").css("margin-left", mapLegendButtonLeftMargin + "px");
+    locationPanel.style.height = panelHeight;
+    locationPanel.style.width = panelWidth;
 
     if(marginType == 'top'){
         locationPanel.style.right = '0%';
@@ -327,7 +349,49 @@ function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginT
     else if (marginType == 'right'){
         locationPanel.style.right = '0%';
         locationPanel.style.top= '0%';
-    }*/
+    }
+}
+
+// panel with locations
+startSlideShow();
+
+function startSlideShow(){
+    setTimeout(automaticPlusSlide, 7000);
+}
+
+function plusSlides() {
+    slideIndex = slideIndex + 1;
+    showSlides(false);
+}
+
+function minusSlides() {
+    slideIndex = slideIndex - 1;
+    showSlides(false);
+  }
+
+function automaticPlusSlide(){
+    slideIndex = slideIndex + 1;
+    showSlides(true);
+}
+
+function showSlides(isAutomatic) {
+    var imageListCount = imageURLsList.length;
+    var b = slideIndex;
+
+    if (slideIndex == -1){
+        slideIndex = imageListCount - 1;
+    }
+    else if (slideIndex == imageListCount){
+        slideIndex = 0;
+    } 
+
+    $("#locationImage").attr("src",imageURLsList[slideIndex]);
+    translateLocationHeaders();
+    //document.getElementById('locationImageHeader').innerHTML = imageHeaderText[slideIndex];
+
+    if (isAutomatic == true){
+        startSlideShow();
+    }
 }
 
 /** GET CURRENT LOCATION **/

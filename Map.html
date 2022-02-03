@@ -20,6 +20,18 @@
 <body>
 	<div id='map'></div>
 
+	<div id="locationPanel" class="slideshow-container">
+		<div class="imagePanel">
+			<img id="locationImage" src="./images/img_nature_wide.jpg"  class="imageClass">
+			<div class="text-block">
+				<h4 id="locationImageHeader"></h4>
+				<p id="locationImageText"></p>
+			</div>
+			<button class="btn" style="background: url('./images/left-arrow-background-1.png') no-repeat; left: 5%;" onclick="minusSlides()"></button>
+			<button class="btn" style="background: url('./images/right-arrow-background.png') no-repeat; left: 95%;" onclick="plusSlides()"></button>
+		</div>
+	</div>
+
 	<script src="./locations.js"></script>
 	<script src="./map_labels_rs.js"></script>
 	<script src="./map_labels_eng.js"></script>
@@ -36,6 +48,17 @@
 		$(document).ready(function() {
     		changeMapLegendImage();
 			changePageLayout();
+
+			if (currentLanguage == appLanguages.Serbian){
+        		translateOnSerbian();
+    		}
+    		else if (currentLanguage == appLanguages.English){
+        		translateOnEnglish();
+    		}
+
+			document.getElementById("locationImage").onclick = function() {
+				zoomToLocation(locationCoords[slideIndex], locationZoomLevels[slideIndex]);
+      		};
 		});
 
 		// add geocoder search
