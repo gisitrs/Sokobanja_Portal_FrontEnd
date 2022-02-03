@@ -1,14 +1,27 @@
+/* objects for specific classes*/ 
 
 const locations = new Locations();
 const mapLabelsRS = new MapLabelsRS();
 const mapLabelsENG = new MapLabelsENG();
 
+/* enum class for language */
+const appLanguages = Object.freeze({
+    Serbian: 'Serbian',
+    English: 'English'
+  });
+
 /* variables for toggle menu visibility */
 
 var layersMenuVisibility = false;
 var mapLegendMenuVisibility = false;
+
+/* current language variable */
+var currentLanguage = appLanguages.Serbian;
+
+/* variables for map and location div */
+
 var mapDivPercentageHeight = '70%';
-	var locationsPanelPercentageHeight = '30%';
+var locationsPanelPercentageHeight = '30%';
 var isHiddenLocationPanel = false;
 
 // initialize map
@@ -126,10 +139,12 @@ function showHidePanel(className, visibility){
 }
 
 function translateOnSerbian(){
+    currentLanguage = appLanguages.Serbian;
     translateOnLanguage(mapLabelsRS);
 }
 
 function translateOnEnglish(){
+    currentLanguage = appLanguages.English;
     translateOnLanguage(mapLabelsENG);
 }
 
@@ -143,8 +158,26 @@ function translateOnLanguage(labels){
     document.getElementById("primeLocationButtonId").title = labels.PrimeLocationButtonTitle;
     document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
+    
+    translateLocationsPanelButton();
+}
 
-    document.getElementById("locationsButtonId").title = labels.FullScreenPreview;
+function translateLocationsPanelButton(){
+    if (currentLanguage == appLanguages.Serbian){
+        var currentMapLabels = mapLabelsRS;
+    }
+    else if (currentLanguage == appLanguages.English){
+        var currentMapLabels = mapLabelsENG;
+    }
+
+    var imageUrl = document.getElementById("locationsButtonId").style.backgroundImage;
+
+    if (imageUrl == 'url("./images/fullscreen.png")'){
+        document.getElementById("locationsButtonId").title = currentMapLabels.FullScreenPreview;
+    }
+    else {
+        document.getElementById("locationsButtonId").title = currentMapLabels.ExitFullScreenPreview;
+    }
 }
 
 // zoom to location
@@ -259,11 +292,13 @@ function showHideLocations(){
     if (isHiddenLocationPanel == false){
         resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
         document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/Exit-full-screen.png')";
+        translateLocationsPanelButton();
         isHiddenLocationPanel = true;
     }
     else {
         isHiddenLocationPanel = false;
         document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/fullscreen.png')";
+        translateLocationsPanelButton();
         changePageLayout();
     }
 
