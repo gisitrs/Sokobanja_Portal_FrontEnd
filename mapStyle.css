@@ -196,7 +196,7 @@ span{
     display: none;
 }
 
-/* Layers panel classes */
+/* Panel classes */
 
 .mapLegendContainer,
 .layersContainer {
@@ -208,6 +208,21 @@ span{
     visibility: hidden;
     margin-left: 80px;
     margin-top: 55px;
+    border-radius: 3px;
+    /*border-style:thin;
+    border-color: black;*/
+    border: 1px solid black;
+}
+
+.languagesContainer {
+    height: 60px;
+    width: 170px;
+    position: absolute;
+    background: #f0ecec;
+    z-index: 1;
+    visibility: hidden;
+    margin-left: 80px;
+    margin-top: 279px;
     border-radius: 3px;
     /*border-style:thin;
     border-color: black;*/

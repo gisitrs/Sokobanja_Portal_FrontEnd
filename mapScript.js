@@ -14,6 +14,7 @@ const appLanguages = Object.freeze({
 
 var layersMenuVisibility = false;
 var mapLegendMenuVisibility = false;
+var languagesVisibility = false;
 
 /* current language variable */
 var currentLanguage = appLanguages.Serbian;
@@ -84,13 +85,8 @@ const ToggleMenu = L.Control.extend({
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" onclick="translateOnSerbian()">
-                                            <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag"></img> 
-                                        </button>
-                                    </li>
-                                    <li>
-                                        <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" onclick="translateOnEnglish()">
-                                            <img src="./images/GBR-flag-icon.png" alt="" class="image-flag"></img>
+                                        <button id="languagesButtonId" title="Izaberi jezik!" class="buttonClass" onclick="showLanguagesPanel()">
+                                            <i class="fas fa-language"></i> 
                                         </button>
                                     </li>
                                 </div>
@@ -104,16 +100,23 @@ map.addControl(new ToggleMenu({ position: "topleft" }));
 /* Toggle menu functions */
 
 function showLayersPanel() {
-    showHidePanels('mapLegendContainer', 'layersContainer', layersMenuVisibility);
+    showHidePanels('mapLegendContainer', 'languagesContainer', 'layersContainer', layersMenuVisibility);
 }
 
 function showMapLegendPanel() {
-    showHidePanels('layersContainer', 'mapLegendContainer', mapLegendMenuVisibility);
+    showHidePanels('layersContainer', 'languagesContainer', 'mapLegendContainer', mapLegendMenuVisibility);
 }
 
-function showHidePanels(containerToHide, containerToShow, visibleVariableValue){
+function showLanguagesPanel() {
+    showHidePanels('layersContainer', 'mapLegendContainer', 'languagesContainer', languagesVisibility);
+}
+
+function showHidePanels(containerToHide, containerToHide1, containerToShow, visibleVariableValue){
     document.getElementsByClassName(containerToHide)[0].style.visibility = 'hidden';
     setVisibilityVariable(containerToHide, false);
+
+    document.getElementsByClassName(containerToHide1)[0].style.visibility = 'hidden';
+    setVisibilityVariable(containerToHide1, false);
 
     if (visibleVariableValue == false){
         showHidePanel(containerToShow, 'visible');
@@ -132,6 +135,9 @@ function setVisibilityVariable(containerType, visibility){
     else if (containerType == "layersContainer"){
         layersMenuVisibility = visibility;
     }
+    else if (containerType == "languagesContainer"){
+        languagesVisibility = visibility;
+    }
 }
 
 function hidePanels(){
@@ -142,6 +148,10 @@ function hidePanels(){
     else if (mapLegendMenuVisibility == true){
         showHidePanel('mapLegendContainer', 'hidden');
         mapLegendMenuVisibility = false;
+    }
+    else if (languagesVisibility == true){
+        showHidePanel('languagesContainer', 'hidden');
+        languagesVisibility = false;
     }
 }
 
@@ -169,6 +179,7 @@ function translateOnLanguage(labels){
     document.getElementById("primeLocationButtonId").title = labels.PrimeLocationButtonTitle;
     document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
+    document.getElementById("languagesButtonId").title = labels.LanguagesButtonTitle;
     
     translateLocationsPanelButton();
     translateLocationHeaders();
@@ -251,6 +262,23 @@ const MapLegendPanel = L.Control.extend({
 });
 
 map.addControl(new MapLegendPanel({ position: "topleft" }));
+
+const LanguagesPanel = L.Control.extend({
+    onAdd: map => {
+      const container = L.DomUtil.create("div");
+      container.innerHTML = `<div class="languagesContainer">
+                                <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" onclick="translateOnSerbian()">
+                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 10px;"></img> 
+                                </button>
+                                <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" onclick="translateOnEnglish()">
+                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 10px;"></img>
+                                </button>
+                            </div>`; 
+  return container;
+    }
+});
+
+map.addControl(new LanguagesPanel({ position: "topleft" }));
 
 /* Button for show-hide panel with locations */
 // showing button for show/hide panel 
