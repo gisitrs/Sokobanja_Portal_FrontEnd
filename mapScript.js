@@ -267,11 +267,11 @@ const LanguagesPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="languagesContainer">
-                                <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" onclick="translateOnSerbian()">
-                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 10px;"></img> 
+                                <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" style="border: none;" onclick="translateOnSerbian()">
+                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 9px;"></img> 
                                 </button>
-                                <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" onclick="translateOnEnglish()">
-                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 10px;"></img>
+                                <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" style="border: none;" onclick="translateOnEnglish()">
+                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 9px;"></img>
                                 </button>
                             </div>`; 
   return container;
