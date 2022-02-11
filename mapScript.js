@@ -4,6 +4,9 @@ const locations = new Locations();
 const mapLabelsRS = new MapLabelsRS();
 const mapLabelsENG = new MapLabelsENG();
 
+const mapLayerLabelsRS = new MapLayerLabelsRS();
+const mapLayerLabelsENG = new MapLayerLabelsENG();
+
 /* enum class for language */
 const appLanguages = Object.freeze({
     Serbian: 'Serbian',
@@ -161,18 +164,38 @@ function showHidePanel(className, visibility){
 
 function translateOnSerbian(){
     currentLanguage = appLanguages.Serbian;
-    translateOnLanguage(mapLabelsRS);
+    translateOnLanguage(mapLabelsRS, mapLayerLabelsRS);
 }
 
 function translateOnEnglish(){
     currentLanguage = appLanguages.English;
-    translateOnLanguage(mapLabelsENG);
+    translateOnLanguage(mapLabelsENG, mapLayerLabelsENG);
 }
 
-function translateOnLanguage(labels){
-    document.getElementById("restaurantsLabel").innerHTML = labels.RestaurantsLabel;
-    document.getElementById("museumsLabel").innerHTML = labels.MuseumsLabel;
+function translateOnLanguage(labels, mapLayerLabels){
+    translateMapLayerLabels(mapLayerLabels);
+    translateMapButtonLabels(labels);
+    
+    translateLocationsPanelButton();
+    translateLocationHeaders();
+}
 
+function translateMapLayerLabels(mapLayerLabels){
+    document.getElementById("cityLocationsLB").innerHTML = mapLayerLabels.CityLocations;
+    document.getElementById("picnicAreasLB").innerHTML = mapLayerLabels.PicnicAreas;
+    document.getElementById("waterSpringsLB").innerHTML = mapLayerLabels.WaterSprings;
+    document.getElementById("culturalContentLB").innerHTML = mapLayerLabels.CulturalContent;
+    document.getElementById("bathsLB").innerHTML = mapLayerLabels.Baths;
+    document.getElementById("parksLB").innerHTML = mapLayerLabels.Parks;
+    document.getElementById("naturalAttractionsLB").innerHTML = mapLayerLabels.NaturalAttractions;
+    document.getElementById("childrenFacilitiesLB").innerHTML = mapLayerLabels.ChildrenFacilities;
+    document.getElementById("sportsFacilitiesLB").innerHTML = mapLayerLabels.SportsFacilities;
+    document.getElementById("thermalSpringsLB").innerHTML = mapLayerLabels.ThermalSprings;
+    document.getElementById("lookoutsLB").innerHTML = mapLayerLabels.Lookouts;
+    document.getElementById("sightsLB").innerHTML = mapLayerLabels.Sights;
+}
+
+function translateMapButtonLabels(labels){
     document.getElementById("layerGroupButton").title = labels.LayerGroupButtonTitle;
     document.getElementById("legendMapButton").title = labels.LegendMapButtonTitle;
     document.getElementById("infoPageButtonId").title = labels.InfoPageButtonTitle;
@@ -180,9 +203,6 @@ function translateOnLanguage(labels){
     document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
     document.getElementById("languagesButtonId").title = labels.LanguagesButtonTitle;
-    
-    translateLocationsPanelButton();
-    translateLocationHeaders();
 }
 
 function translateLocationsPanelButton(){
@@ -231,17 +251,77 @@ function zoomToLocation(coords, zoomValue){
 const LayersPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
-      container.innerHTML = `<div class="layersContainer">
+      container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll;">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="restaurantsCB">
-                                    <label class="form-check-label" for="restaurantsCB" id="restaurantsLabel">
-                                        Restorani
+                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB">
+                                    <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
+                                        Gradske lokacije
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="museumsCB">
-                                    <label class="form-check-label" for="museumsCB" id="museumsLabel">
-                                        Muzeji
+                                    <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB">
+                                    <label class="form-check-label" for="picnicAreasCB" id="picnicAreasLB">
+                                        Izletišta
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="waterSpringsCB">
+                                    <label class="form-check-label" for="waterSpringsCB" id="waterSpringsLB">
+                                        Izvorišta
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="culturalContentCB">
+                                    <label class="form-check-label" for="culturalContentCB" id="culturalContentLB">
+                                        Kulturni sadržaji
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="bathsCB">
+                                    <label class="form-check-label" for="bathsCB" id="bathsLB">
+                                        Kupališta
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="parksCB">
+                                    <label class="form-check-label" for="parksCB" id="parksLB">
+                                        Parkovi
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="naturalAttractionsCB">
+                                    <label class="form-check-label" for="naturalAttractionsCB" id="naturalAttractionsLB">
+                                        Prirodne atrakcije
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="childrenFacilitiesCB">
+                                    <label class="form-check-label" for="childrenFacilitiesCB" id="childrenFacilitiesLB">
+                                        Sadržaji za decu
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="sportsFacilitiesCB">
+                                    <label class="form-check-label" for="sportsFacilitiesCB" id="sportsFacilitiesLB">
+                                        Sportski sadržaji
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="thermalSpringsCB">
+                                    <label class="form-check-label" for="thermalSpringsCB" id="thermalSpringsLB">
+                                        Termalna izvorišta
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="lookoutsCB">
+                                    <label class="form-check-label" for="lookoutsCB" id="lookoutsLB">
+                                        Vidikovci
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="sightsCB">
+                                    <label class="form-check-label" for="sightsCB" id="sightsLB">
+                                        Znamenitosti
                                     </label>
                                 </div>
                             </div>`; 
