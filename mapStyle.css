@@ -269,3 +269,9 @@ input.form-check-input {
     height:35px; 
     border:none;
 }
+
+/* marker locations classes */
+
+.foobar{
+    visibility: hidden;
+}

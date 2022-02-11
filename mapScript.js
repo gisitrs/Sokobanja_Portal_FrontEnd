@@ -39,6 +39,9 @@ var imageLocationTextENG = ['Location 1 description', 'Location 2 description', 
 var locationCoords = [locations.SokoBanjaPrimeLocation, locations.SokoBanjaFirstLocation, locations.SokoBanjaSecondLocation];
 var locationZoomLevels = [15, 16, 16];
 
+var cityLocations = [[43.6262, 5432421.8537], [43.6349, 5432421.8931]];
+var cityLocationsText = ['Test', 'Test1'];
+
 // initialize map
 var map = L.map('map', { attributionControl: false, zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
 
@@ -253,7 +256,7 @@ const LayersPanel = L.Control.extend({
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll;">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB">
+                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideLayerLocations('cityLocations', 'cityLocationsCB')">
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
                                         Gradske lokacije
                                     </label>
@@ -500,6 +503,67 @@ function showSlides(isAutomatic) {
     if (isAutomatic == true){
         startSlideShow();
     }
+}
+
+var cityLocationsGroup = L.layerGroup().addTo(map);
+
+function showHideLayerLocations(locationType, checkBoxId){
+    var checkedValue = document.getElementById(checkBoxId).checked;
+
+    if (checkedValue == true){
+        showLocations(locationType);
+    }
+    else {
+        hideLocations(locationType);
+    }
+}
+
+function hideLocations(locationType){
+    if (locationType == 'cityLocations'){
+        cityLocationsGroup.clearLayers();
+    }
+}
+
+function showLocations(locationType){
+    var lists = getLocationLists(locationType);
+    createMarkerGroup(lists[0], lists[1], lists[2]);
+}
+
+function getLocationLists(locationType){
+    var lists = [];
+
+    if (locationType == 'cityLocations'){
+        lists = [cityLocations, cityLocationsText, cityLocationsGroup];
+    }
+
+    return lists;
+}
+
+function createMarkerGroup(listOfCoords, listOfTexts, locationGroup){
+    var i = 0;
+    for (const element of listOfCoords) {
+        CreateMarker(element, listOfTexts[i], locationGroup);
+        i++;
+    }
+}
+
+var greenIcon = L.icon({
+    iconUrl: './images/icons8-marker-a-48.png',
+
+    iconSize:     [38, 95], // size of the icon
+    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+});
+
+// create marker
+function CreateMarker(coords, markerName, locationsGroup){
+    marker = L.marker(coords, {
+      title: markerName
+    }).addTo(map);
+
+    marker.bindPopup(markerName);
+
+    locationsGroup.addLayer(marker);
 }
 
 /** GET CURRENT LOCATION **/
