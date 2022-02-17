@@ -40,6 +40,18 @@ var locationCoords = [locations.SokoBanjaPrimeLocation, locations.SokoBanjaFirst
 var locationZoomLevels = [15, 16, 16];
 
 var cityLocations = [[43.6262, 5432421.8537], [43.6349, 5432421.8931]];
+var picnicAreasCoords = [[43.6429, 5432421.8638], [43.6448, 5432421.8710]];
+var waterSpringsCoords = [[43.6428, 5432421.8763], [43.6454, 5432421.8717]];
+var culturalContentCoords = [[43.6460, 5432421.8639], [43.6483, 5432421.8814]];
+var bathsCoords = [[43.6414, 5432421.8593], [43.6454, 5432421.8617]];
+var parksCoords = [[43.6485, 5432421.8597], [43.6418, 5432421.8723]];
+var naturalAtractionsCoords = [[43.6499, 5432421.8753], [43.6433, 5432421.8498]];
+var childrenFacilitiesCoords = [[43.6462, 5432421.8895], [43.6353, 5432421.8600]];
+var sportsFacilitiesCoords = [[43.6383, 5432421.8743], [43.6428, 5432421.8520]];
+var thermalSpringsCoords = [[43.6445, 5432421.8857], [43.6486, 5432421.8696]];
+var lookoutsCoords = [[43.6439, 5432421.8719], [43.6449, 5432421.8648]];
+var sightsCoords = [[43.6068, 5432421.8123], [43.6434, 5432421.8777]];
+
 var cityLocationsText = ['Test', 'Test1'];
 
 // initialize map
@@ -256,13 +268,13 @@ const LayersPanel = L.Control.extend({
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll;">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideLayerLocations('cityLocations', 'cityLocationsCB')">
+                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideCityLayerLocations()">
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
                                         Gradske lokacije
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB">
+                                    <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB" onclick="showHidePicnicAreasLocations()">
                                     <label class="form-check-label" for="picnicAreasCB" id="picnicAreasLB">
                                         Izletišta
                                     </label>
@@ -505,38 +517,23 @@ function showSlides(isAutomatic) {
     }
 }
 
+/* functions for layer locations */
+
 var cityLocationsGroup = L.layerGroup().addTo(map);
+var picnicAreasGroup = L.layerGroup().addTo(map);
 
-function showHideLayerLocations(locationType, checkBoxId){
-    var checkedValue = document.getElementById(checkBoxId).checked;
-
-    if (checkedValue == true){
-        showLocations(locationType);
+function showHideCityLayerLocations(){
+    if (document.getElementById("cityLocationsCB").checked == true){
+        createMarkerGroup(cityLocations, cityLocationsText, cityLocationsGroup);
     }
-    else {
-        hideLocations(locationType);
-    }
+    else { cityLocationsGroup.clearLayers(); }
 }
 
-function hideLocations(locationType){
-    if (locationType == 'cityLocations'){
-        cityLocationsGroup.clearLayers();
+function showHidePicnicAreasLocations(){
+    if (document.getElementById("picnicAreasCB").checked == true){
+        createMarkerGroup(picnicAreasCoords, cityLocationsText, picnicAreasGroup);
     }
-}
-
-function showLocations(locationType){
-    var lists = getLocationLists(locationType);
-    createMarkerGroup(lists[0], lists[1], lists[2]);
-}
-
-function getLocationLists(locationType){
-    var lists = [];
-
-    if (locationType == 'cityLocations'){
-        lists = [cityLocations, cityLocationsText, cityLocationsGroup];
-    }
-
-    return lists;
+    else { picnicAreasGroup.clearLayers(); }
 }
 
 function createMarkerGroup(listOfCoords, listOfTexts, locationGroup){
