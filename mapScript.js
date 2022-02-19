@@ -66,6 +66,21 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 
 osm.addTo(map);
 
+// initialize wms layers (roads, locations and zones)
+var wmsLayerRoads = L.tileLayer.wms('http://localhost:8080/geoserver/Sokobanja_portal/wms', {
+    layers: "Sokobanja_portal:Putevi",
+    format: "image/png",
+    transparent: true,
+    attribution: "mylayer",
+  });
+
+var wmsLayerZones = L.tileLayer.wms('http://localhost:8080/geoserver/Sokobanja_portal/wms', {
+    layers: "Sokobanja_portal:Zone",
+    format: "image/png",
+    transparent: true,
+    attribution: "mylayer",
+});
+
 // add geocoder search
 //L.Control.geocoder().addTo(map);
 
@@ -208,6 +223,8 @@ function translateMapLayerLabels(mapLayerLabels){
     document.getElementById("thermalSpringsLB").innerHTML = mapLayerLabels.ThermalSprings;
     document.getElementById("lookoutsLB").innerHTML = mapLayerLabels.Lookouts;
     document.getElementById("sightsLB").innerHTML = mapLayerLabels.Sights;
+    document.getElementById("zonesLB").innerHTML = mapLayerLabels.Zones;
+    document.getElementById("roadsLB").innerHTML = mapLayerLabels.Roads;
 }
 
 function translateMapButtonLabels(labels){
@@ -337,6 +354,18 @@ const LayersPanel = L.Control.extend({
                                     <input class="form-check-input" type="checkbox" value="" id="sightsCB" onclick="showHideSightsLocations()">
                                     <label class="form-check-label" for="sightsCB" id="sightsLB">
                                         Znamenitosti
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="zonesCB" onclick="showHideZones()">
+                                    <label class="form-check-label" for="sightsCB" id="zonesLB">
+                                        Zone
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="roadsCB" onclick="showHideRoads()">
+                                    <label class="form-check-label" for="sightsCB" id="roadsLB">
+                                        Putevi
                                     </label>
                                 </div>
                             </div>`; 
@@ -532,11 +561,16 @@ var thermalSpringsGroup = L.layerGroup().addTo(map);
 var lookoutsGroup = L.layerGroup().addTo(map);
 var sightsGroup = L.layerGroup().addTo(map);
 
+var zonesGroup = L.layerGroup().addTo(map);
+var roadsGroup = L.layerGroup().addTo(map);
+
 function showHideCityLayerLocations(){
     if (document.getElementById("cityLocationsCB").checked == true){
         createMarkerGroup(cityLocations, cityLocationsText, cityLocationsGroup);
     }
-    else { cityLocationsGroup.clearLayers(); }
+    else { 
+        cityLocationsGroup.clearLayers();
+    }
 }
 
 function showHidePicnicAreasLocations(){
@@ -614,6 +648,24 @@ function showHideSightsLocations(){
         createMarkerGroup(sightsCoords, cityLocationsText, sightsGroup);
     }
     else { sightsGroup.clearLayers(); }
+}
+
+function showHideZones(){
+    if (document.getElementById("zonesCB").checked == true){
+        zonesGroup.addLayer(wmsLayerZones);
+    }
+    else { 
+        zonesGroup.clearLayers();
+    }
+}
+
+function showHideRoads(){
+    if (document.getElementById("roadsCB").checked == true){
+        roadsGroup.addLayer(wmsLayerRoads);
+    }
+    else { 
+        roadsGroup.clearLayers();
+    }
 }
 
 function createMarkerGroup(listOfCoords, listOfTexts, locationGroup){

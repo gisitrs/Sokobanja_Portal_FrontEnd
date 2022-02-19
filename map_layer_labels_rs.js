@@ -13,5 +13,7 @@ class MapLayerLabelsRS {
         this.Lookouts = "Vidikovci";
         this.Sights = "Znamenitosti";
         this.Restaurants = "Restorani";
+        this.Zones = "Zone";
+        this.Roads = "Putevi";
     }
   }

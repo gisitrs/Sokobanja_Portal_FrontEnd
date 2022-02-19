@@ -13,5 +13,7 @@ class MapLayerLabelsENG {
         this.Lookouts = "Lookouts";
         this.Sights = "Sights";
         this.Restaurants = "Restaurants";
+        this.Zones = "Zones";
+        this.Roads = "Roads";
     }
   }
