@@ -347,6 +347,27 @@
 
       changePageLayout();
 
+      /*var page_url = window.location.href;
+      var page_id = page_url.substring(page_url.lastIndexOf("#") + 1);
+      if (page_id == "section3"){
+        $("html, body").animate({
+          scrollTop: $("#restaurantsPanel1Id").offset().top
+        }, 1000);
+      }*/
+
+      //var a = Math.round($("#restaurantsPanel5Id").offset().top);
+
+      $("#restaurants").removeClass("tab-pane fade in active");
+      $("#restaurants").addClass("tab-pane fade");
+      $("#museums").addClass("tab-pane fade in active");
+      
+      $("#museumsCollapse0").addClass("panel-collapse collapse");
+      $("#museumsCollapse0").addClass("panel-collapse collapse in");
+
+      $('html, body').animate({
+          scrollTop: 100
+        }, 1000);
+
       // set even listener for resizing page elements
 	    window.addEventListener('resize', changePageLayout);
   });
