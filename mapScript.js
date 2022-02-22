@@ -566,7 +566,7 @@ var roadsGroup = L.layerGroup().addTo(map);
 
 function showHideCityLayerLocations(){
     if (document.getElementById("cityLocationsCB").checked == true){
-        createMarkerGroup(cityLocations, cityLocationsText, cityLocationsGroup);
+        createMarkerGroup(cityLocations, cityLocationsText, cityLocationsGroup, cityLocationsIcon);
     }
     else { 
         cityLocationsGroup.clearLayers();
@@ -575,77 +575,77 @@ function showHideCityLayerLocations(){
 
 function showHidePicnicAreasLocations(){
     if (document.getElementById("picnicAreasCB").checked == true){
-        createMarkerGroup(picnicAreasCoords, cityLocationsText, picnicAreasGroup);
+        createMarkerGroup(picnicAreasCoords, cityLocationsText, picnicAreasGroup, picnicAreasIcon);
     }
     else { picnicAreasGroup.clearLayers(); }
 }
 
 function showHideWaterSpringsLocations(){
     if (document.getElementById("waterSpringsCB").checked == true){
-        createMarkerGroup(waterSpringsCoords, cityLocationsText, waterSpringsGroup);
+        createMarkerGroup(waterSpringsCoords, cityLocationsText, waterSpringsGroup, waterSpringsIcon);
     }
     else { waterSpringsGroup.clearLayers(); }
 }
 
 function showHideCulturalContentsLocations(){
     if (document.getElementById("culturalContentCB").checked == true){
-        createMarkerGroup(culturalContentCoords, cityLocationsText, culturalContentsGroup);
+        createMarkerGroup(culturalContentCoords, cityLocationsText, culturalContentsGroup, culturalContentIcon);
     }
     else { culturalContentsGroup.clearLayers(); }
 }
 
 function showHideBathsLocations(){
     if (document.getElementById("bathsCB").checked == true){
-        createMarkerGroup(bathsCoords, cityLocationsText, bathsGroup);
+        createMarkerGroup(bathsCoords, cityLocationsText, bathsGroup, bathsIcon);
     }
     else { bathsGroup.clearLayers(); }
 }
 
 function showHideParksLocations(){
     if (document.getElementById("parksCB").checked == true){
-        createMarkerGroup(parksCoords, cityLocationsText, parksGroup);
+        createMarkerGroup(parksCoords, cityLocationsText, parksGroup, parksIcon);
     }
     else { parksGroup.clearLayers(); }
 }
 
 function showHideNaturalAttractionsLocations(){
     if (document.getElementById("naturalAttractionsCB").checked == true){
-        createMarkerGroup(naturalAttractionsCoords, cityLocationsText, naturalAttractionsGroup);
+        createMarkerGroup(naturalAttractionsCoords, cityLocationsText, naturalAttractionsGroup, naturalAttractionsIcon);
     }
     else { naturalAttractionsGroup.clearLayers(); }
 }
 
 function showHideChildrenFacilitiesLocations(){
     if (document.getElementById("childrenFacilitiesCB").checked == true){
-        createMarkerGroup(childrenFacilitiesCoords, cityLocationsText, childrenFacilitiesGroup);
+        createMarkerGroup(childrenFacilitiesCoords, cityLocationsText, childrenFacilitiesGroup, childrenFacilitiesIcon);
     }
     else { childrenFacilitiesGroup.clearLayers(); }
 }
 
 function showHideSportsFacilitiesLocations(){
     if (document.getElementById("sportsFacilitiesCB").checked == true){
-        createMarkerGroup(sportsFacilitiesCoords, cityLocationsText, sportsFacilitiesGroup);
+        createMarkerGroup(sportsFacilitiesCoords, cityLocationsText, sportsFacilitiesGroup, sportsFacilitiesIcon);
     }
     else { sportsFacilitiesGroup.clearLayers(); }
 }
 
 function showHideThermalSpringsLocations(){
     if (document.getElementById("thermalSpringsCB").checked == true){
-        createMarkerGroup(thermalSpringsCoords, cityLocationsText, thermalSpringsGroup);
+        createMarkerGroup(thermalSpringsCoords, cityLocationsText, thermalSpringsGroup, thermalSpringsIcon);
     }
     else { thermalSpringsGroup.clearLayers(); }
 }
 
 function showHideLookoutsLocations(){
     if (document.getElementById("lookoutsCB").checked == true){
-        createMarkerGroup(lookoutsCoords, cityLocationsText, lookoutsGroup);
+        createMarkerGroup(lookoutsCoords, cityLocationsText, lookoutsGroup, lookoutsIcon);
     }
     else { lookoutsGroup.clearLayers(); }
 }
 
 function showHideSightsLocations(){
     if (document.getElementById("sightsCB").checked == true){
-        createMarkerGroup(sightsCoords, cityLocationsText, sightsGroup);
+        createMarkerGroup(sightsCoords, cityLocationsText, sightsGroup, sightsIcon);
     }
     else { sightsGroup.clearLayers(); }
 }
@@ -668,30 +668,118 @@ function showHideRoads(){
     }
 }
 
-function createMarkerGroup(listOfCoords, listOfTexts, locationGroup){
+function createMarkerGroup(listOfCoords, listOfTexts, locationGroup, markerIcon){
     var i = 0;
     for (const element of listOfCoords) {
-        CreateMarker(element, listOfTexts[i], locationGroup);
+        CreateMarker(element, listOfTexts[i], locationGroup, markerIcon);
         i++;
     }
 }
 
-var greenIcon = L.icon({
-    iconUrl: './images/icons8-marker-a-48.png',
+var cityLocationsIcon = L.icon({
+    iconUrl: './images/Markers/CityLocations.png',
 
-    iconSize:     [38, 95], // size of the icon
-    iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-    popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var picnicAreasIcon = L.icon({
+    iconUrl: './images/Markers/PicnicAreas.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var waterSpringsIcon = L.icon({
+    iconUrl: './images/Markers/WaterSprings.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var culturalContentIcon = L.icon({
+    iconUrl: './images/Markers/CulturalContent.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var bathsIcon = L.icon({
+    iconUrl: './images/Markers/Baths.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var parksIcon = L.icon({
+    iconUrl: './images/Markers/Parks.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var naturalAttractionsIcon = L.icon({
+    iconUrl: './images/Markers/NaturalAttractions.png',
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var childrenFacilitiesIcon = L.icon({
+    iconUrl: './images/Markers/ChildrenFacilities.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var sportsFacilitiesIcon = L.icon({
+    iconUrl: './images/Markers/SportsFacilities.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var thermalSpringsIcon = L.icon({
+    iconUrl: './images/Markers/ThermalSprings.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var lookoutsIcon = L.icon({
+    iconUrl: './images/Markers/Lookouts.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
+var sightsIcon = L.icon({
+    iconUrl: './images/Markers/Sights.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
 // create marker
-function CreateMarker(coords, markerName, locationsGroup){
+function CreateMarker(coords, markerName, locationsGroup, markerIcon){
     var locationName = 'Location 1';
     var imageLocation = './images/StaraVodenica.png';
     var popupText = 'Tekst neki opcioni';
 
     marker = L.marker(coords, {
-      title: markerName
+      title: markerName,
+      icon: markerIcon
     }).addTo(map);
 
     marker.bindPopup('<b>' + locationName +'</b>' + 
