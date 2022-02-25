@@ -1,3 +1,4 @@
+/*#region global CSS settings*/
 
 *{
     margin: 0;
@@ -41,7 +42,10 @@ body {
     position:fixed;
 }
 
-/* Slideshow container */
+/*#endregion */
+
+/*#region slideshow container*/
+
 .slideshow-container {
     width: 30%; 
     float:right; 
@@ -85,7 +89,9 @@ body {
     padding-right: 20px;
 }
 
-/* toggle menu classes */
+/*#endregion */
+
+/*#region toggle menu classes */
 
 #block_container
 {
@@ -196,7 +202,9 @@ span{
     display: none;
 }
 
-/* Panel classes */
+/*#endregion */
+
+/*#region panel classes */
 
 .mapLegendContainer,
 .layersContainer {
@@ -263,7 +271,10 @@ input.form-check-input {
     height: 35px;
 }
 
-/* Locations panel classes */
+/*#endregion */
+
+/*#region locations panel classes */
+
 .showHideLocations {
     width:35px; 
     height:35px; 
@@ -275,3 +286,5 @@ input.form-check-input {
 .foobar{
     visibility: hidden;
 }
+
+/*#endregion */

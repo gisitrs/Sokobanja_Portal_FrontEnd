@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Mobile tutorial - Leaflet</title>
+	<title>Sokobanja portal</title>
 
 	<meta charset="utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +20,7 @@
 <body>
 	<div id='map'></div>
 
+	<!-- locations panel div  -->
 	<div id="locationPanel" class="slideshow-container">
 		<div class="imagePanel">
 			<img id="locationImage" src="./images/img_nature_wide.jpg"  class="imageClass">
@@ -32,6 +33,7 @@
 		</div>
 	</div>
 
+	<!-- local libraries link  -->
 	<script src="./locations.js"></script>
 	<script src="./map_labels_rs.js"></script>
 	<script src="./map_labels_eng.js"></script>
@@ -47,10 +49,15 @@
 	<script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
 
 	<script>
+		//#region initial JS code
+
+		/* functions for update page after document is ready */
 		$(document).ready(function() {
+			/* change page layouts */
     		changeMapLegendImage();
 			changePageLayout();
 
+			/* translate on language*/
 			if (currentLanguage == appLanguages.Serbian){
         		translateOnSerbian();
     		}
@@ -58,13 +65,20 @@
         		translateOnEnglish();
     		}
 
+			/* set location image */
 			document.getElementById("locationImage").onclick = function() {
 				zoomToLocation(locationCoords[slideIndex], locationZoomLevels[slideIndex]);
       		};
+			
+			/* load WMS layers from Geoserver */
+			loadAndHideZones();
+			loadAndHideRoads();
 		});
 
-		// add geocoder search
+		/* add geocoder search */ 
 		L.Control.geocoder().addTo(map);
+
+		//#endregion
 	</script>
 </body>
 </html>

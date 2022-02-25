@@ -1,3 +1,5 @@
+//#region initialize objects
+
 /* objects for specific classes*/ 
 
 const locations = new Locations();
@@ -20,6 +22,7 @@ var mapLegendMenuVisibility = false;
 var languagesVisibility = false;
 
 /* current language variable */
+
 var currentLanguage = appLanguages.Serbian;
 
 /* variables for map and location div */
@@ -54,10 +57,15 @@ var sightsCoords = [[43.6068, 5432421.8123], [43.6434, 5432421.8777]];
 
 var cityLocationsText = ['Test', 'Test1'];
 
+//#endregion
+
+//#region initialize map and wms layers
+
 // initialize map
 var map = L.map('map', { attributionControl: false, zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
 
 // initialize base layers
+
 var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
       maxZoom: 30,
       attribution:
@@ -67,6 +75,7 @@ var osm = L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
 osm.addTo(map);
 
 // initialize wms layers (roads, locations and zones)
+
 var wmsLayerRoads = L.tileLayer.wms('http://localhost:8080/geoserver/Sokobanja_portal/wms', {
     layers: "Sokobanja_portal:Putevi",
     format: "image/png",
@@ -81,8 +90,34 @@ var wmsLayerZones = L.tileLayer.wms('http://localhost:8080/geoserver/Sokobanja_p
     attribution: "mylayer",
 });
 
+/* async function for loading WMS layers */
+
+async function loadAndHideRoads(){
+      await loadRoads();
+      roadsGroup.clearLayers();
+};
+
+async function loadRoads(){
+    roadsGroup.addLayer(wmsLayerRoads);
+    return;
+};
+
+async function loadAndHideZones(){
+      await loadZones();
+      zonesGroup.clearLayers();
+};
+
+async function loadZones(){
+    zonesGroup.addLayer(wmsLayerZones);
+    return;
+};
+
 // add geocoder search
 //L.Control.geocoder().addTo(map);
+
+//#endregion
+
+//#region create toggle menu
 
 // toggle menu 
 
@@ -192,6 +227,12 @@ function showHidePanel(className, visibility){
     document.getElementsByClassName(className)[0].style.visibility = visibility;
 }
 
+//#endregion
+
+//#region translate all labels
+
+/* function for translate on specific language */
+
 function translateOnSerbian(){
     currentLanguage = appLanguages.Serbian;
     translateOnLanguage(mapLabelsRS, mapLayerLabelsRS);
@@ -269,7 +310,12 @@ function translateLocationHeaders(){
     document.getElementById('locationImageText').innerHTML = currentImageDescriptionText[slideIndex];
 }
 
+//#endregion
+
+//#region layers panel and zoom to location functions
+
 // zoom to location
+
 function goToPrimaryLocation(){
 	zoomToLocation(locations.SokoBanjaPrimeLocation, 15);
 }
@@ -278,7 +324,7 @@ function zoomToLocation(coords, zoomValue){
 	map.setView(coords, zoomValue);
 }
 
-/* Layers panel */
+/* layers panel */
 
 const LayersPanel = L.Control.extend({
     onAdd: map => {
@@ -387,6 +433,11 @@ const MapLegendPanel = L.Control.extend({
 
 map.addControl(new MapLegendPanel({ position: "topleft" }));
 
+//#endregion
+
+//#region languages panel 
+/* languages panel */
+
 const LanguagesPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
@@ -404,7 +455,12 @@ const LanguagesPanel = L.Control.extend({
 
 map.addControl(new LanguagesPanel({ position: "topleft" }));
 
-/* Button for show-hide panel with locations */
+//#endregion
+
+//#region page layout functions and button for show-hide locations
+
+/* button for show-hide panel with locations */
+
 // showing button for show/hide panel 
 const Coordinates = L.Control.extend({
     onAdd: map => {
@@ -426,7 +482,7 @@ const Coordinates = L.Control.extend({
 
 map.addControl(new Coordinates({ position: "bottomright" }));
 
-/* Page layout functions */
+/* page layout functions */
 
 // set even listener for resizing page elements and map legend image
 window.addEventListener('resize', changePageLayout);
@@ -436,6 +492,8 @@ function changePageLayout(){
     changePageLayout();
 }
 
+/* change image for map legend based on window width and height */
+
 function changeMapLegendImage(){
     if ($(document).height() <= 600 || $(document).width() <= 500){
         document.getElementById("mapLegendId").src = "./images/SmallLegend.jpg";
@@ -444,6 +502,8 @@ function changeMapLegendImage(){
         document.getElementById("mapLegendId").src = "./images/LegendaSlika.jpg";
     }
 }
+
+/* change page layout for the map and locations */
 
 function changePageLayout(){
     if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == false){
@@ -465,7 +525,9 @@ function changePageLayout(){
 
     map._onResize(); 
 }
-// hide or show location panel 
+
+/* hide or show location panel */
+
 function showHideLocations(){
     if (isHiddenLocationPanel == false){
         resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
@@ -484,6 +546,8 @@ function showHideLocations(){
 
     map._onResize(); 
 }
+
+/* function for resize map and location div */ 
 
 function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginType, marginValue){
     var mapDiv = document.getElementById('map');
@@ -504,7 +568,8 @@ function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginT
     }
 }
 
-// panel with locations
+/* panel with locations - slide show -*/
+
 startSlideShow();
 
 function startSlideShow(){
@@ -546,7 +611,11 @@ function showSlides(isAutomatic) {
     }
 }
 
-/* functions for layer locations */
+//#endregion
+
+//#region functions for show-hide layers
+
+/* create layer groups for or layers */ 
 
 var cityLocationsGroup = L.layerGroup().addTo(map);
 var picnicAreasGroup = L.layerGroup().addTo(map);
@@ -563,6 +632,8 @@ var sightsGroup = L.layerGroup().addTo(map);
 
 var zonesGroup = L.layerGroup().addTo(map);
 var roadsGroup = L.layerGroup().addTo(map);
+
+/* functions for layer locations */
 
 function showHideCityLayerLocations(){
     if (document.getElementById("cityLocationsCB").checked == true){
@@ -676,6 +747,8 @@ function createMarkerGroup(listOfCoords, listOfTexts, locationGroup, markerIcon)
     }
 }
 
+/* initialize variables for icons for map markers */
+
 var cityLocationsIcon = L.icon({
     iconUrl: './images/Markers/CityLocations.png',
 
@@ -771,7 +844,8 @@ var sightsIcon = L.icon({
     popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
-// create marker
+/* create marker function */ 
+
 function CreateMarker(coords, markerName, locationsGroup, markerIcon){
     var locationName = 'Location 1';
     var imageLocation = './images/StaraVodenica.png';
@@ -792,6 +866,10 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon){
 
     locationsGroup.addLayer(marker);
 }
+
+//#endregion
+
+//#region get current location (test code)
 
 /** GET CURRENT LOCATION **/
 
@@ -840,3 +918,5 @@ function openTab(event, tabName){*/
     //event.currentTarget.classList.add("active");
     //document.getElementById(tabName).style.display = "block";
 //}
+
+//#endregion
