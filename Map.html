@@ -71,8 +71,8 @@
       		};
 			
 			/* load WMS layers from Geoserver */
-			loadAndHideZones();
-			loadAndHideRoads();
+			loadAndHideWMS(zonesGroup, wmsLayerZones);
+			loadAndHideWMS(roadsGroup, wmsLayerRoads);
 		});
 
 		/* add geocoder search */ 

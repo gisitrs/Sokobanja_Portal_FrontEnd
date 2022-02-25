@@ -90,25 +90,15 @@ var wmsLayerZones = L.tileLayer.wms('http://localhost:8080/geoserver/Sokobanja_p
     attribution: "mylayer",
 });
 
-/* async function for loading WMS layers */
+/* async functions for loading WMS layers */
 
-async function loadAndHideRoads(){
-      await loadRoads();
-      roadsGroup.clearLayers();
+async function loadAndHideWMS(layerGroup, wMSLayer){
+      await loadWMS(layerGroup, wMSLayer);
+      layerGroup.clearLayers();
 };
 
-async function loadRoads(){
-    roadsGroup.addLayer(wmsLayerRoads);
-    return;
-};
-
-async function loadAndHideZones(){
-      await loadZones();
-      zonesGroup.clearLayers();
-};
-
-async function loadZones(){
-    zonesGroup.addLayer(wmsLayerZones);
+async function loadWMS(layerGroup, wMSLayer){
+    layerGroup.addLayer(wMSLayer);
     return;
 };
 
