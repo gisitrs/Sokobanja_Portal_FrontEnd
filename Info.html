@@ -8,13 +8,19 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+  <link rel="stylesheet" href="infoStyle.css" />
+
   <!-- local libraries link  -->
   <script src="./map_info_tabs_rs.js"></script>
   <script src="./map_info_tabs_eng.js"></script>
+  <script src="./map_layer_labels_rs.js"></script>
+  <script src="./map_layer_labels_eng.js"></script>
+  
   <script src="./sokobanja_restaurants_rs.js"></script>
   <script src="./sokobanja_restaurants_eng.js"></script>
   <script src="./sokobanja_museums_rs.js"></script>
   <script src="./sokobanja_museums_eng.js"></script>
+
   <script src="./sokobanja_tourist_guides_rs.js"></script>
   <script src="./sokobanja_tourist_guides_eng.js"></script>
 
@@ -45,7 +51,7 @@
 
   <!-- panel with locations  -->
 
-  <ul id="tabPanelId" class="nav nav-pills">
+  <ul id="tabPanelId" class="nav nav-pills" style="OVERFLOW-X:auto; display:flex; max-height: 115px;">
   </ul>
   
   <div class="tab-content">
@@ -67,13 +73,27 @@
         <div class="panel-group" id="touristGuidesPanel">
         </div>
     </div>
+    <div id="cityLocations" class="tab-pane fade">
+    </div>
+    <div id="picnicAreas" class="tab-pane fade">
+    </div>
+    <div id="waterSprings" class="tab-pane fade">
+    </div>
+    <div id="culturalContent" class="tab-pane fade">
+    </div>
+    <div id="baths" class="tab-pane fade">
+    </div>
+    <div id="parks" class="tab-pane fade">
+    </div>
+    <div id="naturalAttractions" class="tab-pane fade">
+    </div>
   </div>
 </div>
 
 <script>
   //#region initial JS code - document ready
   $(document).ready(function(){
-    
+
       /* create tab contents */
       var tabDivContent = $('#main_container').createTabContent(mapInfoTabValues[0], mapInfoTabValues[1], mapInfoTabValues[2]);
       

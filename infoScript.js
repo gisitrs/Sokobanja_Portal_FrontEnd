@@ -104,13 +104,18 @@ $("#englishLanguageButtonId").click(function(){
 
 //#endregion
 
-//#region create toggle and pill menu
+//#region create toggle and pill menu '<li><a data-toggle="pill" id="touristGuidesLiId" href="#touristGuides">' + textTab3 + '</a></li>' '<li><a data-toggle="pill" id="restaurantsLiId" href="#restaurants">' + textTab1 + '</a></li>'
 
 (function( $ ){
  $.fn.createTabContent = function(textTab1, textTab2, textTab3) {
-  var divContent = '<li><a data-toggle="pill" id="restaurantsLiId" href="#restaurants">' + textTab1 + '</a></li>' +
-                   '<li><a data-toggle="pill" id="museumsLiId" href="#museums">' + textTab2 + '</a></li>' +
-                   '<li><a data-toggle="pill" id="touristGuidesLiId" href="#touristGuides">' + textTab3 + '</a></li>';
+  var divContent = '<li><a data-toggle="pill" id="cityLocationsLiId" href="#cityLocations" title="Gradske lokacije"><img src="./images/Markers/CityLocations.png" width="47" /></a></li>' +
+                   '<li><a data-toggle="pill" id="picnicAreasLiId" href="#picnicAreas" title="Izletišta"><img src="./images/Markers/PicnicAreas.png" width="47" /></a></li>' + 
+                   '<li><a data-toggle="pill" id="waterSpringsLiId" href="#waterSprings" title="Izvorišta"><img src="./images/Markers/WaterSprings.png" width="47" /></a></li>' +
+                   '<li><a data-toggle="pill" id="culturalContentLiId" href="#culturalContent" title="Kulturni sadržaj"><img src="./images/Markers/CulturalContent.png" width="47"/></a></li>' +
+                   '<li><a data-toggle="pill" id="bathsLiId" href="#baths" title="Kupališta"><img src="./images/Markers/Baths.png" width="47" /></a></li>' +
+                   '<li><a data-toggle="pill" id="parksLiId" href="#parks" title="Parkovi"><img src="./images/Markers/Parks.png" width="47" /></a></li>' +
+                   '<li><a data-toggle="pill" id="naturalAttractionsLiId" href="#naturalAttractions" title="Prirodne atrakcije"><img src="./images/Markers/NaturalAttractions.png" width="47"/><p id="naturalAttractionsLbId">Atrakcije</p></a></li>' +
+                   '<li><a data-toggle="pill" id="museumsLiId" href="#museums">' + textTab2 + '</a></li>';
     return divContent;
  }; 
 })( jQuery );
