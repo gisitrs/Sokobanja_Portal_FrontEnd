@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Sokobanja portal Info page</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+
+  <!-- local libraries link  -->
+  <script src="./map_info_tabs_rs.js"></script>
+  <script src="./map_info_tabs_eng.js"></script>
+  <script src="./sokobanja_restaurants_rs.js"></script>
+  <script src="./sokobanja_restaurants_eng.js"></script>
+  <script src="./sokobanja_museums_rs.js"></script>
+  <script src="./sokobanja_museums_eng.js"></script>
+  <script src="./sokobanja_tourist_guides_rs.js"></script>
+  <script src="./sokobanja_tourist_guides_eng.js"></script>
+
+  <script src="infoScript.js"></script>
+</head>
+
+<body>
+
+<div class="container" id="main_container">
+</br>
+  <!-- toggle menu bar  -->
+  <div>
+    <button id="serbianLanguageButtonId" class="btn btn-default">
+      <img src="./images/Serbia-Flag-icon.png" width="47" width="47" />
+    </button>
+    <button id="englishLanguageButtonId" class="btn btn-default">
+      <img src="./images/GBR-flag-icon.png" width="47" width="47" />
+    </button>
+    <button type="button" id="mapLegendButtonId" class="btn btn-default" onclick="window.location.href='MapLegend.html'">
+      <img src="./images/MapLegend.png" width="47" width="47" />
+    </button>
+    <button type="button" id="mapLegendButtonId" class="btn btn-default" onclick="window.location.href='SokoBanja_Portal.html'">
+      <img src="./images/MapImage.png" width="47" width="47" />
+    </button>
+  </div>
+
+  </br>
+
+  <!-- panel with locations  -->
+
+  <ul id="tabPanelId" class="nav nav-pills">
+  </ul>
+  
+  <div class="tab-content">
+    <div id="restaurants" class="tab-pane fade in active"> 
+      <h2 id="restaurantsHeader"></h2>
+        </br>
+        <div class="panel-group" id="restaurantsPanel">
+        </div>
+    </div>
+    <div id="museums" class="tab-pane fade">
+      <h2 id="museumsHeader"></h2>
+        </br>
+        <div class="panel-group" id="museumsPanel">
+        </div>
+    </div>
+    <div id="touristGuides" class="tab-pane fade">
+      <h2 id="touristGuidesHeader"></h2>
+        </br>
+        <div class="panel-group" id="touristGuidesPanel">
+        </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  //#region initial JS code - document ready
+  $(document).ready(function(){
+    
+      /* create tab contents */
+      var tabDivContent = $('#main_container').createTabContent(mapInfoTabValues[0], mapInfoTabValues[1], mapInfoTabValues[2]);
+      
+      $("#tabPanelId").html(tabDivContent);
+      $('#main_container').updateTextValues(tabValuesList, true);
+
+      /* set page layout */
+      changePageLayout();
+
+      /* scroll to specific element */
+
+      /*var page_url = window.location.href;
+      var page_id = page_url.substring(page_url.lastIndexOf("#") + 1);
+      if (page_id == "section3"){
+        $("html, body").animate({
+          scrollTop: $("#restaurantsPanel1Id").offset().top
+        }, 1000);
+      }*/
+
+      //var a = Math.round($("#restaurantsPanel5Id").offset().top);
+
+      $("#restaurants").removeClass("tab-pane fade in active");
+      $("#restaurants").addClass("tab-pane fade");
+      $("#museums").addClass("tab-pane fade in active");
+      
+      $("#museumsCollapse0").addClass("panel-collapse collapse");
+      $("#museumsCollapse0").addClass("panel-collapse collapse in");
+
+      $('html, body').animate({
+          scrollTop: 100
+        }, 1000);
+
+      /* set even listener for resizing page elements */
+	    window.addEventListener('resize', changePageLayout);
+  });
+  
+  //#endregion
+</script>
+
+</body>
+</html>
