@@ -13,7 +13,7 @@ const mapLayerLabelsENG = new MapLayerLabelsENG();
 const appLanguages = Object.freeze({
     Serbian: 'Serbian',
     English: 'English'
-  });
+});
 
 /* variables for toggle menu visibility */
 
@@ -133,7 +133,7 @@ const ToggleMenu = L.Control.extend({
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="window.location.href='SokoBanja_Info.html'">
+                                        <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="window.location.href='Info.html'">
                                             <i class="fas fa-info-circle"></i>
                                         </button>
                                     </li>
@@ -850,7 +850,7 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon){
                      '<div>' + 
                         '<img style="width:100%" src="' + imageLocation + '" alt="images"></img>' + 
                         '<p>' + popupText + '</p>' + 
-                        '<a href="SokoBanja_Info.html">info</a>' +
+                        '<a href="Info.html">info</a>' +
                     '</div>',
     {minWidth:256});
 
