@@ -16,6 +16,9 @@ const museumsENG = new SokobanjaMuseumsENG();
 const touristGuideClass = new SokobanjaTouristGuidesRS();
 const touristGuidesENG = new SokobanjaTouristGuidesENG();
 
+var layerLabelsRS = new MapLayerLabelsRS();
+var layerLabelsENG = new MapLayerLabelsENG();
+
 var mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
 var restaurants = restaurantsRS.getList();
 var museums = museumClass.getList();
@@ -87,20 +90,19 @@ const appLanguages = Object.freeze({
   }; 
 })( jQuery );
 
-/* translate on specific language by click on button */
-$("#serbianLanguageButtonId").click(function(){
-    if (selectedLanguage == "English"){
-      selectedLanguage = "Serbian";
-      $('#main_container').updateTextValuesForSelectedLanguage();
-    }
-});
+function translateOnSerbian(){
+  if (selectedLanguage == "English"){
+    selectedLanguage = "Serbian";
+    $('#main_container').updateTextValuesForSelectedLanguage();
+  }
+}
 
-$("#englishLanguageButtonId").click(function(){
-    if (selectedLanguage == "Serbian"){
-      selectedLanguage = "English";
-      $('#main_container').updateTextValuesForSelectedLanguage();
-    }
-});
+function translateOnEnglish(){
+  if (selectedLanguage == "Serbian"){
+    selectedLanguage = "English";
+    $('#main_container').updateTextValuesForSelectedLanguage();
+  }
+}
 
 //#endregion
 
@@ -108,13 +110,18 @@ $("#englishLanguageButtonId").click(function(){
 
 (function( $ ){
  $.fn.createTabContent = function(textTab1, textTab2, textTab3) {
-  var divContent = '<li><a data-toggle="pill" id="cityLocationsLiId" href="#cityLocations" title="Gradske lokacije"><img src="./images/Markers/CityLocations.png" width="47" /></a></li>' +
-                   '<li><a data-toggle="pill" id="picnicAreasLiId" href="#picnicAreas" title="Izletišta"><img src="./images/Markers/PicnicAreas.png" width="47" /></a></li>' + 
-                   '<li><a data-toggle="pill" id="waterSpringsLiId" href="#waterSprings" title="Izvorišta"><img src="./images/Markers/WaterSprings.png" width="47" /></a></li>' +
-                   '<li><a data-toggle="pill" id="culturalContentLiId" href="#culturalContent" title="Kulturni sadržaj"><img src="./images/Markers/CulturalContent.png" width="47"/></a></li>' +
-                   '<li><a data-toggle="pill" id="bathsLiId" href="#baths" title="Kupališta"><img src="./images/Markers/Baths.png" width="47" /></a></li>' +
-                   '<li><a data-toggle="pill" id="parksLiId" href="#parks" title="Parkovi"><img src="./images/Markers/Parks.png" width="47" /></a></li>' +
+  var divContent = '<li><a data-toggle="pill" id="cityLocationsLiId" href="#cityLocations" title="Gradske lokacije"><img src="./images/Markers/CityLocations.png" width="47" /><p id="cityLocationsLbId">Lokacije</p></a></li>' +
+                   '<li><a data-toggle="pill" id="picnicAreasLiId" href="#picnicAreas" title="Izletišta"><img src="./images/Markers/PicnicAreas.png" width="47" /><p id="picnicAreasLbId">Izletišta</p></a></li>' + 
+                   '<li><a data-toggle="pill" id="waterSpringsLiId" href="#waterSprings" title="Izvorišta"><img src="./images/Markers/WaterSprings.png" width="47" /><p id="waterSpringsLbId">Izvorišta</p></a></li>' +
+                   '<li><a data-toggle="pill" id="culturalContentLiId" href="#culturalContent" title="Kulturni sadržaj"><img src="./images/Markers/CulturalContent.png" width="47"/><p id="culturalContentLbId">Kultura</p></a></li>' +
+                   '<li><a data-toggle="pill" id="bathsLiId" href="#baths" title="Kupališta"><img src="./images/Markers/Baths.png" width="47" /><p id="bathsLbId">Kupališta</p></a></li>' +
+                   '<li><a data-toggle="pill" id="parksLiId" href="#parks" title="Parkovi"><img src="./images/Markers/Parks.png" width="47" /><p id="parksLbId">Parkovi</p></a></li>' +
                    '<li><a data-toggle="pill" id="naturalAttractionsLiId" href="#naturalAttractions" title="Prirodne atrakcije"><img src="./images/Markers/NaturalAttractions.png" width="47"/><p id="naturalAttractionsLbId">Atrakcije</p></a></li>' +
+                   '<li><a data-toggle="pill" id="childrenFacilitiesLiId" href="#childrenFacilities" title="Dečiji sadržaji"><img src="./images/Markers/ChildrenFacilities.png" width="47" /><p id="childrenFacilitiesLbId">Igrališta</p></a></li>' +
+                   '<li><a data-toggle="pill" id="sportsFacilitiesLiId" href="#sportsFacilities" title="Sportski sadržaji"><img src="./images/Markers/SportsFacilities.png" width="47" /><p id="sportsFacilitiesLbId">Sport</p></a></li>' + 
+                   '<li><a data-toggle="pill" id="thermalSpringsLiId" href="#thermalSprings" title="Termalna izvorišta"><img src="./images/Markers/ThermalSprings.png" width="47" /><p id="thermalSpringsLbId">Spa</p></a></li>' +
+                   '<li><a data-toggle="pill" id="lookoutsLiId" href="#lookouts" title="Vidikovci"><img src="./images/Markers/Lookouts.png" width="47"/><p id="lookoutsLbId">Vidikovci</p></a></li>' +
+                   '<li><a data-toggle="pill" id="sightsLiId" href="#sights" title="Znamenitosti"><img src="./images/Markers/Sights.png" width="47" /><p id="sightsLbId">Znamenitosti</p></a></li>' +
                    '<li><a data-toggle="pill" id="museumsLiId" href="#museums">' + textTab2 + '</a></li>';
     return divContent;
  }; 
@@ -242,8 +249,8 @@ $("#englishLanguageButtonId").click(function(){
 /* update tab and text values */
 (function( $ ){
  $.fn.updateTabTextValues = function() {
-    $('#restaurantsLiId').text(mapInfoTabValues[0]);
-    $('#museumsLiId').text(mapInfoTabValues[1]);
+    //$('#restaurantsLiId').text(mapInfoTabValues[0]);
+    //$('#museumsLiId').text(mapInfoTabValues[1]);
     $('#touristGuidesLiId').text(mapInfoTabValues[2]);
   }
 })( jQuery );
@@ -328,8 +335,15 @@ $.each(mapInfoTabValues, function( indexTab, valueTab ) {
 
   $('#main_container').setTextValuesForLanguage();
   $('#main_container').updateTextValues(tabValuesList, false);
+  updateLocationTypesText();
   }; 
 })( jQuery );
+
+function updateLocationTypesText(){
+  $('#cityLocationsLiId').prop('title', layerLabelsENG.CityLocations);
+
+  $('#cityLocationsLbId').text(layerLabelsENG.CityLocationsShort);
+}
 
 function changePageLayout(){
       if ($(document).width() <= 1000){

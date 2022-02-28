@@ -15,5 +15,11 @@ class MapLayerLabelsRS {
         this.Restaurants = "Restorani";
         this.Zones = "Zone";
         this.Roads = "Putevi";
+        this.CityLocationsShort = "Lokacije";
+        this.CulturalContent = "Kultura";
+        this.NaturalAttractionsShort = "Priroda";
+        this.ChildrenFacilitiesShort = "Igrališta";
+        this.SportsFacilitiesShort = "Sport";
+        this.ThermalSpringsShort = "Terme";
     }
   }

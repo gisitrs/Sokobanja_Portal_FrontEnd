@@ -15,5 +15,11 @@ class MapLayerLabelsENG {
         this.Restaurants = "Restaurants";
         this.Zones = "Zones";
         this.Roads = "Roads";
+        this.CityLocationsShort = "Locations";
+        this.CulturalContent = "Cultural";
+        this.NaturalAttractionsShort = "Nature";
+        this.ChildrenFacilitiesShort = "Playgrounds";
+        this.SportsFacilitiesShort = "Sport";
+        this.ThermalSpringsShort = "Spa";
     }
   }
