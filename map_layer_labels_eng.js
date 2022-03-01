@@ -16,10 +16,12 @@ class MapLayerLabelsENG {
         this.Zones = "Zones";
         this.Roads = "Roads";
         this.CityLocationsShort = "Locations";
-        this.CulturalContent = "Cultural";
+        this.CulturalContentShort = "Cultural";
         this.NaturalAttractionsShort = "Nature";
-        this.ChildrenFacilitiesShort = "Playgrounds";
+        this.ChildrenFacilitiesShort = "Play";
         this.SportsFacilitiesShort = "Sport";
         this.ThermalSpringsShort = "Spa";
+        this.PicnicAreasShort = "Picnic";
+        this.WaterSpringsShort = "Springs";
     }
   }

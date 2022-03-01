@@ -133,7 +133,7 @@ const ToggleMenu = L.Control.extend({
                                         </button>
                                     </li>
                                     <li>
-                                        <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="window.location.href='Info.html'">
+                                        <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="goToInfoPage()">
                                             <i class="fas fa-info-circle"></i>
                                         </button>
                                     </li>
@@ -154,6 +154,11 @@ const ToggleMenu = L.Control.extend({
 });
 
 map.addControl(new ToggleMenu({ position: "topleft" }));
+
+function goToInfoPage(){
+    var url = "Info.html?language=" + currentLanguage;
+    window.location.href= url;
+}
 
 /* Toggle menu functions */
 

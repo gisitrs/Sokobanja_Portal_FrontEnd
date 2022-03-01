@@ -58,13 +58,17 @@
     		changeMapLegendImage();
 			changePageLayout();
 
-			/* translate on language*/
-			if (currentLanguage == appLanguages.Serbian){
+			/* set texts and labels on specific language */
+			const queryString = window.location.search;
+      		const urlParams = new URLSearchParams(queryString);
+      		const languageValue = urlParams.get('language');
+
+      		if (languageValue == "Serbian"){
         		translateOnSerbian();
-    		}
-    		else if (currentLanguage == appLanguages.English){
+      		}
+      		else if (languageValue == "English"){
         		translateOnEnglish();
-    		}
+      		}
 
 			/* set location image */
 			document.getElementById("locationImage").onclick = function() {

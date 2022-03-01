@@ -16,10 +16,12 @@ class MapLayerLabelsRS {
         this.Zones = "Zone";
         this.Roads = "Putevi";
         this.CityLocationsShort = "Lokacije";
-        this.CulturalContent = "Kultura";
+        this.CulturalContentShort = "Kultura";
         this.NaturalAttractionsShort = "Priroda";
         this.ChildrenFacilitiesShort = "Igrališta";
         this.SportsFacilitiesShort = "Sport";
         this.ThermalSpringsShort = "Terme";
+        this.PicnicAreasShort = "Izletišta";
+        this.WaterSpringsShort = "Izvorišta";
     }
   }

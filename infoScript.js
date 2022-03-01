@@ -2,8 +2,6 @@
 
 /* objects for specific classes*/ 
 
-var selectedLanguage = "Serbian";
-
 const mapInfoTabsRS = new MapInfoTabsRS();
 const mapInfoTabsENG = new MapInfoTabsENG();
 
@@ -64,44 +62,50 @@ const appLanguages = Object.freeze({
     English: 'English'
 });
 
+var currentLanguage = appLanguages.Serbian;
+var currentLayerlabels = layerLabelsRS;
+
 //#endregion
 
 //#region set text values for languages
 
 (function( $ ){
  $.fn.setTabValuesForLanguage = function() {
-   if (selectedLanguage == "Serbian"){
+   if (currentLanguage == appLanguages.Serbian){
     mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
+    currentLayerlabels = layerLabelsRS;
    }
-   else if (selectedLanguage == "English"){
+   else if (currentLanguage == appLanguages.English){
     mapInfoTabValues = mapInfoTabsENG.getMapInfoTabList();
+    currentLayerlabels = layerLabelsENG;
    }
   }; 
 })( jQuery );
 
 (function( $ ){
  $.fn.setTextValuesForLanguage = function() {
-   if (selectedLanguage == "Serbian"){
+   if (currentLanguage == appLanguages.Serbian){
     tabValuesList = [restaurantsRS.getList(), museumClass.getList(), touristGuideClass.getList()];
    }
-   else if (selectedLanguage == "English"){
+   else if (currentLanguage == appLanguages.English){
     tabValuesList = [restaurantsENG.getList(), museumsENG.getList(), touristGuidesENG.getList()];
    }
   }; 
 })( jQuery );
 
 function translateOnSerbian(){
-  if (selectedLanguage == "English"){
-    selectedLanguage = "Serbian";
-    $('#main_container').updateTextValuesForSelectedLanguage();
-  }
+  currentLanguage = appLanguages.Serbian;
+  $('#main_container').updateTextValuesForSelectedLanguage();
 }
 
 function translateOnEnglish(){
-  if (selectedLanguage == "Serbian"){
-    selectedLanguage = "English";
-    $('#main_container').updateTextValuesForSelectedLanguage();
-  }
+  currentLanguage = appLanguages.English;
+  $('#main_container').updateTextValuesForSelectedLanguage();
+}
+
+function goToMapPage(){
+  var url = "Map.html?language=" + currentLanguage;
+  window.location.href= url;
 }
 
 //#endregion
@@ -124,8 +128,8 @@ function translateOnEnglish(){
                    '<li><a data-toggle="pill" id="sightsLiId" href="#sights" title="Znamenitosti"><img src="./images/Markers/Sights.png" width="47" /><p id="sightsLbId">Znamenitosti</p></a></li>' +
                    '<li><a data-toggle="pill" id="museumsLiId" href="#museums">' + textTab2 + '</a></li>';
     return divContent;
- }; 
-})( jQuery );
+ };                                                        
+})( jQuery ); 
 
 /* create div content for toggle menu */
 (function( $ ){
@@ -340,9 +344,31 @@ $.each(mapInfoTabValues, function( indexTab, valueTab ) {
 })( jQuery );
 
 function updateLocationTypesText(){
-  $('#cityLocationsLiId').prop('title', layerLabelsENG.CityLocations);
+  $('#cityLocationsLiId').prop('title', currentLayerlabels.CityLocations);
+  $('#picnicAreasLiId').prop('title', currentLayerlabels.PicnicAreas);
+  $('#waterSpringsLiId').prop('title', currentLayerlabels.WaterSprings);
+  $('#culturalContentLiId').prop('title', currentLayerlabels.CulturalContent);
+  $('#bathsLiId').prop('title', currentLayerlabels.Baths);
+  $('#parksLiId').prop('title', currentLayerlabels.Parks);
+  $('#naturalAttractionsLiId').prop('title', currentLayerlabels.NaturalAttractions);
+  $('#childrenFacilitiesLiId').prop('title', currentLayerlabels.ChildrenFacilities);
+  $('#sportsFacilitiesLiId').prop('title', currentLayerlabels.SportsFacilities);
+  $('#thermalSpringsLiId').prop('title', currentLayerlabels.ThermalSprings);
+  $('#lookoutsLiId').prop('title', currentLayerlabels.Lookouts);
+  $('#sightsLiId').prop('title', currentLayerlabels.Sights);
 
-  $('#cityLocationsLbId').text(layerLabelsENG.CityLocationsShort);
+  $('#cityLocationsLbId').text(currentLayerlabels.CityLocationsShort);
+  $('#picnicAreasLbId').text(currentLayerlabels.PicnicAreasShort);
+  $('#waterSpringsLbId').text(currentLayerlabels.WaterSpringsShort);
+  $('#culturalContentLbId').text(currentLayerlabels.CulturalContentShort);
+  $('#bathsLbId').text(currentLayerlabels.Baths);
+  $('#parksLbId').text(currentLayerlabels.Parks);
+  $('#naturalAttractionsLbId').text(currentLayerlabels.NaturalAttractionsShort);
+  $('#childrenFacilitiesLbId').text(currentLayerlabels.ChildrenFacilitiesShort);
+  $('#sportsFacilitiesLbId').text(currentLayerlabels.SportsFacilitiesShort);
+  $('#thermalSpringsLbId').text(currentLayerlabels.ThermalSpringsShort);
+  $('#lookoutsLbId').text(currentLayerlabels.Lookouts);
+  $('#sightsLbId').text(currentLayerlabels.Sights);
 }
 
 function changePageLayout(){
