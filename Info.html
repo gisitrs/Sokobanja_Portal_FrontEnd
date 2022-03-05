@@ -8,6 +8,9 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
+  <link rel="shortcut icon" type="image/x-icon" href="docs/images/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.min.css">
+
   <link rel="stylesheet" href="infoStyle.css" />
 
   <!-- local libraries link  -->
@@ -15,6 +18,9 @@
   <script src="./map_info_tabs_eng.js"></script>
   <script src="./map_layer_labels_rs.js"></script>
   <script src="./map_layer_labels_eng.js"></script>
+
+  <script src="./map_labels_rs.js"></script>
+	<script src="./map_labels_eng.js"></script>
   
   <script src="./sokobanja_restaurants_rs.js"></script>
   <script src="./sokobanja_restaurants_eng.js"></script>
@@ -28,33 +34,48 @@
 </head>
 
 <body>
+<header>
+  <nav class="navbar">
+    <!-- <a href="#" class="nav-branding">DEV.</a> -->
+    <ul class="nav-menu" id="navMenuId">
+      <li class="nav-item">
+        <a href="#" class="nav-link" >
+          <button id="serbianLanguageButtonId" class="buttonClass" style="margin-left: 80px;" title="Prevedi na srpski jezik!" onclick="translateOnSerbian()">
+            <img src="./images/Serbia-Flag-icon.png" style="padding: 0px 10px 0px 10px"/>
+          </button>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link" >
+          <button id="englishLanguageButtonId" class="buttonClass" style="margin-left: 15px;" title="Prevedi na engleski jezik!" onclick="translateOnEnglish()">
+            <img src="./images/GBR-flag-icon.png" style="padding-right: 5px; padding-left: 5px;"/>
+          </button>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a href="#" class="nav-link">
+          <button type="button" id="mapLegendButtonId" class="buttonClass" style="margin-left: 15px;" title="Idi na Map stranu!" onclick="goToMapPage()">
+            <i class="fas fa-map-marked-alt" ></i>
+          </button>
+        </a>
+      </li>
+    </ul>
+    <div class="hamburger" id="hamburgerMenuId">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </nav>
+
+</header>
 
 <div class="container" id="main_container">
-</br>
-  <!-- toggle menu bar  -->
-  <div>
-    <button id="serbianLanguageButtonId" class="btn btn-default" onclick="translateOnSerbian()">
-      <img src="./images/Serbia-Flag-icon.png" width="47" width="47" />
-    </button>
-    <button id="englishLanguageButtonId" class="btn btn-default" onclick="translateOnEnglish()">
-      <img src="./images/GBR-flag-icon.png" width="47" width="47" />
-    </button>
-    <button type="button" id="mapLegendButtonId" class="btn btn-default" onclick="window.location.href='MapLegend.html'">
-      <img src="./images/MapLegend.png" width="47" width="47" />
-    </button>
-    <button type="button" id="mapLegendButtonId" class="btn btn-default" onclick="goToMapPage()">
-      <img src="./images/MapImage.png" width="47" width="47" />
-    </button>
-  </div>
-
-  </br>
-
   <!-- panel with locations  -->
 
   <ul id="tabPanelId" class="nav nav-pills" style="OVERFLOW-X:auto; display:flex; max-height: 115px;">
   </ul>
   
-  <div class="tab-content">
+  <div id="tabContentId" class="tab-content" style="OVERFLOW-Y:auto; display:flex; max-height: 500px;">
     <div id="restaurants" class="tab-pane fade in active"> 
       <h2 id="restaurantsHeader"></h2>
         </br>
@@ -125,6 +146,16 @@
         translateOnEnglish();
       }
 
+      /* settings for header design */
+
+      const hamburger = document.getElementById("hamburgerMenuId");
+      const navMenu = document.getElementById("navMenuId");
+
+      hamburger.addEventListener("click", () => {
+        hamburger.classList.toggle("active");
+        navMenu.classList.toggle("active");
+      });
+
       /* scroll to specific element */
 
       /*var page_url = window.location.href;
@@ -135,17 +166,29 @@
         }, 1000);
       }*/
 
-      //var a = Math.round($("#restaurantsPanel5Id").offset().top);
+      //var a = $("#museumsPanel1Id").offset().top;
+
+      //alert(a);
+
+      var documentHeight = $(document).height();
+      var documentWidth = $(document).width();
+      var tabContentMaxHeight = documentHeight - 150;
+
+      $('#tabContentId').css({"maxHeight": tabContentMaxHeight });
+
+      if (documentWidth < 350){
+        $(".buttonClass").width(50);
+      }
 
       $("#restaurants").removeClass("tab-pane fade in active");
       $("#restaurants").addClass("tab-pane fade");
       $("#museums").addClass("tab-pane fade in active");
       
-      $("#museumsCollapse0").addClass("panel-collapse collapse");
-      $("#museumsCollapse0").addClass("panel-collapse collapse in");
+      $("#museumsCollapse1").addClass("panel-collapse collapse");
+      $("#museumsCollapse1").addClass("panel-collapse collapse in");
 
-      $('html, body').animate({
-          scrollTop: 100
+      $('#tabContentId').animate({
+          scrollTop: 315
         }, 1000);
 
       /* set even listener for resizing page elements */

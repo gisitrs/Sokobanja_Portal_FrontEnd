@@ -17,6 +17,8 @@ const touristGuidesENG = new SokobanjaTouristGuidesENG();
 var layerLabelsRS = new MapLayerLabelsRS();
 var layerLabelsENG = new MapLayerLabelsENG();
 
+var currentMapLabels = new MapLabelsRS();
+
 var mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
 var restaurants = restaurantsRS.getList();
 var museums = museumClass.getList();
@@ -73,10 +75,12 @@ var currentLayerlabels = layerLabelsRS;
  $.fn.setTabValuesForLanguage = function() {
    if (currentLanguage == appLanguages.Serbian){
     mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
+    currentMapLabels = new MapLabelsRS();
     currentLayerlabels = layerLabelsRS;
    }
    else if (currentLanguage == appLanguages.English){
     mapInfoTabValues = mapInfoTabsENG.getMapInfoTabList();
+    currentMapLabels = new MapLabelsENG();
     currentLayerlabels = layerLabelsENG;
    }
   }; 
@@ -92,6 +96,44 @@ var currentLayerlabels = layerLabelsRS;
    }
   }; 
 })( jQuery );
+
+(function( $ ){
+  $.fn.updateLocationTypesText = function() {
+    $('#cityLocationsLiId').prop('title', currentLayerlabels.CityLocations);
+  $('#picnicAreasLiId').prop('title', currentLayerlabels.PicnicAreas);
+  $('#waterSpringsLiId').prop('title', currentLayerlabels.WaterSprings);
+  $('#culturalContentLiId').prop('title', currentLayerlabels.CulturalContent);
+  $('#bathsLiId').prop('title', currentLayerlabels.Baths);
+  $('#parksLiId').prop('title', currentLayerlabels.Parks);
+  $('#naturalAttractionsLiId').prop('title', currentLayerlabels.NaturalAttractions);
+  $('#childrenFacilitiesLiId').prop('title', currentLayerlabels.ChildrenFacilities);
+  $('#sportsFacilitiesLiId').prop('title', currentLayerlabels.SportsFacilities);
+  $('#thermalSpringsLiId').prop('title', currentLayerlabels.ThermalSprings);
+  $('#lookoutsLiId').prop('title', currentLayerlabels.Lookouts);
+  $('#sightsLiId').prop('title', currentLayerlabels.Sights);
+
+  $('#cityLocationsLbId').text(currentLayerlabels.CityLocationsShort);
+  $('#picnicAreasLbId').text(currentLayerlabels.PicnicAreasShort);
+  $('#waterSpringsLbId').text(currentLayerlabels.WaterSpringsShort);
+  $('#culturalContentLbId').text(currentLayerlabels.CulturalContentShort);
+  $('#bathsLbId').text(currentLayerlabels.Baths);
+  $('#parksLbId').text(currentLayerlabels.Parks);
+  $('#naturalAttractionsLbId').text(currentLayerlabels.NaturalAttractionsShort);
+  $('#childrenFacilitiesLbId').text(currentLayerlabels.ChildrenFacilitiesShort);
+  $('#sportsFacilitiesLbId').text(currentLayerlabels.SportsFacilitiesShort);
+  $('#thermalSpringsLbId').text(currentLayerlabels.ThermalSpringsShort);
+  $('#lookoutsLbId').text(currentLayerlabels.Lookouts);
+  $('#sightsLbId').text(currentLayerlabels.Sights);
+   }; 
+ })( jQuery );
+
+ (function( $ ){
+  $.fn.updateButtonTitles = function() {
+    $('#serbianLanguageButtonId').prop('title', currentMapLabels.SerbianLanguageButtonTitle);
+    $('#englishLanguageButtonId').prop('title', currentMapLabels.EnglishLanguageButtonTitle);
+    $('#mapLegendButtonId').prop('title', currentMapLabels.MapPageButtonTitle);
+   }; 
+ })( jQuery );
 
 function translateOnSerbian(){
   currentLanguage = appLanguages.Serbian;
@@ -339,37 +381,10 @@ $.each(mapInfoTabValues, function( indexTab, valueTab ) {
 
   $('#main_container').setTextValuesForLanguage();
   $('#main_container').updateTextValues(tabValuesList, false);
-  updateLocationTypesText();
+  $('#main_container').updateLocationTypesText();
+  $('#main_container').updateButtonTitles();
   }; 
 })( jQuery );
-
-function updateLocationTypesText(){
-  $('#cityLocationsLiId').prop('title', currentLayerlabels.CityLocations);
-  $('#picnicAreasLiId').prop('title', currentLayerlabels.PicnicAreas);
-  $('#waterSpringsLiId').prop('title', currentLayerlabels.WaterSprings);
-  $('#culturalContentLiId').prop('title', currentLayerlabels.CulturalContent);
-  $('#bathsLiId').prop('title', currentLayerlabels.Baths);
-  $('#parksLiId').prop('title', currentLayerlabels.Parks);
-  $('#naturalAttractionsLiId').prop('title', currentLayerlabels.NaturalAttractions);
-  $('#childrenFacilitiesLiId').prop('title', currentLayerlabels.ChildrenFacilities);
-  $('#sportsFacilitiesLiId').prop('title', currentLayerlabels.SportsFacilities);
-  $('#thermalSpringsLiId').prop('title', currentLayerlabels.ThermalSprings);
-  $('#lookoutsLiId').prop('title', currentLayerlabels.Lookouts);
-  $('#sightsLiId').prop('title', currentLayerlabels.Sights);
-
-  $('#cityLocationsLbId').text(currentLayerlabels.CityLocationsShort);
-  $('#picnicAreasLbId').text(currentLayerlabels.PicnicAreasShort);
-  $('#waterSpringsLbId').text(currentLayerlabels.WaterSpringsShort);
-  $('#culturalContentLbId').text(currentLayerlabels.CulturalContentShort);
-  $('#bathsLbId').text(currentLayerlabels.Baths);
-  $('#parksLbId').text(currentLayerlabels.Parks);
-  $('#naturalAttractionsLbId').text(currentLayerlabels.NaturalAttractionsShort);
-  $('#childrenFacilitiesLbId').text(currentLayerlabels.ChildrenFacilitiesShort);
-  $('#sportsFacilitiesLbId').text(currentLayerlabels.SportsFacilitiesShort);
-  $('#thermalSpringsLbId').text(currentLayerlabels.ThermalSpringsShort);
-  $('#lookoutsLbId').text(currentLayerlabels.Lookouts);
-  $('#sightsLbId').text(currentLayerlabels.Sights);
-}
 
 function changePageLayout(){
       if ($(document).width() <= 1000){

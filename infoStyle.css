@@ -3,3 +3,136 @@ p {
     font-size:15px;
     text-align: center;
 }
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+header{
+    /* background-color: #262626; linear-gradient(30deg,#df0155,#ed4901);*/
+    background: linear-gradient(30deg,#df0155,#ed4901);
+}
+
+li{
+    list-style: none;
+}
+
+a {
+    /* color: white; */
+    text-decoration: none;
+}
+
+.navbar {
+    min-height: 70px;
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    padding: 0 30px;
+}
+
+.nav-menu {
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    gap: 16px;
+}
+
+.nav-item {
+    margin: 5px 0;
+}
+
+.nav-branding {
+    font-size: 2rem;
+}
+
+.nav-link{
+    transition: 0.7s ease;
+}
+
+.nav-link:hover{
+    color:dodgerblue;
+}
+
+.hamburger{
+    display: none;
+    cursor: pointer;
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px auto;
+    -webkit-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
+    background-color: white;
+}
+
+@media(max-width:768px){
+    .hamburger{
+        display:block;
+    }
+
+    .hamburger.active .bar:nth-child(2){
+        opacity: 0;
+    }
+
+    .hamburger.active .bar:nth-child(1){
+        transform: translateY(8px) rotate(45deg);
+    }
+
+    .hamburger.active .bar:nth-child(3){
+        transform: translateY(-8px) rotate(-45deg);
+    }
+
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 0px;
+        gap: 0;
+        flex-direction: inherit;
+        background-color: linear-gradient(30deg,#df0155,#ed4901);
+        width: 100%;
+        text-align: center;
+        transition: 0.3s;
+    }
+
+    .nav-item {
+        margin: 5px 0;
+    }
+
+    .nav-menu.active {
+        left: 0;
+    }
+}
+
+.nav-menu li .buttonClass {
+    color: #034efc;
+    padding: 10px 0px;
+    text-decoration: none;
+    display: block;
+    font-size: 20px;
+    letter-spacing: 1px;
+    position: relative;
+    transition: 0.3s;
+    overflow: hidden;
+    text-transform: capitalize;
+    width: 70px;
+    height: 60px;
+}
+
+.nav-menu li .buttonClass i {
+    width: 60px;
+    font-size: 25px;
+    text-align: center;
+    padding-left: 8px;
+}
+
+.nav-menu li:hover .buttonClass{
+    background: #030303;
+    color: #00eaff;
+    letter-spacing: 5px;
+}
+

@@ -11,5 +11,6 @@ class MapLabelsRS {
         this.LanguagesButtonTitle = "Izaberi jezik!";
         this.FullScreenPreview = "Prikaži pun ekran!";
         this.ExitFullScreenPreview = "Izađi iz punog ekrana!";
+        this.MapPageButtonTitle = "Idi na Map stranu!";
     }
   }

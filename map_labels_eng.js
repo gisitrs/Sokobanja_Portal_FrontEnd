@@ -11,5 +11,6 @@ class MapLabelsENG {
         this.LanguagesButtonTitle = "Choose language!";
         this.FullScreenPreview = "Full screen!";
         this.ExitFullScreenPreview = "Exit full screen!";
+        this.MapPageButtonTitle = "Go to the Map page!";
     }
   }
