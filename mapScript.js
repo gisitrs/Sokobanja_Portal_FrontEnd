@@ -9,6 +9,8 @@ const mapLabelsENG = new MapLabelsENG();
 const mapLayerLabelsRS = new MapLayerLabelsRS();
 const mapLayerLabelsENG = new MapLayerLabelsENG();
 
+const apiUrladdress = new APIUrls();
+
 /* enum class for language */
 const appLanguages = Object.freeze({
     Serbian: 'Serbian',
@@ -56,6 +58,54 @@ var lookoutsCoords = [[43.6439, 5432421.8719], [43.6449, 5432421.8648]];
 var sightsCoords = [[43.6068, 5432421.8123], [43.6434, 5432421.8777]];
 
 var cityLocationsText = ['Test', 'Test1'];
+
+//#endregion
+
+//#region get data from api
+
+// Defining async function
+
+async function getapi(url) {
+    
+    // Storing response
+    const response = await fetch(url);
+    
+    // Storing data in form of JSON
+    var data = await response.json();
+    console.log(data);
+    /*if (response) {
+        hideloader();
+    }*/
+
+    //const obj = JSON.parse(data);
+
+    //alert(obj.name); createCityObject(data)
+
+    var listOfCities = new Cities(createCityObject(data));
+    console.log(listOfCities.getCityById(4));
+    //alert(listOfCities.getCityById(4)[0]);
+}
+
+// Function to define innerHTML for HTML table
+function createCityObject(data) {
+    // Loop to access all rows 
+    var citiesArray = [];
+    for (let r of data) {
+        var cityObj = new City();
+
+        cityObj.id = r.id;
+        cityObj.name = r.name;
+        cityObj.description = r.description;
+        cityObj.zoom_level = r.zoom_level;
+        cityObj.image_url_location = r.image_url_location;
+        cityObj.geom = r.geom;
+        cityObj.eng_translate = r.eng_translate;
+
+        citiesArray.push(cityObj);
+    }
+
+    return citiesArray;
+}
 
 //#endregion
 
