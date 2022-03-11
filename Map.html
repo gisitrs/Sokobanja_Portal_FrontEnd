@@ -45,6 +45,8 @@
 
 	<script src="./city.js"></script>
 	<script src="./cities.js"></script>
+	<script src="./location.js"></script>
+	<script src="./locationsTest.js"></script>
 	<script src="mapScript.js"></script>
 
 	<!-- jquery link  -->
@@ -59,7 +61,7 @@
 		/* functions for update page after document is ready */
 		$(document).ready(function() {
 			// Calling that async function
-			getapi(apiUrladdress.ApiUrlCity);
+			getapi(apiUrladdress.ApiUrlLocations);
 
 			/* change page layouts */
     		changeMapLegendImage();

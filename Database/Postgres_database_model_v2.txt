@@ -1,0 +1,103 @@
+CREATE EXTENSION postgis;
+
+CREATE TABLE municipality (
+	id          SERIAL PRIMARY KEY,
+	name        VARCHAR(50) NOT NULL
+);
+SELECT AddGeometryColumn('municipality','geom',3857,'MultiPolygon',2);
+
+CREATE TABLE city (
+	id SERIAL PRIMARY KEY,
+	name               VARCHAR(50) NOT NULL,
+	description        VARCHAR,
+	zoom_level         SMALLINT NOT NULL,
+	image_url_location VARCHAR NOT NULL
+);
+SELECT AddGeometryColumn('city','geom',3857,'POINT',2);
+COMMENT ON COLUMN city.zoom_level is 'Zoom level for web presentation.';
+
+CREATE TABLE location_type (
+	id          SERIAL PRIMARY KEY,
+	name        VARCHAR(50) NOT NULL,
+	description VARCHAR
+);
+
+CREATE TABLE location (
+	id                  SERIAL PRIMARY KEY,
+	name                VARCHAR(50) NOT NULL,
+	description         VARCHAR,
+	web_address         VARCHAR,
+	email               VARCHAR,
+	facebook            VARCHAR,
+	instagram           VARCHAR,
+	address             VARCHAR,
+	phone_number        VARCHAR,
+	mobile_phone_number VARCHAR,
+	image_url_location  VARCHAR NOT NULL,
+	location_type_id    INTEGER NOT NULL,
+	city_id             INTEGER NOT NULL,
+	priority			INTEGER NOT NULL,
+	availability        BOOLEAN NOT NULL,
+	FOREIGN KEY(location_type_id) REFERENCES location_type(id)
+	ON DELETE SET NULL,
+	FOREIGN KEY(city_id) REFERENCES city(id)
+	ON DELETE SET NULL
+);
+SELECT AddGeometryColumn('location','geom',3857,'POINT',2);
+COMMENT ON COLUMN location.priority is 'Visit priority, 1 - highest, 5 - lowest.';
+COMMENT ON COLUMN location.availability is 'Should (not) be visible on map.';
+
+CREATE TABLE legend_attribute (
+	id          SERIAL PRIMARY KEY,
+	name        VARCHAR(50) NOT NULL,
+	image_url   VARCHAR NOT NULL,
+	description VARCHAR
+);
+
+CREATE TABLE language (
+	id        SERIAL PRIMARY KEY,
+	name      VARCHAR(20) NOT NULL,
+	image_url VARCHAR NOT NULL
+);
+
+CREATE TABLE city_translation (
+	id          SERIAL  PRIMARY KEY,
+	language_id INTEGER NOT NULL,
+	city_id     INTEGER NOT NULL,
+	text        VARCHAR NOT NULL,
+	FOREIGN KEY (language_id) REFERENCES language(id)
+	ON DELETE SET NULL
+);
+
+CREATE TABLE location_translation (
+	id          SERIAL PRIMARY KEY,
+	language_id INTEGER NOT NULL,
+	location_id INTEGER NOT NULL,
+	city_id     INTEGER NOT NULL,
+	text        VARCHAR NOT NULL,
+	FOREIGN KEY (language_id) REFERENCES language(id)
+	ON DELETE SET NULL,
+	FOREIGN KEY (city_id) REFERENCES city(id)
+	ON DELETE SET NULL
+);
+
+CREATE TABLE legend_attribute_translation (
+	id                  SERIAL PRIMARY KEY,
+	language_id         INTEGER NOT NULL,
+	legend_attribute_id INTEGER NOT NULL,
+	text                VARCHAR NOT NULL,
+	FOREIGN KEY (language_id) REFERENCES language(id)
+	ON DELETE SET NULL,
+	FOREIGN KEY (legend_attribute_id) REFERENCES legend_attribute(id)
+	ON DELETE SET NULL
+);
+
+DROP TABLE legend_attribute_translation;
+DROP TABLE location_translation;
+DROP TABLE city_translation;
+DROP TABLE language;
+DROP TABLE legend_attribute;
+DROP TABLE location;
+DROP TABLE city;
+DROP TABLE location_type;
+DROP TABLE municipality;

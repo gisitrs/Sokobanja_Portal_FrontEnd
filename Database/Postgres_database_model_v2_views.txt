@@ -1,0 +1,56 @@
+CREATE OR REPLACE VIEW test_app_cities AS
+SELECT city.id, city.name, city.description, city_translation.text AS description_eng, city.zoom_level, city.image_url_location, city.geom
+FROM city JOIN city_translation
+ON city.id = city_translation.city_id;
+
+CREATE OR REPLACE VIEW test_app_locations AS
+SELECT location.id AS location_id, city.id AS city_id, city.name AS city_name, location.name, location.image_url_location, location_type.name AS location_type, location_type.id AS location_type_id, location.priority, location.availability, location.geom, location.description, location_translation.text AS description_eng
+FROM location JOIN location_type
+ON location.location_type_id = location_type.id
+JOIN city
+ON location.city_id = city.id
+JOIN location_translation
+ON location.id = location_translation.location_id;
+
+SELECT * FROM test_app_cities;
+SELECT * FROM test_app_locations;
+
+
+def __iter__(self):
+        return [ self.location_id, 
+                 self.city_id, 
+                 self.city_name, 
+                 self.name, 
+                 self.image_url_location, 
+                 self.location_type, 
+                 self.priority, 
+                 self.availability,
+                 self.geom,
+                 self.description,
+                 self.description_eng ] 
+
+def __init__(self, location_id, city_id, city_name, name, image_url_location, location_type, priority, availability, geom, description, description_eng):
+        self.location_id = location_id
+        self.city_id = city_id
+        self.city_name = city_name
+        self.name = name
+        self.image_url_location = image_url_location
+        self.location_type = location_type
+        self.priority = priority
+        self.availability = availability
+        self.geom = geom
+        self.description = description
+        self.description_eng = description_eng
+
+    def __iter__(self):
+        return Locations(self.location_id, 
+                 self.city_id, 
+                 self.city_name, 
+                 self.name, 
+                 self.image_url_location, 
+                 self.location_type, 
+                 self.priority, 
+                 self.availability,
+                 self.geom,
+                 self.description,
+                 self.description_eng)

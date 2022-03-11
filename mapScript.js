@@ -81,8 +81,10 @@ async function getapi(url) {
 
     //alert(obj.name); createCityObject(data)
 
-    var listOfCities = new Cities(createCityObject(data));
-    console.log(listOfCities.getCityById(4));
+    //var listOfCities = new Cities(createCityObject(data));
+    var testLocations = new LocationsTest(data);
+    console.log(data);
+    console.log(testLocations.getLocationCoordsByTypeId(13));
     //alert(listOfCities.getCityById(4)[0]);
 }
 
