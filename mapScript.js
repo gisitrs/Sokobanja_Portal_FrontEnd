@@ -32,6 +32,9 @@ var currentLanguage = appLanguages.Serbian;
 var mapDivPercentageHeight = '70%';
 var locationsPanelPercentageHeight = '30%';
 var isHiddenLocationPanel = false;
+var locationsForCityArray = {};
+var citiesArray = [];
+var selectedCity = {};
 
 /* location images */
 var slideIndex = 0;
@@ -44,69 +47,35 @@ var imageLocationTextENG = ['Location 1 description', 'Location 2 description', 
 var locationCoords = [locations.SokoBanjaPrimeLocation, locations.SokoBanjaFirstLocation, locations.SokoBanjaSecondLocation];
 var locationZoomLevels = [15, 16, 16];
 
-var cityLocations = [[43.6262, 5432421.8537], [43.6349, 5432421.8931]];
-var picnicAreasCoords = [[43.6429, 5432421.8638], [43.6448, 5432421.8710]];
-var waterSpringsCoords = [[43.6428, 5432421.8763], [43.6454, 5432421.8717]];
-var culturalContentCoords = [[43.6460, 5432421.8639], [43.6483, 5432421.8814]];
-var bathsCoords = [[43.6414, 5432421.8593], [43.6454, 5432421.8617]];
-var parksCoords = [[43.6485, 5432421.8597], [43.6418, 5432421.8723]];
-var naturalAttractionsCoords = [[43.6499, 5432421.8753], [43.6433, 5432421.8498]];
-var childrenFacilitiesCoords = [[43.6462, 5432421.8895], [43.6353, 5432421.8600]];
-var sportsFacilitiesCoords = [[43.6383, 5432421.8743], [43.6428, 5432421.8520]];
-var thermalSpringsCoords = [[43.6445, 5432421.8857], [43.6486, 5432421.8696]];
-var lookoutsCoords = [[43.6439, 5432421.8719], [43.6449, 5432421.8648]];
-var sightsCoords = [[43.6068, 5432421.8123], [43.6434, 5432421.8777]];
-
-var cityLocationsText = ['Test', 'Test1'];
-
 //#endregion
 
 //#region get data from api
 
 // Defining async function
 
-async function getapi(url) {
+async function getLocationsAPI(url) {
     
     // Storing response
     const response = await fetch(url);
     
     // Storing data in form of JSON
-    var data = await response.json();
-    console.log(data);
-    /*if (response) {
-        hideloader();
-    }*/
-
-    //const obj = JSON.parse(data);
-
-    //alert(obj.name); createCityObject(data)
-
-    //var listOfCities = new Cities(createCityObject(data));
-    var testLocations = new LocationsTest(data);
-    console.log(data);
-    console.log(testLocations.getLocationCoordsByTypeId(13));
-    //alert(listOfCities.getCityById(4)[0]);
+    if (response){
+        var data = await response.json();
+        locationsForCityArray = new LocationsTest(data);
+    }
 }
 
-// Function to define innerHTML for HTML table
-function createCityObject(data) {
-    // Loop to access all rows 
-    var citiesArray = [];
-    for (let r of data) {
-        var cityObj = new City();
-
-        cityObj.id = r.id;
-        cityObj.name = r.name;
-        cityObj.description = r.description;
-        cityObj.zoom_level = r.zoom_level;
-        cityObj.image_url_location = r.image_url_location;
-        cityObj.geom = r.geom;
-        cityObj.eng_translate = r.eng_translate;
-
-        citiesArray.push(cityObj);
+async function getCitiesAPI(url) {
+    
+    // Storing response
+    const response = await fetch(url);
+    
+    // Storing data in form of JSON
+    if (response){
+        var data = await response.json();
+        citiesArray = new Cities(data);
+        selectedCity = citiesArray.getCityById(1);
     }
-
-    return citiesArray;
 }
 
 //#endregion
@@ -114,7 +83,7 @@ function createCityObject(data) {
 //#region initialize map and wms layers
 
 // initialize map
-var map = L.map('map', { attributionControl: false, zoomControl:false }).setView(locations.SokoBanjaPrimeLocation, 15);
+var map = L.map('map', { attributionControl: false, zoomControl:false }).setView([43.6442, 21.8667], 15);
 
 // initialize base layers
 
@@ -308,7 +277,8 @@ function translateMapLayerLabels(mapLayerLabels){
     document.getElementById("naturalAttractionsLB").innerHTML = mapLayerLabels.NaturalAttractions;
     document.getElementById("childrenFacilitiesLB").innerHTML = mapLayerLabels.ChildrenFacilities;
     document.getElementById("sportsFacilitiesLB").innerHTML = mapLayerLabels.SportsFacilities;
-    document.getElementById("thermalSpringsLB").innerHTML = mapLayerLabels.ThermalSprings;
+    document.getElementById("thermalSpringsLB").innerHTML = mapLayerLabels.ThermalSprings; 
+    document.getElementById("touristSitesLB").innerHTML = mapLayerLabels.TouristSides;
     document.getElementById("lookoutsLB").innerHTML = mapLayerLabels.Lookouts;
     document.getElementById("sightsLB").innerHTML = mapLayerLabels.Sights;
     document.getElementById("zonesLB").innerHTML = mapLayerLabels.Zones;
@@ -378,73 +348,79 @@ const LayersPanel = L.Control.extend({
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll;">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideCityLayerLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideMarkersforLocationType(1, cityLocationsCB)">
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
                                         Gradske lokacije
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB" onclick="showHidePicnicAreasLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB" onclick="showHideMarkersforLocationType(2, picnicAreasCB)">
                                     <label class="form-check-label" for="picnicAreasCB" id="picnicAreasLB">
                                         Izletišta
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="waterSpringsCB" onclick="showHideWaterSpringsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="waterSpringsCB" onclick="showHideMarkersforLocationType(3, waterSpringsCB)">
                                     <label class="form-check-label" for="waterSpringsCB" id="waterSpringsLB">
                                         Izvorišta
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="culturalContentCB" onclick="showHideCulturalContentsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="culturalContentCB" onclick="showHideMarkersforLocationType(4, culturalContentCB)">
                                     <label class="form-check-label" for="culturalContentCB" id="culturalContentLB">
                                         Kulturni sadržaji
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="bathsCB" onclick="showHideBathsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="bathsCB" onclick="showHideMarkersforLocationType(5, bathsCB)">
                                     <label class="form-check-label" for="bathsCB" id="bathsLB">
                                         Kupališta
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="parksCB" onclick="showHideParksLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="parksCB" onclick="showHideMarkersforLocationType(6, parksCB)">
                                     <label class="form-check-label" for="parksCB" id="parksLB">
                                         Parkovi
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="naturalAttractionsCB" onclick="showHideNaturalAttractionsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="naturalAttractionsCB" onclick="showHideMarkersforLocationType(7, naturalAttractionsCB)">
                                     <label class="form-check-label" for="naturalAttractionsCB" id="naturalAttractionsLB">
                                         Prirodne atrakcije
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="childrenFacilitiesCB" onclick="showHideChildrenFacilitiesLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="childrenFacilitiesCB" onclick="showHideMarkersforLocationType(8, childrenFacilitiesCB)">
                                     <label class="form-check-label" for="childrenFacilitiesCB" id="childrenFacilitiesLB">
                                         Sadržaji za decu
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="sportsFacilitiesCB" onclick="showHideSportsFacilitiesLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="sportsFacilitiesCB" onclick="showHideMarkersforLocationType(9, sportsFacilitiesCB)">
                                     <label class="form-check-label" for="sportsFacilitiesCB" id="sportsFacilitiesLB">
                                         Sportski sadržaji
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="thermalSpringsCB" onclick="showHideThermalSpringsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="thermalSpringsCB" onclick="showHideMarkersforLocationType(10, thermalSpringsCB)">
                                     <label class="form-check-label" for="thermalSpringsCB" id="thermalSpringsLB">
                                         Termalna izvorišta
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="lookoutsCB" onclick="showHideLookoutsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="touristSitesCB" onclick="showHideMarkersforLocationType(11, touristSitesCB)">
+                                    <label class="form-check-label" for="touristSitesCB" id="touristSitesLB">
+                                        Turističke pogod
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="lookoutsCB" onclick="showHideMarkersforLocationType(12, lookoutsCB)">
                                     <label class="form-check-label" for="lookoutsCB" id="lookoutsLB">
                                         Vidikovci
                                     </label>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="sightsCB" onclick="showHideSightsLocations()">
+                                    <input class="form-check-input" type="checkbox" value="" id="sightsCB" onclick="showHideMarkersforLocationType(13, sightsCB)">
                                     <label class="form-check-label" for="sightsCB" id="sightsLB">
                                         Znamenitosti
                                     </label>
@@ -674,98 +650,28 @@ var naturalAttractionsGroup = L.layerGroup().addTo(map);
 var childrenFacilitiesGroup = L.layerGroup().addTo(map);
 var sportsFacilitiesGroup = L.layerGroup().addTo(map);
 var thermalSpringsGroup = L.layerGroup().addTo(map);
+var touristSitesGroup = L.layerGroup().addTo(map);
 var lookoutsGroup = L.layerGroup().addTo(map);
 var sightsGroup = L.layerGroup().addTo(map);
+
+var locationTypesLayerGroupsArray = [cityLocationsGroup, picnicAreasGroup, waterSpringsGroup,
+                                     culturalContentsGroup, bathsGroup, parksGroup,
+                                     naturalAttractionsGroup, childrenFacilitiesGroup, sportsFacilitiesGroup,
+                                     touristSitesGroup, thermalSpringsGroup, lookoutsGroup, 
+                                     sightsGroup]
 
 var zonesGroup = L.layerGroup().addTo(map);
 var roadsGroup = L.layerGroup().addTo(map);
 
 /* functions for layer locations */
 
-function showHideCityLayerLocations(){
-    if (document.getElementById("cityLocationsCB").checked == true){
-        createMarkerGroup(cityLocations, cityLocationsText, cityLocationsGroup, cityLocationsIcon);
+function showHideMarkersforLocationType(locationTypeId, elementId){
+    if (document.getElementById(elementId.id).checked == true){
+        prepareMarkerElements(locationTypeId);
     }
     else { 
-        cityLocationsGroup.clearLayers();
+        locationTypesLayerGroupsArray[locationTypeId - 1].clearLayers();
     }
-}
-
-function showHidePicnicAreasLocations(){
-    if (document.getElementById("picnicAreasCB").checked == true){
-        createMarkerGroup(picnicAreasCoords, cityLocationsText, picnicAreasGroup, picnicAreasIcon);
-    }
-    else { picnicAreasGroup.clearLayers(); }
-}
-
-function showHideWaterSpringsLocations(){
-    if (document.getElementById("waterSpringsCB").checked == true){
-        createMarkerGroup(waterSpringsCoords, cityLocationsText, waterSpringsGroup, waterSpringsIcon);
-    }
-    else { waterSpringsGroup.clearLayers(); }
-}
-
-function showHideCulturalContentsLocations(){
-    if (document.getElementById("culturalContentCB").checked == true){
-        createMarkerGroup(culturalContentCoords, cityLocationsText, culturalContentsGroup, culturalContentIcon);
-    }
-    else { culturalContentsGroup.clearLayers(); }
-}
-
-function showHideBathsLocations(){
-    if (document.getElementById("bathsCB").checked == true){
-        createMarkerGroup(bathsCoords, cityLocationsText, bathsGroup, bathsIcon);
-    }
-    else { bathsGroup.clearLayers(); }
-}
-
-function showHideParksLocations(){
-    if (document.getElementById("parksCB").checked == true){
-        createMarkerGroup(parksCoords, cityLocationsText, parksGroup, parksIcon);
-    }
-    else { parksGroup.clearLayers(); }
-}
-
-function showHideNaturalAttractionsLocations(){
-    if (document.getElementById("naturalAttractionsCB").checked == true){
-        createMarkerGroup(naturalAttractionsCoords, cityLocationsText, naturalAttractionsGroup, naturalAttractionsIcon);
-    }
-    else { naturalAttractionsGroup.clearLayers(); }
-}
-
-function showHideChildrenFacilitiesLocations(){
-    if (document.getElementById("childrenFacilitiesCB").checked == true){
-        createMarkerGroup(childrenFacilitiesCoords, cityLocationsText, childrenFacilitiesGroup, childrenFacilitiesIcon);
-    }
-    else { childrenFacilitiesGroup.clearLayers(); }
-}
-
-function showHideSportsFacilitiesLocations(){
-    if (document.getElementById("sportsFacilitiesCB").checked == true){
-        createMarkerGroup(sportsFacilitiesCoords, cityLocationsText, sportsFacilitiesGroup, sportsFacilitiesIcon);
-    }
-    else { sportsFacilitiesGroup.clearLayers(); }
-}
-
-function showHideThermalSpringsLocations(){
-    if (document.getElementById("thermalSpringsCB").checked == true){
-        createMarkerGroup(thermalSpringsCoords, cityLocationsText, thermalSpringsGroup, thermalSpringsIcon);
-    }
-    else { thermalSpringsGroup.clearLayers(); }
-}
-
-function showHideLookoutsLocations(){
-    if (document.getElementById("lookoutsCB").checked == true){
-        createMarkerGroup(lookoutsCoords, cityLocationsText, lookoutsGroup, lookoutsIcon);
-    }
-    else { lookoutsGroup.clearLayers(); }
-}
-
-function showHideSightsLocations(){
-    if (document.getElementById("sightsCB").checked == true){
-        createMarkerGroup(sightsCoords, cityLocationsText, sightsGroup, sightsIcon);
-    }
-    else { sightsGroup.clearLayers(); }
 }
 
 function showHideZones(){
@@ -786,11 +692,10 @@ function showHideRoads(){
     }
 }
 
-function createMarkerGroup(listOfCoords, listOfTexts, locationGroup, markerIcon){
-    var i = 0;
-    for (const element of listOfCoords) {
-        CreateMarker(element, listOfTexts[i], locationGroup, markerIcon);
-        i++;
+function prepareMarkerElements(locationTypeId){
+    var locationsForLocationTypeId = locationsForCityArray.getLocationCoordsByTypeId(locationTypeId);
+    for (const location of locationsForLocationTypeId) {
+        CreateMarker([location.x_coord, location.y_coord], location.name, locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1]);
     }
 }
 
@@ -875,6 +780,14 @@ var thermalSpringsIcon = L.icon({
     popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
+var touristSitesIcon = L.icon({
+    iconUrl: './images/Markers/CityLocations.png',
+
+    iconSize:     [32, 37], // size of the icon
+    iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
 var lookoutsIcon = L.icon({
     iconUrl: './images/Markers/Lookouts.png',
 
@@ -891,25 +804,30 @@ var sightsIcon = L.icon({
     popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
+var markerIconsArray = [cityLocationsIcon, picnicAreasIcon, waterSpringsIcon,
+                        culturalContentIcon, bathsIcon, parksIcon, 
+                        naturalAttractionsIcon, childrenFacilitiesIcon, sportsFacilitiesIcon,
+                        thermalSpringsIcon, touristSitesIcon, lookoutsIcon,
+                        sightsIcon]
+
 /* create marker function */ 
 
 function CreateMarker(coords, markerName, locationsGroup, markerIcon){
-    var locationName = 'Location 1';
     var imageLocation = './images/StaraVodenica.png';
-    var popupText = 'Tekst neki opcioni';
 
     marker = L.marker(coords, {
       title: markerName,
       icon: markerIcon
     }).addTo(map);
 
-    marker.bindPopup('<b>' + locationName +'</b>' + 
+    marker.bindPopup('<b style="font-size:20px">' + markerName +'</b>' + 
+                     '</br>' +
+                     '</br>' +
                      '<div>' + 
                         '<img style="width:100%" src="' + imageLocation + '" alt="images"></img>' + 
-                        '<p>' + popupText + '</p>' + 
                         '<a href="Info.html">info</a>' +
                     '</div>',
-    {minWidth:256});
+    {minWidth:300});
 
     locationsGroup.addLayer(marker);
 }

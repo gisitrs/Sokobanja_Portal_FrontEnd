@@ -1,10 +1,31 @@
 CREATE OR REPLACE VIEW test_app_cities AS
-SELECT city.id, city.name, city.description, city_translation.text AS description_eng, city.zoom_level, city.image_url_location, city.geom
+SELECT city.id, 
+       city.name, 
+       city.description, 
+       city_translation.text AS description_eng, 
+       city.zoom_level, 
+       city.image_url_location, 
+       city.geom,
+       ROUND(ST_Y(ST_Transform(city.geom,4326))::DECIMAL, 4) AS x_coord,
+       ROUND(ST_X(ST_Transform(city.geom,4326))::DECIMAL, 4) AS y_coord
 FROM city JOIN city_translation
 ON city.id = city_translation.city_id;
 
 CREATE OR REPLACE VIEW test_app_locations AS
-SELECT location.id AS location_id, city.id AS city_id, city.name AS city_name, location.name, location.image_url_location, location_type.name AS location_type, location_type.id AS location_type_id, location.priority, location.availability, location.geom, location.description, location_translation.text AS description_eng
+SELECT location.id AS location_id, 
+       city.id                      AS city_id, 
+       city.name                    AS city_name, 
+       location.name, 
+       location.image_url_location, 
+       location_type.name           AS location_type, 
+       location_type.id             AS location_type_id, 
+       location.priority, 
+       location.availability, 
+       location.geom, 
+       ROUND(ST_Y(ST_Transform(location.geom,4326))::DECIMAL, 4) AS x_coord,
+       ROUND(ST_X(ST_Transform(location.geom,4326))::DECIMAL, 4) AS y_coord,
+       location.description, 
+       location_translation.text AS description_eng
 FROM location JOIN location_type
 ON location.location_type_id = location_type.id
 JOIN city
@@ -54,3 +75,6 @@ def __init__(self, location_id, city_id, city_name, name, image_url_location, lo
                  self.geom,
                  self.description,
                  self.description_eng)
+
+
+cityLocationsIcon-picnicAreasIcon-waterSpringsIcon-culturalContentIcon-bathsIcon-parksIcon-naturalAttractionsIcon-childrenFacilitiesIcon-sportsFacilitiesIcon-thermalSpringsIcon-touristSitesIcon-lookoutsIcon-sightsIcon

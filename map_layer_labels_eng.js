@@ -10,6 +10,7 @@ class MapLayerLabelsENG {
         this.ChildrenFacilities = "Children facilities";
         this.SportsFacilities = "Sports facilities";
         this.ThermalSprings = "Thermal springs";
+        this.TouristSides = "Tourist sides";
         this.Lookouts = "Lookouts";
         this.Sights = "Sights";
         this.Restaurants = "Restaurants";

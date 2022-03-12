@@ -61,7 +61,8 @@
 		/* functions for update page after document is ready */
 		$(document).ready(function() {
 			// Calling that async function
-			getapi(apiUrladdress.ApiUrlLocations);
+			getLocationsAPI(apiUrladdress.ApiUrlLocations);
+			//getCitiesAPI(apiUrladdress.ApiUrlCity);
 
 			/* change page layouts */
     		changeMapLegendImage();

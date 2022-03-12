@@ -10,6 +10,7 @@ class MapLayerLabelsRS {
         this.ChildrenFacilities = "Sadržaji za decu";
         this.SportsFacilities = "Sportski sadržaji";
         this.ThermalSprings = "Termalna izvorišta";
+        this.TouristSides = "Turističke pogod";
         this.Lookouts = "Vidikovci";
         this.Sights = "Znamenitosti";
         this.Restaurants = "Restorani";

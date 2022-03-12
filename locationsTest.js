@@ -14,6 +14,6 @@ class LocationsTest {
             coordsArray.push(location.geom);
           });
 
-        return coordsArray;
+        return result;
     }
 }

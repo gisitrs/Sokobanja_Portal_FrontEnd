@@ -4,12 +4,10 @@ class Cities {
     }
 
     getCityById(id){
-        var result = this.CityArray.filter(obj => {
+        var result = this.CityArray.find(obj => {
             return obj.id === id;
           })
-        
-        var newResult = [result[0].name, result[0].description, result[0].id];
 
-        return newResult;
+        return result;
     }
 }
