@@ -815,8 +815,6 @@ var markerIconsArray = [cityLocationsIcon, picnicAreasIcon, waterSpringsIcon,
 /* create marker function */ 
 
 function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLocation){
-    //var fs = require('fs');
-    //var files = fs.readdirSync(imageUrlLocation);
 
     marker = L.marker(coords, {
       title: markerName,
@@ -827,7 +825,7 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
                      '</br>' +
                      '</br>' +
                      '<div>' + 
-                        '<img style="width:100%" src="' + './images/StaraVodenica.png' + '" alt="images"></img>' + 
+                        '<img style="width:100%" src="' + imageUrlLocation + '" alt="images"></img>' + 
                         '<a href="Info.html">info</a>' +
                     '</div>',
     {minWidth:300});
