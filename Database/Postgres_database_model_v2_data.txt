@@ -141,3 +141,15 @@ VALUES (2, 36, 1, 'It was created thanks to the thermal water that erupts to an 
 (2, 12, 1, 'Within the Ozren Special Hospital, there is also a small artificial lake which is home to a large number of brown and brown trout. This location is beautiful for a one-day family trip, considering that in addition to its extraordinary beauty, it also has several sports fields for football, basketball and volleyball.'), 
 (2, 1, 1, 'Tourists know that Sokobanja is one of the oldest, most beautiful and most visited spas in Serbia, but they do not know that this spa is one of the oldest primary schools in this area. In Sokobanja, the development of education began in the 19th century. The symbol of that period is the Metropolitan of Belgrade, Mihailo Jovanović, and since 2003, the elementary school in Sokobanja has been named after him. Before that, from 1978 to 2003, the school was called Dimitrije Dragović". '), 
 (2, 35, 1, 'Aqua Park "Podina" is 1.5 km away from the center of Sokobanja and was built within the sports and recreational complex Podina. This fun water complex can accommodate about 2000 visitors. The complex contains a semi-Olympic swimming pool with sports equipment, a swimming pool for adults and children and a swimming pool with 3 slides. The aqua park offers the possibility of all-day entertainment and recreation for all ages of visitors. During the summer, various cultural-entertaining and sports-recreational contents are organized, in order to complete and enrich the stay of visitors.');
+
+UPDATE public.location SET image_url_location = './images/Sokobanja/1/Skola_Mitropolit_Mihailo' WHERE id = 1;
+UPDATE public.location SET image_url_location = './images/Sokobanja/2/Vodopad_Ripaljka' WHERE id = 11;
+UPDATE public.location SET image_url_location = './images/Sokobanja/2/Lepterija' WHERE id = 10;
+UPDATE public.location SET image_url_location = './images/Sokobanja/2/Izletiste_Ozren' WHERE id = 12;
+UPDATE public.location SET image_url_location = './images/Sokobanja/4/Milosev_konak' WHERE id = 24;
+UPDATE public.location SET image_url_location = './images/Sokobanja/5/Akva_Park_Podina' WHERE id = 35;
+UPDATE public.location SET image_url_location = './images/Sokobanja/6/Gradski_park' WHERE id = 36;
+UPDATE public.location SET image_url_location = './images/Sokobanja/6/Park_Borici' WHERE id = 38;
+UPDATE public.location SET image_url_location = './images/Sokobanja/13/Crkva_Svetog_Preobrazenja' WHERE id = 71;
+UPDATE public.location SET image_url_location = './images/Sokobanja/13/Sokograd' WHERE id = 73;
+UPDATE public.location SET image_url_location = './images/Sokobanja/13/Tursko_kupatilo_amam' WHERE id = 72;

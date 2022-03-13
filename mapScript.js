@@ -695,7 +695,9 @@ function showHideRoads(){
 function prepareMarkerElements(locationTypeId){
     var locationsForLocationTypeId = locationsForCityArray.getLocationCoordsByTypeId(locationTypeId);
     for (const location of locationsForLocationTypeId) {
-        CreateMarker([location.x_coord, location.y_coord], location.name, locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1]);
+        CreateMarker([location.x_coord, location.y_coord], location.name, 
+                     locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1],
+                     location.image_url_location);
     }
 }
 
@@ -812,8 +814,9 @@ var markerIconsArray = [cityLocationsIcon, picnicAreasIcon, waterSpringsIcon,
 
 /* create marker function */ 
 
-function CreateMarker(coords, markerName, locationsGroup, markerIcon){
-    var imageLocation = './images/StaraVodenica.png';
+function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLocation){
+    //var fs = require('fs');
+    //var files = fs.readdirSync(imageUrlLocation);
 
     marker = L.marker(coords, {
       title: markerName,
@@ -824,7 +827,7 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon){
                      '</br>' +
                      '</br>' +
                      '<div>' + 
-                        '<img style="width:100%" src="' + imageLocation + '" alt="images"></img>' + 
+                        '<img style="width:100%" src="' + './images/StaraVodenica.png' + '" alt="images"></img>' + 
                         '<a href="Info.html">info</a>' +
                     '</div>',
     {minWidth:300});
