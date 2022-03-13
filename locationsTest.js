@@ -3,17 +3,19 @@ class LocationsTest {
         this.locationsArray = locationsArray;
     }
 
-    getLocationCoordsByTypeId(location_type_id){
+    getLocationsByTypeId(location_type_id){
         var result = this.locationsArray.filter(obj => {
             return obj.location_type_id === location_type_id;
           })
-        
-        var coordsArray = [];
-        
-        result.forEach(async (location) => {
-            coordsArray.push(location.geom);
-          });
 
         return result;
+    }
+
+    getLocationsByPriority(priority){
+      var result = this.locationsArray.filter(obj => {
+          return obj.priority === priority;
+        })
+
+      return result;
     }
 }

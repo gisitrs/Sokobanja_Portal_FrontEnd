@@ -38,14 +38,35 @@ var selectedCity = {};
 
 /* location images */
 var slideIndex = 0;
-var imageURLsList = ['./images/img_nature_wide.jpg', './images/img_mountains_wide.jpg', './images/img_snow_wide.jpg'];
+/*var imageURLsList = ['./images/img_nature_wide.jpg', './images/img_mountains_wide.jpg', './images/img_snow_wide.jpg'];
 var imageHeaderTextRS = ['Lokacija 1', 'Lokacija 2', 'Lokacija 3'];
 var imageHeaderTextENG = ['Location 1', 'Location 2', 'Location 3'];
 
 var imageLocationTextRS = ['Opis lokacije 1', 'Opis lokacije 2', 'Opis lokacije 3'];
 var imageLocationTextENG = ['Location 1 description', 'Location 2 description', 'Location 3 description'];
 var locationCoords = [locations.SokoBanjaPrimeLocation, locations.SokoBanjaFirstLocation, locations.SokoBanjaSecondLocation];
-var locationZoomLevels = [15, 16, 16];
+var locationZoomLevels = [15, 16, 16];*/
+
+var imageURLsList = [];
+var imageHeaderTextRS = [];
+var imageHeaderTextENG = [];
+
+var imageLocationTextRS = [];
+var imageLocationTextENG = [];
+var locationCoords = [];
+var locationZoomLevels = [];
+
+function prepareElementsForSlideShow(locationsPriorityOne){
+    locationsPriorityOne.forEach((location) => (
+        imageURLsList.push(location.image_url_location),
+        imageHeaderTextRS.push(location.name),
+        imageHeaderTextENG.push(location.name),
+        imageLocationTextRS.push(location.name),
+        imageLocationTextENG.push(location.name),
+        locationCoords.push([location.x_coord, location.y_coord]),
+        locationZoomLevels.push(15)
+        ));
+}
 
 //#endregion
 
@@ -62,6 +83,7 @@ async function getLocationsAPI(url) {
     if (response){
         var data = await response.json();
         locationsForCityArray = new LocationsTest(data);
+        prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
     }
 }
 
@@ -693,7 +715,7 @@ function showHideRoads(){
 }
 
 function prepareMarkerElements(locationTypeId){
-    var locationsForLocationTypeId = locationsForCityArray.getLocationCoordsByTypeId(locationTypeId);
+    var locationsForLocationTypeId = locationsForCityArray.getLocationsByTypeId(locationTypeId);
     for (const location of locationsForLocationTypeId) {
         CreateMarker([location.x_coord, location.y_coord], location.name, 
                      locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1],
