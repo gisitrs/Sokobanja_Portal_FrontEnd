@@ -55,8 +55,11 @@ var imageLocationTextRS = [];
 var imageLocationTextENG = [];
 var locationCoords = [];
 var locationZoomLevels = [];
+var locationAndLocationTypeIds = [];
 
 function prepareElementsForSlideShow(locationsPriorityOne){
+    locationCoords = [];
+
     locationsPriorityOne.forEach((location) => (
         imageURLsList.push(location.image_url_location),
         imageHeaderTextRS.push(location.name),
@@ -64,7 +67,8 @@ function prepareElementsForSlideShow(locationsPriorityOne){
         imageLocationTextRS.push(location.name),
         imageLocationTextENG.push(location.name),
         locationCoords.push([location.x_coord, location.y_coord]),
-        locationZoomLevels.push(15)
+        locationZoomLevels.push(15),
+        locationAndLocationTypeIds.push(location.location_id + "-" + location.location_type_id)
         ));
 }
 
@@ -359,7 +363,13 @@ function goToPrimaryLocation(){
 	zoomToLocation(locations.SokoBanjaPrimeLocation, 15);
 }
 
-function zoomToLocation(coords, zoomValue){
+function zoomToLocation(coords, zoomValue, locationId, locationTypeId){
+    var locationName = locationsForCityArray.getLocationNameByLocationId(locationId);
+    var locationImageURL = locationsForCityArray.getLocationImageURLByLocationId(locationId);
+
+    CreateMarker(coords, locationName, priorityOneLocationsLayerGroup, 
+        markerIconsArray[locationTypeId - 1], locationImageURL);
+
 	map.setView(coords, zoomValue);
 }
 
@@ -648,6 +658,7 @@ function showSlides(isAutomatic) {
     } 
 
     $("#locationImage").attr("src",imageURLsList[slideIndex]);
+    document.getElementById('locationIdText').innerHTML = locationAndLocationTypeIds[slideIndex];
     translateLocationHeaders();
     //document.getElementById('locationImageHeader').innerHTML = imageHeaderText[slideIndex];
 
@@ -675,6 +686,7 @@ var thermalSpringsGroup = L.layerGroup().addTo(map);
 var touristSitesGroup = L.layerGroup().addTo(map);
 var lookoutsGroup = L.layerGroup().addTo(map);
 var sightsGroup = L.layerGroup().addTo(map);
+var priorityOneLocationsLayerGroup = L.layerGroup().addTo(map);
 
 var locationTypesLayerGroupsArray = [cityLocationsGroup, picnicAreasGroup, waterSpringsGroup,
                                      culturalContentsGroup, bathsGroup, parksGroup,

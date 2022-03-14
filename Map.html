@@ -24,10 +24,11 @@
 	<!-- locations panel div  -->
 	<div id="locationPanel" class="slideshow-container">
 		<div class="imagePanel">
-			<img id="locationImage" src="images/Sokobanja/1/Skola_Mitropolit_Mihailo/Skola_Mitropolit_Mihailo.jpg"  class="imageClass">
-			<div class="text-block">
-				<h4 id="locationImageHeader"></h4>
-				<p id="locationImageText"></p>
+			<img id="locationImage" src="images/Sokobanja/1/Skola_Mitropolit_Mihailo/Skola_Mitropolit_Mihailo.jpg" class="imageClass">
+			<div>
+				<h4 id="locationImageHeader" class="text-block">Škola "Mitropolit Mihailo"</h4>
+				<p id="locationImageText" style="visibility: hidden;"></p>
+				<p id="locationIdText" style="visibility: hidden;">1-1</p>
 			</div>
 			<button class="btn" style="background: url('./images/left-arrow-background-1.png') no-repeat; left: 5%;" onclick="minusSlides()"></button>
 			<button class="btn" style="background: url('./images/right-arrow-background.png') no-repeat; left: 95%;" onclick="plusSlides()"></button>
@@ -57,9 +58,11 @@
 
 	<script>
 		//#region initial JS code - document ready
-
 		/* functions for update page after document is ready */
 		$(document).ready(function() {
+			/* set texts and labels on specific language */
+			locationCoords = [[43.6439,21.8723]];
+
 			// Calling that async function
 			getLocationsAPI(apiUrladdress.ApiUrlLocations);
 			//getCitiesAPI(apiUrladdress.ApiUrlCity);
@@ -72,6 +75,14 @@
 			const queryString = window.location.search;
       		const urlParams = new URLSearchParams(queryString);
       		const languageValue = urlParams.get('language');
+			
+			/*const ssImageValue = urlParams.get('imageURL');
+			const ssImageName = urlParams.get('imageName');
+
+			if (ssImageValue != '' && ssImageName != ''){
+				document.getElementById("locationImage").src = ssImageValue;
+				document.getElementById("locationImageHeader").innerHTML = ssImageName;
+			}*/
 
       		if (languageValue == "Serbian"){
         		translateOnSerbian();
@@ -82,7 +93,11 @@
 
 			/* set location image */
 			document.getElementById("locationImage").onclick = function() {
-				zoomToLocation(locationCoords[slideIndex], locationZoomLevels[slideIndex]);
+				var test = document.getElementById("locationImageText").textContent;
+				var locationIdText = document.getElementById("locationIdText").textContent;
+				var locationId = locationIdText.split("-")[0];
+				var locationTypeId = locationIdText.split("-")[1];
+				zoomToLocation(locationCoords[slideIndex], locationZoomLevels[slideIndex], locationId, locationTypeId);
       		};
 			
 			/* load WMS layers from Geoserver */

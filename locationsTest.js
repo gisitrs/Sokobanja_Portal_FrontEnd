@@ -18,4 +18,28 @@ class LocationsTest {
 
       return result;
     }
+
+    getLocationNameByLocationId(locationId){
+      var result = "";
+
+      this.locationsArray.forEach((item) => {
+        if (item.location_id == locationId){
+          result = item.name;
+        }
+      });
+
+      return result;
+    }
+
+    getLocationImageURLByLocationId(locationId){
+      var result = "";
+
+      this.locationsArray.forEach((item) => {
+        if (item.location_id == locationId){
+          result = item.image_url_location;
+        }
+      });
+
+      return result;
+    }
 }
