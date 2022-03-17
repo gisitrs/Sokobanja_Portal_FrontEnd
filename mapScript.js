@@ -38,24 +38,16 @@ var selectedCity = {};
 
 /* location images */
 var slideIndex = 0;
-/*var imageURLsList = ['./images/img_nature_wide.jpg', './images/img_mountains_wide.jpg', './images/img_snow_wide.jpg'];
-var imageHeaderTextRS = ['Lokacija 1', 'Lokacija 2', 'Lokacija 3'];
-var imageHeaderTextENG = ['Location 1', 'Location 2', 'Location 3'];
-
-var imageLocationTextRS = ['Opis lokacije 1', 'Opis lokacije 2', 'Opis lokacije 3'];
-var imageLocationTextENG = ['Location 1 description', 'Location 2 description', 'Location 3 description'];
-var locationCoords = [locations.SokoBanjaPrimeLocation, locations.SokoBanjaFirstLocation, locations.SokoBanjaSecondLocation];
-var locationZoomLevels = [15, 16, 16];*/
 
 var imageURLsList = [];
 var imageHeaderTextRS = [];
 var imageHeaderTextENG = [];
-
+var locationCoords = [];
 var imageLocationTextRS = [];
 var imageLocationTextENG = [];
-var locationCoords = [];
 var locationZoomLevels = [];
 var locationAndLocationTypeIds = [];
+var imagePositionsArray = [];
 
 function prepareElementsForSlideShow(locationsPriorityOne){
     locationCoords = [];
@@ -66,10 +58,13 @@ function prepareElementsForSlideShow(locationsPriorityOne){
         imageHeaderTextENG.push(location.name),
         imageLocationTextRS.push(location.name),
         imageLocationTextENG.push(location.name),
-        locationCoords.push([location.x_coord, location.y_coord]),
+        locationCoords.push([parseFloat(location.x_coord), parseFloat(location.y_coord)]),
         locationZoomLevels.push(15),
-        locationAndLocationTypeIds.push(location.location_id + "-" + location.location_type_id)
+        locationAndLocationTypeIds.push(location.location_id + "-" + location.location_type_id),
+        imagePositionsArray.push(location.image_position)
         ));
+
+        console.log(locationCoords);
 }
 
 //#endregion
@@ -363,14 +358,16 @@ function goToPrimaryLocation(){
 	zoomToLocation(locations.SokoBanjaPrimeLocation, 15);
 }
 
-function zoomToLocation(coords, zoomValue, locationId, locationTypeId){
+function zoomToLocation(zoomValue, locationId, locationTypeId){
     var locationName = locationsForCityArray.getLocationNameByLocationId(locationId);
     var locationImageURL = locationsForCityArray.getLocationImageURLByLocationId(locationId);
+    var locationXCoord = locationsForCityArray.getLocationXCoordByLocationId(locationId);
+    var locationYCoord = locationsForCityArray.getLocationYCoordByLocationId(locationId);
 
-    CreateMarker(coords, locationName, priorityOneLocationsLayerGroup, 
+    CreateMarker([locationXCoord, locationYCoord], locationName, priorityOneLocationsLayerGroup, 
         markerIconsArray[locationTypeId - 1], locationImageURL);
 
-	map.setView(coords, zoomValue);
+	map.setView([locationXCoord, locationYCoord], zoomValue);
 }
 
 /* layers panel */
@@ -658,6 +655,7 @@ function showSlides(isAutomatic) {
     } 
 
     $("#locationImage").attr("src",imageURLsList[slideIndex]);
+    $("#locationImage").css("object-position",imagePositionsArray[slideIndex]);
     document.getElementById('locationIdText').innerHTML = locationAndLocationTypeIds[slideIndex];
     translateLocationHeaders();
     //document.getElementById('locationImageHeader').innerHTML = imageHeaderText[slideIndex];
@@ -865,6 +863,10 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
     {minWidth:300});
 
     locationsGroup.addLayer(marker);
+
+    if (locationsGroup == priorityOneLocationsLayerGroup){
+        marker.openPopup();
+    }
 }
 
 //#endregion

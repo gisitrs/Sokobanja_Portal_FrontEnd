@@ -25,7 +25,8 @@ SELECT location.id AS location_id,
        ROUND(ST_Y(ST_Transform(location.geom,4326))::DECIMAL, 4) AS x_coord,
        ROUND(ST_X(ST_Transform(location.geom,4326))::DECIMAL, 4) AS y_coord,
        location.description, 
-       location_translation.text AS description_eng
+       location_translation.text    AS description_eng,
+       location.image_position
 FROM location JOIN location_type
 ON location.location_type_id = location_type.id
 JOIN city

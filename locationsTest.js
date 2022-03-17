@@ -42,4 +42,28 @@ class LocationsTest {
 
       return result;
     }
+
+    getLocationXCoordByLocationId(locationId){
+      var result = "";
+
+      this.locationsArray.forEach((item) => {
+        if (item.location_id == locationId){
+          result = parseFloat(item.x_coord);
+        }
+      });
+
+      return result;
+    }
+
+    getLocationYCoordByLocationId(locationId){
+      var result = "";
+
+      this.locationsArray.forEach((item) => {
+        if (item.location_id == locationId){
+          result = parseFloat(item.y_coord);
+        }
+      });
+
+      return result;
+    }
 }

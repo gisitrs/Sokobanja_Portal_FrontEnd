@@ -92,6 +92,9 @@ CREATE TABLE legend_attribute_translation (
 	ON DELETE SET NULL
 );
 
+ALTER TABLE public.location
+ADD COLUMN image_position VARCHAR(50) NULL;
+
 DROP TABLE legend_attribute_translation;
 DROP TABLE location_translation;
 DROP TABLE city_translation;

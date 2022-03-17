@@ -60,9 +60,6 @@
 		//#region initial JS code - document ready
 		/* functions for update page after document is ready */
 		$(document).ready(function() {
-			/* set texts and labels on specific language */
-			locationCoords = [[43.6439,21.8723]];
-
 			// Calling that async function
 			getLocationsAPI(apiUrladdress.ApiUrlLocations);
 			//getCitiesAPI(apiUrladdress.ApiUrlCity);
@@ -97,7 +94,7 @@
 				var locationIdText = document.getElementById("locationIdText").textContent;
 				var locationId = locationIdText.split("-")[0];
 				var locationTypeId = locationIdText.split("-")[1];
-				zoomToLocation(locationCoords[slideIndex], locationZoomLevels[slideIndex], locationId, locationTypeId);
+				zoomToLocation(locationZoomLevels[slideIndex], locationId, locationTypeId);
       		};
 			
 			/* load WMS layers from Geoserver */
