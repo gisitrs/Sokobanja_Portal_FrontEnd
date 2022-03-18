@@ -29,6 +29,12 @@
 
   <script src="./sokobanja_tourist_guides_rs.js"></script>
   <script src="./sokobanja_tourist_guides_eng.js"></script>
+  <script src="./apiUrls.js"></script>
+
+  <script src="./city.js"></script>
+	<script src="./cities.js"></script>
+	<script src="./location.js"></script>
+	<script src="./locationsTest.js"></script>
 
   <script src="infoScript.js"></script>
 </head>
@@ -138,6 +144,7 @@
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
       const languageValue = urlParams.get('language');
+      const cityId = urlParams.get('cityId');
 
       if (languageValue == "Serbian"){
         currentLanguage = appLanguages.Serbian;
@@ -145,6 +152,8 @@
       else if (languageValue == "English"){
         translateOnEnglish();
       }
+
+      getLocationsAPI(apiUrladdress.ApiUrlLocations);
 
       /* settings for header design */
 

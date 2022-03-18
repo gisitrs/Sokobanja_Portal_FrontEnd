@@ -9,6 +9,8 @@ const mapLabelsENG = new MapLabelsENG();
 const mapLayerLabelsRS = new MapLayerLabelsRS();
 const mapLayerLabelsENG = new MapLayerLabelsENG();
 
+const cityId = 1;
+const cityCoords = [43.6433, 5432421.8714];
 const apiUrladdress = new APIUrls();
 
 /* enum class for language */
@@ -59,7 +61,7 @@ function prepareElementsForSlideShow(locationsPriorityOne){
         imageLocationTextRS.push(location.name),
         imageLocationTextENG.push(location.name),
         locationCoords.push([parseFloat(location.x_coord), parseFloat(location.y_coord)]),
-        locationZoomLevels.push(15),
+        locationZoomLevels.push(16),
         locationAndLocationTypeIds.push(location.location_id + "-" + location.location_type_id),
         imagePositionsArray.push(location.image_position)
         ));
@@ -104,7 +106,7 @@ async function getCitiesAPI(url) {
 //#region initialize map and wms layers
 
 // initialize map
-var map = L.map('map', { attributionControl: false, zoomControl:false }).setView([43.6442, 21.8667], 15);
+var map = L.map('map', { attributionControl: false, zoomControl:false }).setView(cityCoords, 15);
 
 // initialize base layers
 
@@ -198,7 +200,7 @@ const ToggleMenu = L.Control.extend({
 map.addControl(new ToggleMenu({ position: "topleft" }));
 
 function goToInfoPage(){
-    var url = "Info.html?language=" + currentLanguage;
+    var url = "Info.html?language=" + currentLanguage + "&cityId=" + cityId;
     window.location.href= url;
 }
 
@@ -355,7 +357,8 @@ function translateLocationHeaders(){
 // zoom to location
 
 function goToPrimaryLocation(){
-	zoomToLocation(locations.SokoBanjaPrimeLocation, 15);
+	// zoomToLocation(cityCoords, 15);
+    map.setView(cityCoords, 15);
 }
 
 function zoomToLocation(zoomValue, locationId, locationTypeId){
@@ -367,7 +370,7 @@ function zoomToLocation(zoomValue, locationId, locationTypeId){
     CreateMarker([locationXCoord, locationYCoord], locationName, priorityOneLocationsLayerGroup, 
         markerIconsArray[locationTypeId - 1], locationImageURL);
 
-	map.setView([locationXCoord, locationYCoord], zoomValue);
+	map.setView([locationXCoord + 0.0012, locationYCoord], zoomValue);
 }
 
 /* layers panel */
@@ -860,7 +863,7 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
                         '<img style="width:100%" src="' + imageUrlLocation + '" alt="images"></img>' + 
                         '<a href="Info.html">info</a>' +
                     '</div>',
-    {minWidth:300});
+    {minWidth:250});
 
     locationsGroup.addLayer(marker);
 

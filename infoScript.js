@@ -24,6 +24,9 @@ var restaurants = restaurantsRS.getList();
 var museums = museumClass.getList();
 var touristGuides = touristGuideClass.getList();
 
+const apiUrladdress = new APIUrls();
+var locationsForCityArray = {};
+
 var htmlContent = "";
 var collapseId = "";
 var panelId = "";
@@ -151,6 +154,40 @@ function goToMapPage(){
 }
 
 //#endregion
+
+//#region get data from api
+
+// Defining async function
+
+async function getLocationsAPI(url) {
+    
+  // Storing response
+  const response = await fetch(url);
+  
+  // Storing data in form of JSON
+  if (response){
+      var data = await response.json();
+      locationsForCityArray = new LocationsTest(data);
+      console.log(locationsForCityArray);
+  }
+}
+
+async function getCitiesAPI(url) {
+  
+  // Storing response
+  //const response = await fetch(url);
+  
+  // Storing data in form of JSON
+  /*if (response){
+      var data = await response.json();
+      citiesArray = new Cities(data);
+      selectedCity = citiesArray.getCityById(1);
+  }*/
+}
+
+//#endregion
+
+//#region initialize map and wms layers
 
 //#region create toggle and pill menu '<li><a data-toggle="pill" id="touristGuidesLiId" href="#touristGuides">' + textTab3 + '</a></li>' '<li><a data-toggle="pill" id="restaurantsLiId" href="#restaurants">' + textTab1 + '</a></li>'
 
