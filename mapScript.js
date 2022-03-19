@@ -10,7 +10,7 @@ const mapLayerLabelsRS = new MapLayerLabelsRS();
 const mapLayerLabelsENG = new MapLayerLabelsENG();
 
 const cityId = 1;
-const cityCoords = [43.6433, 5432421.8714];
+const cityCoords = [43.6433, 21.8667];
 const apiUrladdress = new APIUrls();
 
 /* enum class for language */
@@ -48,7 +48,7 @@ var locationCoords = [];
 var imageLocationTextRS = [];
 var imageLocationTextENG = [];
 var locationZoomLevels = [];
-var locationAndLocationTypeIds = [];
+var locationIds = [];
 var imagePositionsArray = [];
 
 function prepareElementsForSlideShow(locationsPriorityOne){
@@ -62,7 +62,7 @@ function prepareElementsForSlideShow(locationsPriorityOne){
         imageLocationTextENG.push(location.name),
         locationCoords.push([parseFloat(location.x_coord), parseFloat(location.y_coord)]),
         locationZoomLevels.push(16),
-        locationAndLocationTypeIds.push(location.location_id + "-" + location.location_type_id),
+        locationIds.push(location.location_id),
         imagePositionsArray.push(location.image_position)
         ));
 
@@ -361,11 +361,12 @@ function goToPrimaryLocation(){
     map.setView(cityCoords, 15);
 }
 
-function zoomToLocation(zoomValue, locationId, locationTypeId){
+function zoomToLocation(zoomValue, locationId){
     var locationName = locationsForCityArray.getLocationNameByLocationId(locationId);
     var locationImageURL = locationsForCityArray.getLocationImageURLByLocationId(locationId);
     var locationXCoord = locationsForCityArray.getLocationXCoordByLocationId(locationId);
     var locationYCoord = locationsForCityArray.getLocationYCoordByLocationId(locationId);
+    var locationTypeId = locationsForCityArray.getLocationTypeIdByLocationId(locationId);
 
     CreateMarker([locationXCoord, locationYCoord], locationName, priorityOneLocationsLayerGroup, 
         markerIconsArray[locationTypeId - 1], locationImageURL);
@@ -659,7 +660,7 @@ function showSlides(isAutomatic) {
 
     $("#locationImage").attr("src",imageURLsList[slideIndex]);
     $("#locationImage").css("object-position",imagePositionsArray[slideIndex]);
-    document.getElementById('locationIdText').innerHTML = locationAndLocationTypeIds[slideIndex];
+    document.getElementById('locationIdText').innerHTML = locationIds[slideIndex];
     translateLocationHeaders();
     //document.getElementById('locationImageHeader').innerHTML = imageHeaderText[slideIndex];
 
@@ -730,7 +731,7 @@ function showHideRoads(){
 function prepareMarkerElements(locationTypeId){
     var locationsForLocationTypeId = locationsForCityArray.getLocationsByTypeId(locationTypeId);
     for (const location of locationsForLocationTypeId) {
-        CreateMarker([location.x_coord, location.y_coord], location.name, 
+        CreateMarker([parseFloat(location.x_coord), parseFloat(location.y_coord)], location.name, 
                      locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1],
                      location.image_url_location);
     }

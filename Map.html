@@ -28,7 +28,7 @@
 			<div>
 				<h4 id="locationImageHeader" class="text-block">Škola "Mitropolit Mihailo"</h4>
 				<p id="locationImageText" style="visibility: hidden;"></p>
-				<p id="locationIdText" style="visibility: hidden;">1-1</p>
+				<p id="locationIdText" style="visibility: hidden;">1</p>
 			</div>
 			<button class="btn" style="background: url('./images/left-arrow-background-1.png') no-repeat; left: 5%;" onclick="minusSlides()"></button>
 			<button class="btn" style="background: url('./images/right-arrow-background.png') no-repeat; left: 95%;" onclick="plusSlides()"></button>
@@ -73,28 +73,32 @@
       		const urlParams = new URLSearchParams(queryString);
       		const languageValue = urlParams.get('language');
 			
-			/*const ssImageValue = urlParams.get('imageURL');
-			const ssImageName = urlParams.get('imageName');
+			const ssImgHeader = urlParams.get('ssImgHeader');
 
-			if (ssImageValue != '' && ssImageName != ''){
-				document.getElementById("locationImage").src = ssImageValue;
-				document.getElementById("locationImageHeader").innerHTML = ssImageName;
-			}*/
+			const ssImgURL = urlParams.get('ssImgURL');
+			const locationIdText = urlParams.get('locationIdText');
+			//const objectPosition = urlParams.get('objectPosition');
+
+			if (ssImgURL != null ) {
+				document.getElementById("locationImage").src = ssImgURL;
+				document.getElementById('locationIdText').innerHTML = locationIdText;
+				//$("#locationImage").css("object-position", objectPosition);
+			}
 
       		if (languageValue == "Serbian"){
         		translateOnSerbian();
+				document.getElementById("locationImageHeader").innerHTML = ssImgHeader;
       		}
       		else if (languageValue == "English"){
         		translateOnEnglish();
+				document.getElementById("locationImageHeader").innerHTML = ssImgHeader;
       		}
 
 			/* set location image */
 			document.getElementById("locationImage").onclick = function() {
 				var test = document.getElementById("locationImageText").textContent;
-				var locationIdText = document.getElementById("locationIdText").textContent;
-				var locationId = locationIdText.split("-")[0];
-				var locationTypeId = locationIdText.split("-")[1];
-				zoomToLocation(locationZoomLevels[slideIndex], locationId, locationTypeId);
+				var locationId = document.getElementById("locationIdText").textContent;
+				zoomToLocation(locationZoomLevels[slideIndex], locationId);
       		};
 			
 			/* load WMS layers from Geoserver */

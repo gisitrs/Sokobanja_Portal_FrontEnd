@@ -149,7 +149,19 @@ function translateOnEnglish(){
 }
 
 function goToMapPage(){
-  var url = "Map.html?language=" + currentLanguage;
+  var mapPageProperties = locationsForCityArray.getLocationsByPriority(1);
+
+  var ssImgURL = mapPageProperties[0].image_url_location;
+  var ssImgHeader = mapPageProperties[0].name;
+  var locationIdText = mapPageProperties[0].location_id;
+  //var objectPosition = mapPageProperties[0].image_position;
+
+  var url = "Map.html?language=" + currentLanguage + 
+            "&ssImgURL=" + ssImgURL + 
+            "&ssImgHeader=" + ssImgHeader +
+            "&locationIdText=" + locationIdText; 
+             //"&objectPosition=" + objectPosition;
+
   window.location.href= url;
 }
 

@@ -66,4 +66,16 @@ class LocationsTest {
 
       return result;
     }
+
+    getLocationTypeIdByLocationId(locationId){
+      var result = "";
+
+      this.locationsArray.forEach((item) => {
+        if (item.location_id == locationId){
+          result = item.location_type_id;
+        }
+      });
+
+      return result;
+    }
 }
