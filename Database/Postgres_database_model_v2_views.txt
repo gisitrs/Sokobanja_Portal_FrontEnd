@@ -34,6 +34,12 @@ ON location.city_id = city.id
 JOIN location_translation
 ON location.id = location_translation.location_id;
 
+CREATE OR REPLACE VIEW test_app_locationtypes AS
+SELECT location_type.id, 
+       location_type.name, 
+       location_type.description
+FROM location_type
+
 SELECT * FROM test_app_cities;
 SELECT * FROM test_app_locations;
 

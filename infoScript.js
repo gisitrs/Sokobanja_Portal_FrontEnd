@@ -67,6 +67,26 @@ const appLanguages = Object.freeze({
     English: 'English'
 });
 
+var locationTypesArray = [];
+var dictLocationTypes = new Object();
+
+// or the shorthand way
+var dictLocationTypes = {
+  1: "cityLocations",
+  2: "picnicAreas",
+  3: "waterSprings",
+  4: "culturalContent",
+  5: "baths",
+  6: "parks",
+  7: "naturalAttractions",
+  8: "childrenFacilities",
+  9: "sportsFacilities",
+  10: "thermalSprings",
+  11: "touristBenefits",
+  12: "lookouts",
+  13: "sights"
+};
+
 var currentLanguage = appLanguages.Serbian;
 var currentLayerlabels = layerLabelsRS;
 
@@ -181,20 +201,21 @@ async function getLocationsAPI(url) {
       var data = await response.json();
       locationsForCityArray = new LocationsTest(data);
       console.log(locationsForCityArray);
+      testArray();
   }
 }
 
-async function getCitiesAPI(url) {
+async function getLocationTypesAPI(url) {
   
   // Storing response
-  //const response = await fetch(url);
+  const response = await fetch(url);
   
   // Storing data in form of JSON
-  /*if (response){
+  if (response){
       var data = await response.json();
-      citiesArray = new Cities(data);
-      selectedCity = citiesArray.getCityById(1);
-  }*/
+      console.log(data);
+      locationTypesArray = data;
+  }
 }
 
 //#endregion
@@ -364,9 +385,65 @@ async function getCitiesAPI(url) {
   }
 })( jQuery );
 
+function testArray(){
+  /*locationTypesArray.forEach((locationType) => {
+    var locationTypeId =  locationType.id;
+    tabHeader = dictLocationTypes[locationTypeId];
+    dataParentId = tabHeader + "Panel";
+    tabHeaderTextId = tabHeader + "Header";
+    tabHeaderTextValue = tabHeader;
+    tabValues = locationsForCityArray.getLocationsByTypeId(locationTypeId);
+    console.log(tabValues);
+    alert(tabHeaderTextId);
+  });*/
+
+  /*$.each(locationTypesArray, function( indexTab, valueTab ) {
+
+    var locationTypeId =  valueTab.id; 
+    tabHeader = dictLocationTypes[locationTypeId];
+    dataParentId = tabHeader + "Panel";
+    tabHeaderTextId = tabHeader + "Header";
+    tabHeaderTextValue = tabHeader;
+    tabValues = locationsForCityArray.getLocationsByTypeId(locationTypeId);
+
+    tabHeaderList.push(tabHeader);
+    dataParentIdList.push(dataParentId);
+    tabHeaderTextIdList.push(tabHeaderTextId);
+    tabValuesList.push(tabValues);
+
+    $.each(tabValues, function( index, value ) {
+      collapseId = tabHeader + "Collapse" + index;
+      panelId = tabHeader + "Panel" + index + "Id";
+      panel1Id = tabHeader + "Panel1" + index + "Id";
+      imageId = tabHeader + "Image" + index + "Id";
+      panelTextId = tabHeader + "Panel" + index + "TextId";
+      panel1textId = tabHeader + "Panel1" + index + "TextId";
+      webLinkId = tabHeader + "WebLink" + index + "Id";
+      webLink1Id = tabHeader + "WebLink1" + index + "Id";
+      facebookLinkId = tabHeader + "FacebookLink" + index + "Id";
+      facebookLink1Id = tabHeader + "FacebookLink1" + index + "Id";
+      locationLinkId = tabHeader + "LocationLink" + index + "Id";
+      locationLink1Id = tabHeader + "LocationLink1" + index + "Id";
+
+      contactTextId = tabHeader + "ContactText" + index + "Id";
+      contactText1Id = tabHeader + "ContactText1" + index + "Id";
+
+      var divContent = $('#main_container').createDivContent(dataParentId, collapseId, panelId, panel1Id, 
+                                                             imageId, panelTextId, panel1textId, webLinkId, 
+                                                             webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
+                                                             contactText1Id, locationLinkId, locationLink1Id);
+    
+      htmlContent = htmlContent + divContent;
+    });
+
+    htmlContentList.push(htmlContent);
+    htmlContent = "";
+});*/
+}
+
 /* create tabs */
 $.each(mapInfoTabValues, function( indexTab, valueTab ) {
-    if (indexTab == 0){
+    if (indexTab == 0){ 
       tabHeader = "restaurants";
       dataParentId = "restaurantsPanel";
       tabHeaderTextId = "#restaurantsHeader";
@@ -387,6 +464,13 @@ $.each(mapInfoTabValues, function( indexTab, valueTab ) {
       tabHeaderTextValue = mapInfoTabValues[2];
       tabValues = touristGuides;
     }
+
+    /*var locationTypeId =  valueTab.id; locationTypesArray
+    tabHeader = dictLocationTypes[locationTypeId];
+    dataParentId = tabHeader + "Panel";
+    tabHeaderTextId = tabHeader + "Header";
+    tabHeaderTextValue = tabHeader;
+    tabValues = locationsForCityArray.getLocationsByTypeId(locationTypeId);*/
 
     tabHeaderList.push(tabHeader);
     dataParentIdList.push(dataParentId);

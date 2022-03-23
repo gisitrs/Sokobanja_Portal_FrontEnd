@@ -42,7 +42,7 @@
 <body>
 <header>
   <nav class="navbar">
-    <!-- <a href="#" class="nav-branding">DEV.</a> -->
+    <!-- <a href="#" class="nav-branding">DEV.</a> translateOnSerbian() -->
     <ul class="nav-menu" id="navMenuId">
       <li class="nav-item">
         <a href="#" class="nav-link" >
@@ -101,28 +101,82 @@
         </div>
     </div>
     <div id="cityLocations" class="tab-pane fade">
+      <h2 id="cityLocationsHeader"></h2>
+        </br>
+        <div class="panel-group" id="cityLocationsPanel">
+        </div>
     </div>
     <div id="picnicAreas" class="tab-pane fade">
+      <h2 id="picnicAreasHeader"></h2>
+        </br>
+        <div class="panel-group" id="picnicAreasPanel">
+        </div>
     </div>
     <div id="waterSprings" class="tab-pane fade">
+      <h2 id="waterSpringsHeader"></h2>
+        </br>
+        <div class="panel-group" id="waterSpringsPanel">
+        </div>
     </div>
     <div id="culturalContent" class="tab-pane fade">
+      <h2 id="culturalContentHeader"></h2>
+        </br>
+        <div class="panel-group" id="culturalContentPanel">
+        </div>
     </div>
     <div id="baths" class="tab-pane fade">
+      <h2 id="bathsHeader"></h2>
+        </br>
+        <div class="panel-group" id="bathsPanel">
+        </div>
     </div>
     <div id="parks" class="tab-pane fade">
+      <h2 id="parksHeader"></h2>
+        </br>
+        <div class="panel-group" id="parksPanel">
+        </div>
     </div>
     <div id="naturalAttractions" class="tab-pane fade">
+      <h2 id="naturalAttractionsHeader"></h2>
+        </br>
+        <div class="panel-group" id="naturalAttractionsPanel">
+        </div>
     </div>
     <div id="childrenFacilities" class="tab-pane fade">
+      <h2 id="childrenFacilitiesHeader"></h2>
+        </br>
+        <div class="panel-group" id="childrenFacilitiesPanel">
+        </div>
     </div>
     <div id="sportsFacilities" class="tab-pane fade">
+      <h2 id="sportsFacilitiesHeader"></h2>
+        </br>
+        <div class="panel-group" id="sportsFacilitiesPanel">
+        </div>
     </div>
     <div id="thermalSprings" class="tab-pane fade">
+      <h2 id="thermalSpringsHeader"></h2>
+        </br>
+        <div class="panel-group" id="thermalSpringsPanel">
+        </div>
+    </div>
+    <div id="touristBenefits" class="tab-pane fade">
+      <h2 id="touristBenefitsHeader"></h2>
+        </br>
+        <div class="panel-group" id="touristBenefitsPanel">
+        </div>
     </div>
     <div id="lookouts" class="tab-pane fade">
+      <h2 id="lookoutsHeader"></h2>
+        </br>
+        <div class="panel-group" id="lookoutsPanel">
+        </div>
     </div>
     <div id="sights" class="tab-pane fade">
+      <h2 id="sightsHeader"></h2>
+        </br>
+        <div class="panel-group" id="sightsPanel">
+        </div>
     </div>
   </div>
 </div>
@@ -154,6 +208,7 @@
       }
 
       getLocationsAPI(apiUrladdress.ApiUrlLocations);
+      getLocationTypesAPI(apiUrladdress.ApiUrlLocationTypes);
 
       /* settings for header design */
 
