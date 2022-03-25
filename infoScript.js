@@ -2,7 +2,7 @@
 
 /* objects for specific classes*/ 
 
-//Stefanov komentar
+//Stefanov komentar + Igorov komentar
 const mapInfoTabsRS = new MapInfoTabsRS();
 const mapInfoTabsENG = new MapInfoTabsENG();
 
