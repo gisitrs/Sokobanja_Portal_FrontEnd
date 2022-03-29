@@ -249,20 +249,21 @@ async function getLocationTypesAPI(url) {
  $.fn.createDivContent = function(dataParentId, collapseId, panelId, panel1Id, 
                                   imageId, panelTextId, panel1TextId, webLinkId, 
                                   webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
-                                  contactText1Id, locationLinkId, locationLink1Id) {
+                                  contactText1Id, locationLinkId, locationLink1Id, imageSource,
+                                  headerText, descriptionText) {
   var divContent = '<div class="panel panel-default">' +
                       '<div class="panel-heading">' +
                         '<h4 class="header-text">' +
-                          '<div id="' + panel1Id + '"></div></a>' + 
+                          '<div id="' + panel1Id + '">' + headerText +'</div></a>' + 
                         '</h4>' +
                         '<h4 class="panel-title">'   +
                           '<a data-toggle="collapse" data-parent="#' + dataParentId + '" href="#' + collapseId + '">' + 
-                          '<div id="' + panelId + '"></div></a>' + 
+                          '<div id="' + panelId + '">' + headerText + '</div></a>' + 
                         '</h4>' +
                         '<div class="panel-body">' +
                           '<div class="row">'+
                             '<div class="col-md-3">' + 
-                              '<div><img id="' + imageId + '" src="" alt="..."></div>' + 
+                              '<div><img id="' + imageId + '" src="' + imageSource + '" alt="..."></div>' + 
                             '</div>'+
                             '<div class="col-md-9">'+
                               '<div id="' + panel1TextId + '"></div>'+
@@ -286,7 +287,7 @@ async function getLocationTypesAPI(url) {
                       '</div>'+
                       '<div id="' + collapseId + '" class="panel-collapse collapse">' +
                         '<div class="panel-body">' +
-                          '<div id="' + panelTextId + '" class="panel-body-small-size"></div>' +
+                          '<div id="' + panelTextId + '" class="panel-body-small-size">' + descriptionText + '</div>' +
                           '</br>' +
                           '<div id="' + contactText1Id + '" class="panel-body-small-size"></div>'+
                           '</br>' + 
@@ -366,8 +367,6 @@ async function getLocationTypesAPI(url) {
 /* update tab and text values */
 (function( $ ){
  $.fn.updateTabTextValues = function() {
-    //$('#restaurantsLiId').text(mapInfoTabValues[0]);
-    //$('#museumsLiId').text(mapInfoTabValues[1]);
     $('#touristGuidesLiId').text(mapInfoTabValues[2]);
   }
 })( jQuery );
@@ -387,125 +386,53 @@ async function getLocationTypesAPI(url) {
 })( jQuery );
 
 function testArray(){
-  /*locationTypesArray.forEach((locationType) => {
-    var locationTypeId =  locationType.id;
-    tabHeader = dictLocationTypes[locationTypeId];
+  locationTypesArray.forEach((locationType) => {
+    tabHeader = dictLocationTypes[locationType.id];
     dataParentId = tabHeader + "Panel";
     tabHeaderTextId = tabHeader + "Header";
     tabHeaderTextValue = tabHeader;
-    tabValues = locationsForCityArray.getLocationsByTypeId(locationTypeId);
-    console.log(tabValues);
-    alert(tabHeaderTextId);
-  });*/
-
-  /*$.each(locationTypesArray, function( indexTab, valueTab ) {
-
-    var locationTypeId =  valueTab.id; 
-    tabHeader = dictLocationTypes[locationTypeId];
-    dataParentId = tabHeader + "Panel";
-    tabHeaderTextId = tabHeader + "Header";
-    tabHeaderTextValue = tabHeader;
-    tabValues = locationsForCityArray.getLocationsByTypeId(locationTypeId);
+    tabValues = locationsForCityArray.getLocationsByTypeId(locationType.id);
 
     tabHeaderList.push(tabHeader);
     dataParentIdList.push(dataParentId);
     tabHeaderTextIdList.push(tabHeaderTextId);
     tabValuesList.push(tabValues);
 
-    $.each(tabValues, function( index, value ) {
-      collapseId = tabHeader + "Collapse" + index;
-      panelId = tabHeader + "Panel" + index + "Id";
-      panel1Id = tabHeader + "Panel1" + index + "Id";
-      imageId = tabHeader + "Image" + index + "Id";
-      panelTextId = tabHeader + "Panel" + index + "TextId";
-      panel1textId = tabHeader + "Panel1" + index + "TextId";
-      webLinkId = tabHeader + "WebLink" + index + "Id";
-      webLink1Id = tabHeader + "WebLink1" + index + "Id";
-      facebookLinkId = tabHeader + "FacebookLink" + index + "Id";
-      facebookLink1Id = tabHeader + "FacebookLink1" + index + "Id";
-      locationLinkId = tabHeader + "LocationLink" + index + "Id";
-      locationLink1Id = tabHeader + "LocationLink1" + index + "Id";
+    tabValues.forEach((location) => {
+      collapseId = tabHeader + "Collapse" + location.location_id;
+      panelId = tabHeader + "Panel" + location.location_id + "Id";
+      panel1Id = tabHeader + "Panel1" + location.location_id + "Id";
+      imageId = tabHeader + "Image" + location.location_id + "Id";
+      panelTextId = tabHeader + "Panel" + location.location_id + "TextId";
+      panel1textId = tabHeader + "Panel1" + location.location_id + "TextId";
+      webLinkId = tabHeader + "WebLink" + location.location_id + "Id";
+      webLink1Id = tabHeader + "WebLink1" + location.location_id + "Id";
+      facebookLinkId = tabHeader + "FacebookLink" + location.location_id + "Id";
+      facebookLink1Id = tabHeader + "FacebookLink1" + location.location_id + "Id";
+      locationLinkId = tabHeader + "LocationLink" + location.location_id + "Id";
+      locationLink1Id = tabHeader + "LocationLink1" + location.location_id + "Id";
 
-      contactTextId = tabHeader + "ContactText" + index + "Id";
-      contactText1Id = tabHeader + "ContactText1" + index + "Id";
+      contactTextId = tabHeader + "ContactText" + location.location_id + "Id";
+      contactText1Id = tabHeader + "ContactText1" + location.location_id + "Id";
+
+      var smallImageURL = location.image_url_location.split('.jpg')[0] + '_small.jpg';
 
       var divContent = $('#main_container').createDivContent(dataParentId, collapseId, panelId, panel1Id, 
-                                                             imageId, panelTextId, panel1textId, webLinkId, 
-                                                             webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
-                                                             contactText1Id, locationLinkId, locationLink1Id);
-    
+        imageId, panelTextId, panel1textId, webLinkId, 
+        webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
+        contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
+        location.name, location.description);
+
       htmlContent = htmlContent + divContent;
-    });
+
+      $("#" + dataParentId).html(htmlContent);
+    })
 
     htmlContentList.push(htmlContent);
+    $("#" + dataParentId).html(htmlContent);
     htmlContent = "";
-});*/
+  })
 }
-
-/* create tabs */
-$.each(mapInfoTabValues, function( indexTab, valueTab ) {
-    if (indexTab == 0){ 
-      tabHeader = "restaurants";
-      dataParentId = "restaurantsPanel";
-      tabHeaderTextId = "#restaurantsHeader";
-      tabHeaderTextValue = mapInfoTabValues[0];
-      tabValues = restaurants;
-    }
-    else if (indexTab == 1){
-      tabHeader = "museums";
-      dataParentId = "museumsPanel";
-      tabHeaderTextId = "#museumsHeader";
-      tabHeaderTextValue = mapInfoTabValues[1];
-      tabValues = museums;
-    }
-    else if (indexTab == 2){
-      tabHeader = "touristGuides";
-      dataParentId = "touristGuidesPanel";
-      tabHeaderTextId = "#touristGuidesHeader";
-      tabHeaderTextValue = mapInfoTabValues[2];
-      tabValues = touristGuides;
-    }
-
-    /*var locationTypeId =  valueTab.id; locationTypesArray
-    tabHeader = dictLocationTypes[locationTypeId];
-    dataParentId = tabHeader + "Panel";
-    tabHeaderTextId = tabHeader + "Header";
-    tabHeaderTextValue = tabHeader;
-    tabValues = locationsForCityArray.getLocationsByTypeId(locationTypeId);*/
-
-    tabHeaderList.push(tabHeader);
-    dataParentIdList.push(dataParentId);
-    tabHeaderTextIdList.push(tabHeaderTextId);
-    tabValuesList.push(tabValues);
-
-    $.each(tabValues, function( index, value ) {
-      collapseId = tabHeader + "Collapse" + index;
-      panelId = tabHeader + "Panel" + index + "Id";
-      panel1Id = tabHeader + "Panel1" + index + "Id";
-      imageId = tabHeader + "Image" + index + "Id";
-      panelTextId = tabHeader + "Panel" + index + "TextId";
-      panel1textId = tabHeader + "Panel1" + index + "TextId";
-      webLinkId = tabHeader + "WebLink" + index + "Id";
-      webLink1Id = tabHeader + "WebLink1" + index + "Id";
-      facebookLinkId = tabHeader + "FacebookLink" + index + "Id";
-      facebookLink1Id = tabHeader + "FacebookLink1" + index + "Id";
-      locationLinkId = tabHeader + "LocationLink" + index + "Id";
-      locationLink1Id = tabHeader + "LocationLink1" + index + "Id";
-
-      contactTextId = tabHeader + "ContactText" + index + "Id";
-      contactText1Id = tabHeader + "ContactText1" + index + "Id";
-
-      var divContent = $('#main_container').createDivContent(dataParentId, collapseId, panelId, panel1Id, 
-                                                             imageId, panelTextId, panel1textId, webLinkId, 
-                                                             webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
-                                                             contactText1Id, locationLinkId, locationLink1Id);
-    
-      htmlContent = htmlContent + divContent;
-    });
-
-    htmlContentList.push(htmlContent);
-    htmlContent = "";
-});
 
 /* translate text values and set page layout */
 (function( $ ){
