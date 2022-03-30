@@ -2,7 +2,7 @@
 
 /* objects for specific classes*/ 
 
-const locations = new Locations();
+//const locations = new Locations();
 const mapLabelsRS = new MapLabelsRS();
 const mapLabelsENG = new MapLabelsENG();
 

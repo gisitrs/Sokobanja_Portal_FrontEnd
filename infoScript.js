@@ -2,28 +2,12 @@
 
 /* objects for specific classes*/ 
 
-//Stefanov komentar + Igorov komentar
-const mapInfoTabsRS = new MapInfoTabsRS();
-const mapInfoTabsENG = new MapInfoTabsENG();
-
-const restaurantsRS = new SokobanjaRestaurantsRS();
-const restaurantsENG = new SokobanjaRestaurantsENG();
-
-const museumClass = new SokobanjaMuseumsRS();
-const museumsENG = new SokobanjaMuseumsENG();
-
-const touristGuideClass = new SokobanjaTouristGuidesRS();
-const touristGuidesENG = new SokobanjaTouristGuidesENG();
-
 var layerLabelsRS = new MapLayerLabelsRS();
 var layerLabelsENG = new MapLayerLabelsENG();
 
 var currentMapLabels = new MapLabelsRS();
-
-var mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
-var restaurants = restaurantsRS.getList();
-var museums = museumClass.getList();
-var touristGuides = touristGuideClass.getList();
+var serbianMapLabels = new MapLabelsRS();
+var englishMapLabels = new MapLabelsENG();
 
 const apiUrladdress = new APIUrls();
 var locationsForCityArray = {};
@@ -35,7 +19,7 @@ var panel1Id = "";
 var imageId = "";
 
 var paneltextId = "";
-var panel1textId = "";
+var panel1TextId = "";
 var webLinkId = "";
 var webLink1Id = "";
 
@@ -95,35 +79,8 @@ var currentLayerlabels = layerLabelsRS;
 
 //#region set text values for languages
 
-(function( $ ){
- $.fn.setTabValuesForLanguage = function() {
-   if (currentLanguage == appLanguages.Serbian){
-    mapInfoTabValues = mapInfoTabsRS.getMapInfoTabList();
-    currentMapLabels = new MapLabelsRS();
-    currentLayerlabels = layerLabelsRS;
-   }
-   else if (currentLanguage == appLanguages.English){
-    mapInfoTabValues = mapInfoTabsENG.getMapInfoTabList();
-    currentMapLabels = new MapLabelsENG();
-    currentLayerlabels = layerLabelsENG;
-   }
-  }; 
-})( jQuery );
-
-(function( $ ){
- $.fn.setTextValuesForLanguage = function() {
-   if (currentLanguage == appLanguages.Serbian){
-    tabValuesList = [restaurantsRS.getList(), museumClass.getList(), touristGuideClass.getList()];
-   }
-   else if (currentLanguage == appLanguages.English){
-    tabValuesList = [restaurantsENG.getList(), museumsENG.getList(), touristGuidesENG.getList()];
-   }
-  }; 
-})( jQuery );
-
-(function( $ ){
-  $.fn.updateLocationTypesText = function() {
-    $('#cityLocationsLiId').prop('title', currentLayerlabels.CityLocations);
+function updateLocationTypesText() {
+  $('#cityLocationsLiId').prop('title', currentLayerlabels.CityLocations);
   $('#picnicAreasLiId').prop('title', currentLayerlabels.PicnicAreas);
   $('#waterSpringsLiId').prop('title', currentLayerlabels.WaterSprings);
   $('#culturalContentLiId').prop('title', currentLayerlabels.CulturalContent);
@@ -148,25 +105,90 @@ var currentLayerlabels = layerLabelsRS;
   $('#thermalSpringsLbId').text(currentLayerlabels.ThermalSpringsShort);
   $('#lookoutsLbId').text(currentLayerlabels.Lookouts);
   $('#sightsLbId').text(currentLayerlabels.Sights);
-   }; 
- })( jQuery );
+}
 
- (function( $ ){
-  $.fn.updateButtonTitles = function() {
+ function updateButtonTitles(){
     $('#serbianLanguageButtonId').prop('title', currentMapLabels.SerbianLanguageButtonTitle);
     $('#englishLanguageButtonId').prop('title', currentMapLabels.EnglishLanguageButtonTitle);
     $('#mapLegendButtonId').prop('title', currentMapLabels.MapPageButtonTitle);
-   }; 
- })( jQuery );
+   }
 
 function translateOnSerbian(){
   currentLanguage = appLanguages.Serbian;
-  $('#main_container').updateTextValuesForSelectedLanguage();
+  currentLayerlabels = layerLabelsRS;
+  currentMapLabels = serbianMapLabels;
+  updateTextValuesForSelectedLanguage();
 }
 
 function translateOnEnglish(){
   currentLanguage = appLanguages.English;
-  $('#main_container').updateTextValuesForSelectedLanguage();
+  currentLayerlabels = layerLabelsENG;
+  currentMapLabels = englishMapLabels;
+  updateTextValuesForSelectedLanguage();
+}
+
+function updateLocationTypeHeaders(){
+
+}
+
+function updateTextValues(){
+  locationTypesArray.forEach((locationType) => {
+    tabHeader = dictLocationTypes[locationType.id];
+    var lttabHeader = tabHeader + "Header";
+    var headerText = "";
+
+    if (currentLanguage == appLanguages.English){
+      headerText = locationType.description;
+    }
+    else if (currentLanguage == appLanguages.Serbian){
+      headerText = locationType.name;
+    }
+
+    document.getElementById(lttabHeader).innerHTML = headerText;
+
+    tabValues = locationsForCityArray.getLocationsByTypeId(locationType.id);
+
+    tabValues.forEach((location) => {
+      panelTextId = tabHeader + "Panel" + location.location_id + "TextId";
+      panel1TextId = tabHeader + "Panel1" + location.location_id + "TextId";
+      var descriptionValue = "";
+
+      if (currentLanguage == appLanguages.English){
+        descriptionValue = location.description_eng;
+      }
+      else if (currentLanguage == appLanguages.Serbian){
+        descriptionValue = location.description;
+      }
+
+      /* update text value */
+      document.getElementById(panelTextId).textContent = descriptionValue;
+      document.getElementById(panel1TextId).textContent = descriptionValue;
+    })
+  })
+}
+
+function setLocationTypeHeaders(){
+  locationTypesArray.forEach((locationType) => {
+    tabHeader = dictLocationTypes[locationType.id];
+    var lttabHeader = tabHeader + "Header";
+    var headerText = "";
+
+    if (currentLanguage == appLanguages.English){
+      headerText = locationType.description;
+    }
+    else if (currentLanguage == appLanguages.Serbian){
+      headerText = locationType.name;
+    }
+
+    document.getElementById(lttabHeader).innerHTML = locationType.name;
+  })
+}
+
+/* translate text values and set page layout */
+function updateTextValuesForSelectedLanguage() {
+  updateTextValues();
+  updateLocationTypesText();
+  updateButtonTitles();
 }
 
 function goToMapPage(){
@@ -201,8 +223,12 @@ async function getLocationsAPI(url) {
   if (response){
       var data = await response.json();
       locationsForCityArray = new LocationsTest(data);
-      console.log(locationsForCityArray);
-      testArray();
+
+      createHtmlElements();
+      changePageLayout();
+      setLocationTypeHeaders();
+
+      document.getElementById('cityLocationsLiId').click();
   }
 }
 
@@ -214,7 +240,6 @@ async function getLocationTypesAPI(url) {
   // Storing data in form of JSON
   if (response){
       var data = await response.json();
-      console.log(data);
       locationTypesArray = data;
   }
 }
@@ -224,9 +249,7 @@ async function getLocationTypesAPI(url) {
 //#region initialize map and wms layers
 
 //#region create toggle and pill menu '<li><a data-toggle="pill" id="touristGuidesLiId" href="#touristGuides">' + textTab3 + '</a></li>' '<li><a data-toggle="pill" id="restaurantsLiId" href="#restaurants">' + textTab1 + '</a></li>'
-
-(function( $ ){
- $.fn.createTabContent = function(textTab1, textTab2, textTab3) {
+function createTabContent(){
   var divContent = '<li><a data-toggle="pill" id="cityLocationsLiId" href="#cityLocations" title="Gradske lokacije"><img src="./images/Markers/CityLocations.png" width="47" /><p id="cityLocationsLbId">Lokacije</p></a></li>' +
                    '<li><a data-toggle="pill" id="picnicAreasLiId" href="#picnicAreas" title="Izletišta"><img src="./images/Markers/PicnicAreas.png" width="47" /><p id="picnicAreasLbId">Izletišta</p></a></li>' + 
                    '<li><a data-toggle="pill" id="waterSpringsLiId" href="#waterSprings" title="Izvorišta"><img src="./images/Markers/WaterSprings.png" width="47" /><p id="waterSpringsLbId">Izvorišta</p></a></li>' +
@@ -238,23 +261,21 @@ async function getLocationTypesAPI(url) {
                    '<li><a data-toggle="pill" id="sportsFacilitiesLiId" href="#sportsFacilities" title="Sportski sadržaji"><img src="./images/Markers/SportsFacilities.png" width="47" /><p id="sportsFacilitiesLbId">Sport</p></a></li>' + 
                    '<li><a data-toggle="pill" id="thermalSpringsLiId" href="#thermalSprings" title="Termalna izvorišta"><img src="./images/Markers/ThermalSprings.png" width="47" /><p id="thermalSpringsLbId">Spa</p></a></li>' +
                    '<li><a data-toggle="pill" id="lookoutsLiId" href="#lookouts" title="Vidikovci"><img src="./images/Markers/Lookouts.png" width="47"/><p id="lookoutsLbId">Vidikovci</p></a></li>' +
-                   '<li><a data-toggle="pill" id="sightsLiId" href="#sights" title="Znamenitosti"><img src="./images/Markers/Sights.png" width="47" /><p id="sightsLbId">Znamenitosti</p></a></li>' +
-                   '<li><a data-toggle="pill" id="museumsLiId" href="#museums">' + textTab2 + '</a></li>';
+                   '<li><a data-toggle="pill" id="sightsLiId" href="#sights" title="Znamenitosti"><img src="./images/Markers/Sights.png" width="47" /><p id="sightsLbId">Znamenitosti</p></a></li>';
     return divContent;
- };                                                        
-})( jQuery ); 
+}
 
 /* create div content for toggle menu */
-(function( $ ){
- $.fn.createDivContent = function(dataParentId, collapseId, panelId, panel1Id, 
-                                  imageId, panelTextId, panel1TextId, webLinkId, 
-                                  webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
-                                  contactText1Id, locationLinkId, locationLink1Id, imageSource,
-                                  headerText, descriptionText) {
+function createDivContent(dataParentId, collapseId, panelId, panel1Id, 
+  imageId, panelTextId, panel1TextId, webLinkId, 
+  webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
+  contactText1Id, locationLinkId, locationLink1Id, imageSource,
+  headerText, descriptionText)
+  {
   var divContent = '<div class="panel panel-default">' +
                       '<div class="panel-heading">' +
                         '<h4 class="header-text">' +
-                          '<div id="' + panel1Id + '">' + headerText +'</div></a>' + 
+                          '<div id="' + panel1Id + '">' + headerText + '</div></a>' + 
                         '</h4>' +
                         '<h4 class="panel-title">'   +
                           '<a data-toggle="collapse" data-parent="#' + dataParentId + '" href="#' + collapseId + '">' + 
@@ -266,7 +287,7 @@ async function getLocationTypesAPI(url) {
                               '<div><img id="' + imageId + '" src="' + imageSource + '" alt="..."></div>' + 
                             '</div>'+
                             '<div class="col-md-9">'+
-                              '<div id="' + panel1TextId + '"></div>'+
+                              '<div id="' + panel1TextId + '">' + descriptionText + '</div>'+
                               '</br>' +
                               '<div id="' + contactTextId + '"></div>'+
                               '</br>' +
@@ -307,85 +328,10 @@ async function getLocationTypesAPI(url) {
                       '</div>' +
                     '</div>';
     return divContent;
- }; 
-})( jQuery );
+}
 
-/* insert text values in page elements */ 
-(function( $ ){
- $.fn.insertTextValues = function(listValues, tabHeaderValue) {
-  $.each(listValues, function( index, value ) {
-      panelId = "#" + tabHeaderValue + "Panel" + index + "Id";
-      panel1Id = "#" + tabHeaderValue + "Panel1" + index + "Id";
-      imageId = "#" + tabHeaderValue + "Image" + index + "Id";
-      panelTextId = "#" + tabHeaderValue + "Panel" + index + "TextId";
-      panel1TextId = "#" + tabHeaderValue + "Panel1" + index + "TextId";
-      webLinkId = "#" + tabHeaderValue + "WebLink" + index + "Id";
-      webLink1Id = "#" + tabHeaderValue + "WebLink1" + index + "Id";
-      facebookLinkId = "#" + tabHeaderValue + "FacebookLink" + index + "Id";
-      facebookLink1Id = "#" + tabHeaderValue + "FacebookLink1" + index + "Id";
-      locationLinkId = "#" + tabHeaderValue + "LocationLink" + index + "Id";
-      locationLink1Id = "#" + tabHeaderValue + "LocationLink1" + index + "Id";
-
-      contactTextId = "#" + tabHeaderValue + "ContactText" + index + "Id";
-      contactText1Id = "#" + tabHeaderValue + "ContactText1" + index + "Id";
-
-      $(panelId).text(value[0]); 
-      $(panel1Id).text(value[0]); 
-      $(panelTextId).text(value[1]); 
-      $(panel1TextId).text(value[1]); 
-
-      if (value[2] != "" && value[3] != ""){
-        $(webLinkId).attr("href", value[2]); 
-        $(webLink1Id).attr("href", value[2]); 
-        $(webLinkId).text(value[3]);
-        $(webLink1Id).text(value[3]);
-      }
-
-      $(imageId).attr("src", value[4]);
-
-      if(value[5] != ""){
-        $(facebookLinkId).attr("href", value[5]);
-        $(facebookLinkId).css("visibility", "visible");
-        $(facebookLinkId).css("height", "100%");
-        $(facebookLink1Id).attr("href", value[5]);
-        $(facebookLink1Id).css("visibility", "visible");
-      }
-
-      $(contactTextId).text(value[6]); 
-      $(contactText1Id).text(value[6]); 
-
-      if(value[7] != "" && value[8] != ""){
-        $(locationLinkId).css("visibility", "visible");
-        $(locationLink1Id).css("visibility", "visible");
-        $(locationLinkId).attr("href", value[9]);
-        $(locationLink1Id).attr("href", value[9]);
-      }
-    });
- }; 
-})( jQuery );
-
-/* update tab and text values */
-(function( $ ){
- $.fn.updateTabTextValues = function() {
-    $('#touristGuidesLiId').text(mapInfoTabValues[2]);
-  }
-})( jQuery );
-
-(function( $ ){
- $.fn.updateTextValues = function(tabValuesList, isInitial) {
-  $.each(tabValuesList, function(index, tabValues){
-      if (isInitial == true){
-        $("#" + dataParentIdList[index]).html(htmlContentList[index]);
-      }
-
-      $('#main_container').insertTextValues(tabValues, tabHeaderList[index]);
-
-      $(tabHeaderTextIdList[index]).text(mapInfoTabValues[index]);
-    }); 
-  }
-})( jQuery );
-
-function testArray(){
+/* create html elements on the Info page */ 
+function createHtmlElements(){
   locationTypesArray.forEach((locationType) => {
     tabHeader = dictLocationTypes[locationType.id];
     dataParentId = tabHeader + "Panel";
@@ -393,18 +339,13 @@ function testArray(){
     tabHeaderTextValue = tabHeader;
     tabValues = locationsForCityArray.getLocationsByTypeId(locationType.id);
 
-    tabHeaderList.push(tabHeader);
-    dataParentIdList.push(dataParentId);
-    tabHeaderTextIdList.push(tabHeaderTextId);
-    tabValuesList.push(tabValues);
-
     tabValues.forEach((location) => {
       collapseId = tabHeader + "Collapse" + location.location_id;
       panelId = tabHeader + "Panel" + location.location_id + "Id";
       panel1Id = tabHeader + "Panel1" + location.location_id + "Id";
       imageId = tabHeader + "Image" + location.location_id + "Id";
       panelTextId = tabHeader + "Panel" + location.location_id + "TextId";
-      panel1textId = tabHeader + "Panel1" + location.location_id + "TextId";
+      panel1TextId = tabHeader + "Panel1" + location.location_id + "TextId";
       webLinkId = tabHeader + "WebLink" + location.location_id + "Id";
       webLink1Id = tabHeader + "WebLink1" + location.location_id + "Id";
       facebookLinkId = tabHeader + "FacebookLink" + location.location_id + "Id";
@@ -417,51 +358,37 @@ function testArray(){
 
       var smallImageURL = location.image_url_location.split('.jpg')[0] + '_small.jpg';
 
-      var divContent = $('#main_container').createDivContent(dataParentId, collapseId, panelId, panel1Id, 
-        imageId, panelTextId, panel1textId, webLinkId, 
-        webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
-        contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
-        location.name, location.description);
+      var divContent = createDivContent(dataParentId, collapseId, panelId, panel1Id, 
+                                        imageId, panelTextId, panel1TextId, webLinkId, 
+                                        webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
+                                        contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
+                                        location.name, location.description);
 
       htmlContent = htmlContent + divContent;
 
       $("#" + dataParentId).html(htmlContent);
     })
 
-    htmlContentList.push(htmlContent);
-    $("#" + dataParentId).html(htmlContent);
     htmlContent = "";
   })
 }
 
-/* translate text values and set page layout */
-(function( $ ){
- $.fn.updateTextValuesForSelectedLanguage = function() {
-  $('#main_container').setTabValuesForLanguage();
-  $('#main_container').updateTabTextValues();
-
-  $('#main_container').setTextValuesForLanguage();
-  $('#main_container').updateTextValues(tabValuesList, false);
-  $('#main_container').updateLocationTypesText();
-  $('#main_container').updateButtonTitles();
-  }; 
-})( jQuery );
-
+/* set page layout */
 function changePageLayout(){
-      if ($(document).width() <= 1000){
-    $('.panel-body-small-size').show(); 
-    $('.panel-title').show();
-    
-    $('.header-text').hide();
-    $('.col-md-9').hide();
-      } 
-  else if($(document).width() > 1000){
-    $('.panel-body-small-size').hide();
-    $('.panel-title').hide();
+    if ($(document).width() <= 1000){
+      $('.panel-body-small-size').show(); 
+      $('.panel-title').show();
 
-    $('.header-text').show();
-    $('.col-md-9').show();
-  }
+      $('.header-text').hide();
+      $('.col-md-9').hide();
+    } 
+    else if($(document).width() > 1000){
+      $('.panel-body-small-size').hide();
+      $('.panel-title').hide();
+
+      $('.header-text').show();
+      $('.col-md-9').show();
+    }
 }
 
 //#endregion

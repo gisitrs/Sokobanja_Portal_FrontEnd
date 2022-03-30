@@ -21,14 +21,6 @@
 
   <script src="./map_labels_rs.js"></script>
 	<script src="./map_labels_eng.js"></script>
-  
-  <script src="./sokobanja_restaurants_rs.js"></script>
-  <script src="./sokobanja_restaurants_eng.js"></script>
-  <script src="./sokobanja_museums_rs.js"></script>
-  <script src="./sokobanja_museums_eng.js"></script>
-
-  <script src="./sokobanja_tourist_guides_rs.js"></script>
-  <script src="./sokobanja_tourist_guides_eng.js"></script>
   <script src="./apiUrls.js"></script>
 
   <script src="./city.js"></script>
@@ -82,24 +74,6 @@
   </ul>
   
   <div id="tabContentId" class="tab-content" style="OVERFLOW-Y:auto; display:flex; max-height: 500px;">
-    <div id="restaurants" class="tab-pane fade in active"> 
-      <h2 id="restaurantsHeader"></h2>
-        </br>
-        <div class="panel-group" id="restaurantsPanel">
-        </div>
-    </div>
-    <div id="museums" class="tab-pane fade">
-      <h2 id="museumsHeader"></h2>
-        </br>
-        <div class="panel-group" id="museumsPanel">
-        </div>
-    </div>
-    <div id="touristGuides" class="tab-pane fade">
-      <h2 id="touristGuidesHeader"></h2>
-        </br>
-        <div class="panel-group" id="touristGuidesPanel">
-        </div>
-    </div>
     <div id="cityLocations" class="tab-pane fade">
       <h2 id="cityLocationsHeader"></h2>
         </br>
@@ -184,12 +158,14 @@
 <script>
   //#region initial JS code - document ready
   $(document).ready(function(){
-
       /* create tab contents */
-      var tabDivContent = $('#main_container').createTabContent(mapInfoTabValues[0], mapInfoTabValues[1], mapInfoTabValues[2]);
-      
+      var tabDivContent = createTabContent();
       $("#tabPanelId").html(tabDivContent);
-      $('#main_container').updateTextValues(tabValuesList, true);
+
+      /* create main container */
+      getLocationTypesAPI(apiUrladdress.ApiUrlLocationTypes);
+      getLocationsAPI(apiUrladdress.ApiUrlLocations);
+      //$('#main_container').updateTextValues(tabValuesList, true);
 
       /* set page layout */
       changePageLayout();
@@ -206,9 +182,6 @@
       else if (languageValue == "English"){
         translateOnEnglish();
       }
-
-      getLocationTypesAPI(apiUrladdress.ApiUrlLocationTypes);
-      getLocationsAPI(apiUrladdress.ApiUrlLocations);
 
       /* settings for header design */
 
