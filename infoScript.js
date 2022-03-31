@@ -127,10 +127,6 @@ function translateOnEnglish(){
   updateTextValuesForSelectedLanguage();
 }
 
-function updateLocationTypeHeaders(){
-
-}
-
 function updateTextValues(){
   locationTypesArray.forEach((locationType) => {
     tabHeader = dictLocationTypes[locationType.id];
@@ -191,7 +187,7 @@ function updateTextValuesForSelectedLanguage() {
   updateButtonTitles();
 }
 
-function goToMapPage(){
+function goToMapPage(xCoord, yCoord){
   var mapPageProperties = locationsForCityArray.getLocationsByPriority(1);
 
   var ssImgURL = mapPageProperties[0].image_url_location;
@@ -202,7 +198,9 @@ function goToMapPage(){
   var url = "Map.html?language=" + currentLanguage + 
             "&ssImgURL=" + ssImgURL + 
             "&ssImgHeader=" + ssImgHeader +
-            "&locationIdText=" + locationIdText; 
+            "&locationIdText=" + locationIdText + 
+            "&xCoord=" + xCoord +
+            "&yCoord=" + yCoord;
              //"&objectPosition=" + objectPosition;
 
   window.location.href= url;
@@ -229,6 +227,8 @@ async function getLocationsAPI(url) {
       setLocationTypeHeaders();
 
       document.getElementById('cityLocationsLiId').click();
+
+      updateTextValuesForSelectedLanguage();
   }
 }
 
@@ -270,7 +270,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
   imageId, panelTextId, panel1TextId, webLinkId, 
   webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
   contactText1Id, locationLinkId, locationLink1Id, imageSource,
-  headerText, descriptionText)
+  headerText, descriptionText, xCoord, yCoord)
   {
   var divContent = '<div class="panel panel-default">' +
                       '<div class="panel-heading">' +
@@ -296,7 +296,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                                   '<a id="' + webLink1Id + '" href=""></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
-                                  '<a id="' + locationLink1Id + '" href="" title="" style="visibility: hidden"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                  '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
                                   '<a id="' + facebookLinkId + '" href="#" title="" style="visibility: hidden"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
@@ -317,7 +317,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                               '<a id="' + webLinkId + '" class="panel-body-small-size" href=""></a>' +
                             '</div>' +
                             '<div class="col-md-1">' +
-                                '<a id="' + locationLinkId + '" href="" title="" style="visibility: hidden" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                             '</div>' +
                             '<div class="col-md-1">' +
                                 '<a id="' + facebookLink1Id + '" href="#" title="" style="visibility: hidden; height: 0%;" class="panel-body-small-size"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
@@ -362,7 +362,7 @@ function createHtmlElements(){
                                         imageId, panelTextId, panel1TextId, webLinkId, 
                                         webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
                                         contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
-                                        location.name, location.description);
+                                        location.name, location.description, location.x_coord, location.y_coord);
 
       htmlContent = htmlContent + divContent;
 

@@ -873,6 +873,10 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
     }
 }
 
+function createSimpleMarket(xCoord, yCoord){
+    var marker = L.marker([xCoord, yCoord]).addTo(map);
+}
+
 //#endregion
 
 //#region get current location (test code)

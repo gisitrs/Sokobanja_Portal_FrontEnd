@@ -77,7 +77,13 @@
 
 			const ssImgURL = urlParams.get('ssImgURL');
 			const locationIdText = urlParams.get('locationIdText');
-			//const objectPosition = urlParams.get('objectPosition');
+			const xCoord = urlParams.get('xCoord');
+			const yCoord = urlParams.get('yCoord');
+
+			if (xCoord != "pL" && yCoord != "pL"){
+				createSimpleMarket(xCoord, yCoord);
+				map.setView([xCoord, yCoord], 16);
+			}
 
 			if (ssImgURL != null ) {
 				document.getElementById("locationImage").src = ssImgURL;
