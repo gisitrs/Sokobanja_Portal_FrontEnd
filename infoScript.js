@@ -11,6 +11,8 @@ var englishMapLabels = new MapLabelsENG();
 
 const apiUrladdress = new APIUrls();
 var locationsForCityArray = {};
+var locationLiId = "cityLocationsLiId";
+var locationPanelId = "";
 
 var htmlContent = "";
 var collapseId = "";
@@ -226,7 +228,19 @@ async function getLocationsAPI(url) {
       changePageLayout();
       setLocationTypeHeaders();
 
-      document.getElementById('cityLocationsLiId').click();
+      document.getElementById(locationLiId).click(); 
+
+      if (locationPanelId != ""){
+        if ($(document).width() <= 1000){
+          document.getElementById(locationPanelId).click();
+        }
+
+        var locationTopOffset =  document.getElementById(locationPanelId).offsetTop;
+
+        $('#tabContentId').animate({
+          scrollTop: locationTopOffset
+        }, 1000);
+      }
 
       updateTextValuesForSelectedLanguage();
   }

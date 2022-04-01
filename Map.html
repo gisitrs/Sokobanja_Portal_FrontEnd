@@ -71,24 +71,22 @@
 			/* set texts and labels on specific language */
 			const queryString = window.location.search;
       		const urlParams = new URLSearchParams(queryString);
-      		const languageValue = urlParams.get('language');
-			
-			const ssImgHeader = urlParams.get('ssImgHeader');
 
+			const languageValue = urlParams.get('language');
+			const ssImgHeader = urlParams.get('ssImgHeader');
 			const ssImgURL = urlParams.get('ssImgURL');
 			const locationIdText = urlParams.get('locationIdText');
 			const xCoord = urlParams.get('xCoord');
 			const yCoord = urlParams.get('yCoord');
 
-			if (xCoord != "pL" && yCoord != "pL"){
+			if ((xCoord != "pL" && yCoord != "pL") && (xCoord != "" && yCoord != "")){
 				createSimpleMarket(xCoord, yCoord);
 				map.setView([xCoord, yCoord], 16);
 			}
 
-			if (ssImgURL != null ) {
+			if (ssImgURL != "" ) {
 				document.getElementById("locationImage").src = ssImgURL;
 				document.getElementById('locationIdText').innerHTML = locationIdText;
-				//$("#locationImage").css("object-position", objectPosition);
 			}
 
       		if (languageValue == "Serbian"){

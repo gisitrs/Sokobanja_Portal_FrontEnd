@@ -173,8 +173,19 @@
       /* set texts and labels on specific language */
       const queryString = window.location.search;
       const urlParams = new URLSearchParams(queryString);
+
       const languageValue = urlParams.get('language');
       const cityId = urlParams.get('cityId');
+      const locationListId = urlParams.get('locationLiId');
+      const locationPanelsId = urlParams.get('locationPanelId');
+
+      if (locationListId != "pL"){
+        locationLiId = locationListId;
+      }
+
+      if (locationPanelsId != "pL"){
+        locationPanelId = locationPanelsId;
+      }
 
       if (languageValue == "Serbian"){
         currentLanguage = appLanguages.Serbian;
@@ -224,9 +235,9 @@
       $("#museumsCollapse1").addClass("panel-collapse collapse");
       $("#museumsCollapse1").addClass("panel-collapse collapse in");*/
 
-      $('#tabContentId').animate({
+      /*$('#tabContentId').animate({
           scrollTop: 315
-        }, 1000);
+        }, 1000);*/
 
       /* set even listener for resizing page elements */
 	    window.addEventListener('resize', changePageLayout);

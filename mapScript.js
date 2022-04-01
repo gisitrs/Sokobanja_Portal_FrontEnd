@@ -13,11 +13,35 @@ const cityId = 1;
 const cityCoords = [43.6433, 21.8667];
 const apiUrladdress = new APIUrls();
 
+/*const languageValue = "Serbian";
+const ssImgHeader = "";
+const ssImgURL = "";
+const locationIdText = "";
+const xCoord = "";
+const yCoord = "";*/
+
 /* enum class for language */
 const appLanguages = Object.freeze({
     Serbian: 'Serbian',
     English: 'English'
 });
+
+// or the shorthand way
+var dictLocationTypes = {
+    1: "cityLocations",
+    2: "picnicAreas",
+    3: "waterSprings",
+    4: "culturalContent",
+    5: "baths",
+    6: "parks",
+    7: "naturalAttractions",
+    8: "childrenFacilities",
+    9: "sportsFacilities",
+    10: "thermalSprings",
+    11: "touristBenefits",
+    12: "lookouts",
+    13: "sights"
+  };
 
 /* variables for toggle menu visibility */
 
@@ -200,7 +224,7 @@ const ToggleMenu = L.Control.extend({
 map.addControl(new ToggleMenu({ position: "topleft" }));
 
 function goToInfoPage(){
-    var url = "Info.html?language=" + currentLanguage + "&cityId=" + cityId;
+    var url = "Info.html?language=" + currentLanguage + "&cityId=" + cityId + "&locationLiId=pL" + "&locationPanelId=pL";
     window.location.href= url;
 }
 
@@ -369,7 +393,7 @@ function zoomToLocation(zoomValue, locationId){
     var locationTypeId = locationsForCityArray.getLocationTypeIdByLocationId(locationId);
 
     CreateMarker([locationXCoord, locationYCoord], locationName, priorityOneLocationsLayerGroup, 
-        markerIconsArray[locationTypeId - 1], locationImageURL);
+        markerIconsArray[locationTypeId - 1], locationImageURL, locationTypeId, locationId);
 
 	map.setView([locationXCoord + 0.0012, locationYCoord], zoomValue);
 }
@@ -733,7 +757,7 @@ function prepareMarkerElements(locationTypeId){
     for (const location of locationsForLocationTypeId) {
         CreateMarker([parseFloat(location.x_coord), parseFloat(location.y_coord)], location.name, 
                      locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1],
-                     location.image_url_location);
+                     location.image_url_location, locationTypeId, location.location_id);
     }
 }
 
@@ -850,7 +874,13 @@ var markerIconsArray = [cityLocationsIcon, picnicAreasIcon, waterSpringsIcon,
 
 /* create marker function */ 
 
-function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLocation){
+function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLocation, locationTypeId, locationId){
+    tabHeader = dictLocationTypes[locationTypeId];
+    var locationLiId = tabHeader + "LiId";
+    var locationPanelId = tabHeader + "Panel" + locationId + "Id";
+
+    var aHref = "Info.html?language=" + currentLanguage + "&cityId=" + cityId + "&locationLiId=" + 
+                locationLiId + "&locationPanelId=" + locationPanelId;
 
     marker = L.marker(coords, {
       title: markerName,
@@ -862,7 +892,7 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
                      '</br>' +
                      '<div>' + 
                         '<img style="width:100%" src="' + imageUrlLocation + '" alt="images"></img>' + 
-                        '<a href="Info.html">info</a>' +
+                        '<a href="' + aHref + '">info</a>' +
                     '</div>',
     {minWidth:250});
 
