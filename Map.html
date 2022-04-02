@@ -78,9 +78,13 @@
 			const locationIdText = urlParams.get('locationIdText');
 			const xCoord = urlParams.get('xCoord');
 			const yCoord = urlParams.get('yCoord');
+			const locationName = urlParams.get('locationName');
 
-			if ((xCoord != "pL" && yCoord != "pL") && (xCoord != "" && yCoord != "")){
-				createSimpleMarket(xCoord, yCoord);
+			if ((xCoord != "pL" && yCoord != "pL")){
+				if (locationName != "pL"){
+					createSimpleMarket(xCoord, yCoord, locationName);
+				}
+				
 				map.setView([xCoord, yCoord], 16);
 			}
 

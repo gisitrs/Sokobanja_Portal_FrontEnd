@@ -13,13 +13,6 @@ const cityId = 1;
 const cityCoords = [43.6433, 21.8667];
 const apiUrladdress = new APIUrls();
 
-/*const languageValue = "Serbian";
-const ssImgHeader = "";
-const ssImgURL = "";
-const locationIdText = "";
-const xCoord = "";
-const yCoord = "";*/
-
 /* enum class for language */
 const appLanguages = Object.freeze({
     Serbian: 'Serbian',
@@ -903,8 +896,14 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
     }
 }
 
-function createSimpleMarket(xCoord, yCoord){
+function createSimpleMarket(xCoord, yCoord, locationName){
+    var markerName = locationName.replace("%20", " ");
     var marker = L.marker([xCoord, yCoord]).addTo(map);
+
+    marker.bindPopup('<b style="font-size:20px">' + markerName +'</b>',
+    {minWidth:80});
+
+    marker.openPopup();
 }
 
 //#endregion

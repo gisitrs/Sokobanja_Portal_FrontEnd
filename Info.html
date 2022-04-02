@@ -52,7 +52,7 @@
       </li>
       <li class="nav-item">
         <a href="#" class="nav-link">
-          <button type="button" id="mapLegendButtonId" class="buttonClass" style="margin-left: 15px;" title="Idi na Map stranu!" onclick="goToMapPage('pL', 'pL')">
+          <button type="button" id="mapLegendButtonId" class="buttonClass" style="margin-left: 15px;" title="Idi na Map stranu!" onclick="goToMapPage('pL', 'pL', 'pL')">
             <i class="fas fa-map-marked-alt" ></i>
           </button>
         </a>
@@ -204,20 +204,6 @@
         navMenu.classList.toggle("active");
       });
 
-      /* scroll to specific element */
-
-      /*var page_url = window.location.href;
-      var page_id = page_url.substring(page_url.lastIndexOf("#") + 1);
-      if (page_id == "section3"){
-        $("html, body").animate({
-          scrollTop: $("#restaurantsPanel1Id").offset().top
-        }, 1000);
-      }*/
-
-      //var a = $("#museumsPanel1Id").offset().top;
-
-      //alert(a);
-
       var documentHeight = $(document).height();
       var documentWidth = $(document).width();
       var tabContentMaxHeight = documentHeight - 150;
@@ -227,17 +213,6 @@
       if (documentWidth < 350){
         $(".buttonClass").width(50);
       }
-
-      /*$("#restaurants").removeClass("tab-pane fade in active");
-      $("#restaurants").addClass("tab-pane fade");
-      $("#museums").addClass("tab-pane fade in active");
-      
-      $("#museumsCollapse1").addClass("panel-collapse collapse");
-      $("#museumsCollapse1").addClass("panel-collapse collapse in");*/
-
-      /*$('#tabContentId').animate({
-          scrollTop: 315
-        }, 1000);*/
 
       /* set even listener for resizing page elements */
 	    window.addEventListener('resize', changePageLayout);

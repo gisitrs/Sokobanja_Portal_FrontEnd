@@ -42,11 +42,6 @@ var tabHeaderTextValue = "";
 var tabname = "";
 var tabValues = [];
 var tabValuesList = [];
-var htmlContentList = [];
-
-var tabHeaderList = [];
-var dataParentIdList = [];
-var tabHeaderTextIdList = [];
 
 /* enum class for language */
 const appLanguages = Object.freeze({
@@ -72,6 +67,23 @@ var dictLocationTypes = {
   11: "touristBenefits",
   12: "lookouts",
   13: "sights"
+};
+
+// or the shorthand way
+var dictLocationLiIds = {
+  "cityLocationsLiId": 0,
+  "picnicAreasLiId": 0,
+  "waterSpringsLiId": 0,
+  "culturalContentLiId": 0,
+  "bathsLiId": 340,
+  "parksLiId": 340,
+  "naturalAttractionsLiId": 340,
+  "childrenFacilitiesLiId": 340,
+  "sportsFacilitiesLiId": 680,
+  "thermalSpringsLiId": 680,
+  "touristBenefitsLiId": 680,
+  "lookoutsLiId": 680,
+  "sightsLiId": 740
 };
 
 var currentLanguage = appLanguages.Serbian;
@@ -189,7 +201,7 @@ function updateTextValuesForSelectedLanguage() {
   updateButtonTitles();
 }
 
-function goToMapPage(xCoord, yCoord){
+function goToMapPage(xCoord, yCoord, locationName){
   var mapPageProperties = locationsForCityArray.getLocationsByPriority(1);
 
   var ssImgURL = mapPageProperties[0].image_url_location;
@@ -202,7 +214,8 @@ function goToMapPage(xCoord, yCoord){
             "&ssImgHeader=" + ssImgHeader +
             "&locationIdText=" + locationIdText + 
             "&xCoord=" + xCoord +
-            "&yCoord=" + yCoord;
+            "&yCoord=" + yCoord +
+            "&locationName=" + locationName;
 
   window.location.href= url;
 }
@@ -239,9 +252,15 @@ async function getLocationsAPI(url) {
         if (locationTopOffset < 300){
           locationTopOffset = 70;
         }
+        
+        var locationLeftOffset = dictLocationLiIds[locationLiId];
 
         $('#tabContentId').animate({
           scrollTop: locationTopOffset
+        }, 1000);
+
+        $('#tabPanelId').animate({
+          scrollLeft: locationLeftOffset
         }, 1000);
       }
 
@@ -313,7 +332,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                                   '<a id="' + webLink1Id + '" href=""></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
-                                  '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                  '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ",'" + headerText + "'" + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
                                   '<a id="' + facebookLinkId + '" href="#" title="" style="visibility: hidden"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
@@ -334,7 +353,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                               '<a id="' + webLinkId + '" class="panel-body-small-size" href=""></a>' +
                             '</div>' +
                             '<div class="col-md-1">' +
-                                '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ",'" + headerText + "'" + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                             '</div>' +
                             '<div class="col-md-1">' +
                                 '<a id="' + facebookLink1Id + '" href="#" title="" style="visibility: hidden; height: 0%;" class="panel-body-small-size"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
