@@ -203,7 +203,6 @@ function goToMapPage(xCoord, yCoord){
             "&locationIdText=" + locationIdText + 
             "&xCoord=" + xCoord +
             "&yCoord=" + yCoord;
-             //"&objectPosition=" + objectPosition;
 
   window.location.href= url;
 }
@@ -236,6 +235,10 @@ async function getLocationsAPI(url) {
         }
 
         var locationTopOffset =  document.getElementById(locationPanelId).offsetTop;
+
+        if (locationTopOffset < 300){
+          locationTopOffset = 70;
+        }
 
         $('#tabContentId').animate({
           scrollTop: locationTopOffset
