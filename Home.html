@@ -20,7 +20,7 @@
 </head>
 <body>
     <div class="slideshow">
-		<div id="flash_holder" class="slideshow-item">
+		<div id="city1" class="slideshow-item">
 			<img src="./images/HomePage/Sokobanja.jpg" alt="" >
 			<div class="slideshow-item-text">
 				<marquee loop="1" height="18px">Klikni na sliku i poseti grad / Click on image and visit the city</marquee>
@@ -32,7 +32,7 @@
 			</div>
 		</div>
 
-		<div id="flash_holder1" class="slideshow-item">
+		<div id="city2" class="slideshow-item">
 			<img src="./images/HomePage/Kraljevo.jpg" alt="">
 			<div class="slideshow-item-text">
 				<h5>Kraljevo</h5>
@@ -42,7 +42,7 @@
 			</div>
 		</div>
 
-		<div id="flash_holder2" class="slideshow-item">
+		<div id="city3" class="slideshow-item">
 			<img src="./images/HomePage/Beograd.jpg" alt="">
 			<div class="slideshow-item-text">
 				<h5>Beograd</h5>
@@ -56,8 +56,12 @@
 	<script>
 		$(function() {
     		$("body").click(function() {
-				if ($("#flash_holder").css('opacity') > 0.1){
+				if ($("#city1").css('opacity') > 0.1){
 					window.location.href= "Map.html";
+				}
+
+				if ($("#city2").css('opacity') > 0.1 || $("#city3").css('opacity') > 0.1){
+					alert('Grad nije trenutno dostupan / The city is not available now');
 				}
    			 });
 		});
