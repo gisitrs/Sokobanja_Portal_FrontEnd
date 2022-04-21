@@ -96,6 +96,13 @@ body{
     font-weight: 300;
 }
 
+.slideshow-item-text marquee {
+    font-size: 1.6rem;
+    font-family: "Roboto", sans-serif;
+    letter-spacing: 1px;
+    font-weight: 300;
+}
+
 @keyframes cycleImages {
     25%{
         opacity: 1;
@@ -136,6 +143,10 @@ body{
     }
 
     .slideshow-item-text p{
+        font-size: 1.4rem;
+    }
+
+    .slideshow-item-text marquee{
         font-size: 1.4rem;
     }
 }
