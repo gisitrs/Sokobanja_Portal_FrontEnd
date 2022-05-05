@@ -23,7 +23,7 @@
 
 	<!-- locations panel div  -->
 	<div id="locationPanel" class="slideshow-container">
-		<div class="imagePanel">
+		<!-- <div class="imagePanel">
 			<img id="locationImage" src="images/Sokobanja/1/Skola_Mitropolit_Mihailo/Skola_Mitropolit_Mihailo.jpg" class="imageClass">
 			<div>
 				<h4 id="locationImageHeader" class="text-block">Škola "Mitropolit Mihailo"</h4>
@@ -32,7 +32,65 @@
 			</div>
 			<button class="btn" style="background: url('./images/left-arrow-background-1.png') no-repeat; left: 5%;" onclick="minusSlides()"></button>
 			<button class="btn" style="background: url('./images/right-arrow-background.png') no-repeat; left: 95%;" onclick="plusSlides()"></button>
-		</div>
+		</div> -->
+		<div class="mySlides fade">
+            <div class="numbertext">1 / 11</div>
+            <img src="images/Sokobanja/1/Skola_Mitropolit_Mihailo/Skola_Mitropolit_Mihailo.jpg" onclick="zoomToLocation(15, 1)">
+            <div class="text">Škola Mitropolit Mihailo</div>
+        </div>
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 11</div>
+            <img src="images/Sokobanja/2/Izletiste_Ozren/Izletiste_Ozren.jpg" onclick="zoomToLocation(15, 12)">
+			<div class="text">Izletište Ozren</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">3 / 11</div>
+            <img src="images/Sokobanja/2/Lepterija/Lepterija.jpg" onclick="zoomToLocation(15, 10)">
+			<div class="text">Izvorište Lepterija</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">4 / 11</div>
+            <img src="images/Sokobanja/2/Vodopad_Ripaljka/Vodopad_Ripaljka.jpg" onclick="zoomToLocation(15, 11)">
+			<div class="text">Vodopad Ripaljka</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">5 / 11</div>
+            <img src="images/Sokobanja/4/Milosev_konak/Milosev_konak.jpg" onclick="zoomToLocation(15, 24)">
+			<div class="text">Milošev konak</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">6 / 11</div>
+            <img src="images/Sokobanja/5/Akva_Park_Podina/Akva_park_Podina.jpg" onclick="zoomToLocation(15, 35)">
+			<div class="text">Akva Park Podina</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">7 / 11</div>
+            <img src="images/Sokobanja/6/Gradski_park/Gradski_park.jpg" onclick="zoomToLocation(15, 36)">
+			<div class="text">Gradski park</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">8 / 11</div>
+            <img src="images/Sokobanja/6/Park_Borici/Park_Borici.jpg" onclick="zoomToLocation(15, 38)">
+			<div class="text">Park Borići</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">9 / 11</div>
+            <img src="images/Sokobanja/13/Crkva_Svetog_Preobrazenja/Crkva_svetog_Preobrazenja.jpg" onclick="zoomToLocation(15, 71)" >
+			<div class="text">Crkva svetog Preobraženja</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">10 / 11</div>
+            <img src="images/Sokobanja/13/Sokograd/Sokograd.jpg" onclick="zoomToLocation(15, 73)">
+			<div class="text">Sokograd</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">11 / 11</div>
+            <img src="images/Sokobanja/13/Tursko_kupatilo_amam/Tursko_kupatilo_amam.jpg" onclick="zoomToLocation(15, 72)">
+			<div class="text">Tursko kupatilo Amam</div>
+        </div>
+
+        <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
 	</div>
 
 	<!-- local libraries link  -->
@@ -88,26 +146,26 @@
 				map.setView([xCoord, yCoord], 16);
 			}
 
-			if (ssImgURL != "" ) {
+			/*if (ssImgURL != "" ) {
 				document.getElementById("locationImage").src = ssImgURL;
 				document.getElementById('locationIdText').innerHTML = locationIdText;
-			}
+			}*/
 
       		if (languageValue == "Serbian"){
         		translateOnSerbian();
-				document.getElementById("locationImageHeader").innerHTML = ssImgHeader;
+				//document.getElementById("locationImageHeader").innerHTML = ssImgHeader;
       		}
       		else if (languageValue == "English"){
         		translateOnEnglish();
-				document.getElementById("locationImageHeader").innerHTML = ssImgHeader;
+				//document.getElementById("locationImageHeader").innerHTML = ssImgHeader;
       		}
 
-			/* set location image */
+			/* set location image 
 			document.getElementById("locationImage").onclick = function() {
-				var test = document.getElementById("locationImageText").textContent;
-				var locationId = document.getElementById("locationIdText").textContent;
+				//var test = document.getElementById("locationImageText").textContent;
+				//var locationId = document.getElementById("locationIdText").textContent;
 				zoomToLocation(locationZoomLevels[slideIndex], locationId);
-      		};
+      		}; */
 			
 			/* load WMS layers from Geoserver */
 			loadAndHideWMS(zonesGroup, wmsLayerZones);

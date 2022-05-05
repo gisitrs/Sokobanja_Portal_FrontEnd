@@ -88,6 +88,67 @@ function prepareElementsForSlideShow(locationsPriorityOne){
 
 //#endregion
 
+//#region slideshow functions
+
+var slideIndex = 1;
+var isClicked = false;
+showSlides(slideIndex);
+
+function plusSlides(n) {
+    isClicked = true;
+    showSlides(slideIndex += n);
+}
+
+function currentSlide(n) {
+    showSlides(slideIndex = n);
+}
+
+function showSlides(n) {
+    var i;
+    var slides = document.getElementsByClassName("mySlides");
+    //var dots = document.getElementsByClassName("dot");
+    if (n > slides.length) { slideIndex = 1 }
+    if (n < 1) { slideIndex = slides.length }
+    for (i = 0; i < slides.length; i++){
+        slides[i].style.display = "none";
+    }
+
+    /*for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+    }*/
+
+    slides[slideIndex - 1].style.display = "block";
+    //dots[slideIndex - 1].className += "active";
+}
+
+// Auto slide
+
+var slideIndex = 0;
+var timeoutValue = 4000;
+showSlidesAutomatic();
+
+function showSlidesAutomatic() {
+    var i;
+    if (isClicked == false ) {
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++){
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {
+            slideIndex = 1;
+        }
+        slides[slideIndex - 1].style.display = "block";
+        setTimeout(showSlidesAutomatic, timeoutValue);
+    }
+    else {
+        isClicked = false;
+        setTimeout(showSlidesAutomatic, timeoutValue);
+    }
+}
+
+//#endregion
+
 //#region get data from api
 
 // Defining async function
@@ -363,8 +424,8 @@ function translateLocationHeaders(){
         var currentImageDescriptionText = imageLocationTextENG;
     }
 
-    document.getElementById('locationImageHeader').innerHTML = currentImageHeaders[slideIndex];
-    document.getElementById('locationImageText').innerHTML = currentImageDescriptionText[slideIndex];
+    //document.getElementById('locationImageHeader').innerHTML = currentImageHeaders[slideIndex];
+    //document.getElementById('locationImageText').innerHTML = currentImageDescriptionText[slideIndex];
 }
 
 //#endregion
@@ -516,10 +577,10 @@ const LanguagesPanel = L.Control.extend({
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="languagesContainer">
                                 <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" style="border: none;" onclick="translateOnSerbian()">
-                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 9px;"></img> 
+                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 4px;"></img> 
                                 </button>
                                 <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" style="border: none;" onclick="translateOnEnglish()">
-                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 9px;"></img>
+                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 4px; margin-left: 3px;"></img>
                                 </button>
                             </div>`; 
   return container;
@@ -640,53 +701,6 @@ function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginT
         locationPanel.style.top= '0%';
     }
 }
-
-/* panel with locations - slide show -*/
-
-startSlideShow();
-
-function startSlideShow(){
-    setTimeout(automaticPlusSlide, 7000);
-}
-
-function plusSlides() {
-    slideIndex = slideIndex + 1;
-    showSlides(false);
-}
-
-function minusSlides() {
-    slideIndex = slideIndex - 1;
-    showSlides(false);
-  }
-
-function automaticPlusSlide(){
-    slideIndex = slideIndex + 1;
-    showSlides(true);
-}
-
-function showSlides(isAutomatic) {
-    var imageListCount = imageURLsList.length;
-    var b = slideIndex;
-
-    if (slideIndex == -1){
-        slideIndex = imageListCount - 1;
-    }
-    else if (slideIndex == imageListCount){
-        slideIndex = 0;
-    } 
-
-    $("#locationImage").attr("src",imageURLsList[slideIndex]);
-    $("#locationImage").css("object-position",imagePositionsArray[slideIndex]);
-    document.getElementById('locationIdText').innerHTML = locationIds[slideIndex];
-    translateLocationHeaders();
-    //document.getElementById('locationImageHeader').innerHTML = imageHeaderText[slideIndex];
-
-    if (isAutomatic == true){
-        startSlideShow();
-    }
-}
-
-//#endregion
 
 //#region functions for show-hide layers
 
