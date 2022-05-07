@@ -415,14 +415,35 @@ function translateLocationsPanelButton(){
 }
 
 function translateLocationHeaders(){
-    if (currentLanguage == appLanguages.Serbian){
+    var serbianVisibility = 'visible';
+    var englishVisibility = 'hidden';
+
+    var textElements = document.getElementsByClassName('text');
+    var engTextElements = document.getElementsByClassName('engtext');
+
+    if (currentLanguage == appLanguages.English){
+        serbianVisibility = 'hidden';
+        englishVisibility = 'visible';
+    }
+
+    for (i = 0; i < textElements.length; i++){
+        const element = document.getElementById(textElements[i].id);
+        element.style.visibility = serbianVisibility;
+    }
+
+    for (i = 0; i < engTextElements.length; i++){
+        const element = document.getElementById(engTextElements[i].id);
+        element.style.visibility = englishVisibility;
+    }
+        
+    /*if (currentLanguage == appLanguages.Serbian){
         var currentImageHeaders = imageHeaderTextRS;
         var currentImageDescriptionText = imageLocationTextRS;
     }
     else if (currentLanguage == appLanguages.English){
         var currentImageHeaders = imageHeaderTextENG;
         var currentImageDescriptionText = imageLocationTextENG;
-    }
+    }*/
 
     //document.getElementById('locationImageHeader').innerHTML = currentImageHeaders[slideIndex];
     //document.getElementById('locationImageText').innerHTML = currentImageDescriptionText[slideIndex];

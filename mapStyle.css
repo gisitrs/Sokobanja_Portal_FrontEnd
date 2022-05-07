@@ -91,7 +91,7 @@ img {
     background-color: rgba(0,0,0,0.8);
 }
 
-.text {
+.text, .engtext {
     color: white;
     font-size: 15px;
     padding: 0px 12px;
@@ -103,6 +103,10 @@ img {
     left: 0;
     transform: translateY(-90%);
     background-color: rgba(0,0,0,.5);
+}
+
+.engtext {
+    visibility: hidden;
 }
 
 .numbertext {
@@ -132,7 +136,7 @@ img {
 }
 
 @media screen and (max-width: 767px){
-    .text{
+    .text, .engtext{
         max-width: 100%;
         padding: 0rem;
         top: initial;
@@ -143,19 +147,19 @@ img {
 
 /* responsive */
 @media only screen and (max-width:300px){
-    .prev, .next, .text {
+    .prev, .next, .text, .engtext {
         font-size: 11px;
     }
 }
 
 @media only screen and (max-width:500px){
-    .prev, .next, .text {
+    .prev, .next, .text, .engtext {
         font-size: 14px;
     }
 }
 
 @media only screen and (max-width:2000px){
-    .text {
+    .text, .engtext {
         font-size: 22px;
     }
 }

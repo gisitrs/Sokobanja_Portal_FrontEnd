@@ -209,13 +209,13 @@ function goToMapPage(xCoord, yCoord, locationName){
   var locationIdText = mapPageProperties[0].location_id;
   //var objectPosition = mapPageProperties[0].image_position;
 
-  var url = "Map.html?language=" + currentLanguage + 
-            "&ssImgURL=" + ssImgURL + 
+  var url = "Map.html?language=" + currentLanguage;
+            /*"&ssImgURL=" + ssImgURL + 
             "&ssImgHeader=" + ssImgHeader +
             "&locationIdText=" + locationIdText + 
             "&xCoord=" + xCoord +
             "&yCoord=" + yCoord +
-            "&locationName=" + locationName;
+            "&locationName=" + locationName;*/
 
   window.location.href= url;
 }
