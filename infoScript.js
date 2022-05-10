@@ -201,15 +201,18 @@ function updateTextValuesForSelectedLanguage() {
   updateButtonTitles();
 }
 
-function goToMapPage(xCoord, yCoord, locationName){
-  var mapPageProperties = locationsForCityArray.getLocationsByPriority(1);
+function goToMapPage(locationLinkId){
+  /*var mapPageProperties = locationsForCityArray.getLocationsByPriority(1);
 
   var ssImgURL = mapPageProperties[0].image_url_location;
   var ssImgHeader = mapPageProperties[0].name;
-  var locationIdText = mapPageProperties[0].location_id;
+  var locationIdText = mapPageProperties[0].location_id;*/
   //var objectPosition = mapPageProperties[0].image_position;
 
-  var url = "Map.html?language=" + currentLanguage;
+  var locationLink = locationLinkId.id.split("LocationLink")[0];
+
+  var url = "Map.html?language=" + currentLanguage +
+            "&locationLink=" + locationLink;
             /*"&ssImgURL=" + ssImgURL + 
             "&ssImgHeader=" + ssImgHeader +
             "&locationIdText=" + locationIdText + 
@@ -301,7 +304,7 @@ function createTabContent(){
     return divContent;
 }
 
-/* create div content for toggle menu */
+/* create div content for toggle menu href="javascript:goToMapPage(' + xCoord + "," + yCoord + ",'" + headerText + "'" + ')" */
 function createDivContent(dataParentId, collapseId, panelId, panel1Id, 
   imageId, panelTextId, panel1TextId, webLinkId, 
   webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
@@ -332,7 +335,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                                   '<a id="' + webLink1Id + '" href=""></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
-                                  '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ",'" + headerText + "'" + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                  '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + locationLink1Id + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
                                   '<a id="' + facebookLinkId + '" href="#" title="" style="visibility: hidden"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
@@ -353,7 +356,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                               '<a id="' + webLinkId + '" class="panel-body-small-size" href=""></a>' +
                             '</div>' +
                             '<div class="col-md-1">' +
-                                '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + xCoord + "," + yCoord + ",'" + headerText + "'" + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
+                                '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + locationLinkId + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                             '</div>' +
                             '<div class="col-md-1">' +
                                 '<a id="' + facebookLink1Id + '" href="#" title="" style="visibility: hidden; height: 0%;" class="panel-body-small-size"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +

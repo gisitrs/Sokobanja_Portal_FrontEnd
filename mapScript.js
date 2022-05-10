@@ -9,6 +9,9 @@ const mapLabelsENG = new MapLabelsENG();
 const mapLayerLabelsRS = new MapLayerLabelsRS();
 const mapLayerLabelsENG = new MapLayerLabelsENG();
 
+var locationTypeChecked = "";
+var automaticChecked = false;
+
 const cityId = 1;
 const cityCoords = [43.6433, 21.8667];
 const apiUrladdress = new APIUrls();
@@ -19,7 +22,6 @@ const appLanguages = Object.freeze({
     English: 'English'
 });
 
-// or the shorthand way
 var dictLocationTypes = {
     1: "cityLocations",
     2: "picnicAreas",
@@ -35,6 +37,22 @@ var dictLocationTypes = {
     12: "lookouts",
     13: "sights"
   };
+
+var dictLocationTypeIds = {
+    "cityLocations": 1,
+    "picnicAreas": 2,
+    "waterSprings" :3,
+    "culturalContent" : 4,
+    "baths" : 5,
+    "parks" : 6,
+    "naturalAttractions" : 7,
+    "childrenFacilities" : 8,
+    "sportsFacilities" : 9,
+    "thermalSprings" : 10,
+    "touristBenefits" : 11,
+    "lookouts" : 12,
+    "sights" : 13
+};
 
 /* variables for toggle menu visibility */
 
@@ -58,7 +76,7 @@ var selectedCity = {};
 /* location images */
 var slideIndex = 0;
 
-var imageURLsList = [];
+/*var imageURLsList = [];
 var imageHeaderTextRS = [];
 var imageHeaderTextENG = [];
 var locationCoords = [];
@@ -66,9 +84,9 @@ var imageLocationTextRS = [];
 var imageLocationTextENG = [];
 var locationZoomLevels = [];
 var locationIds = [];
-var imagePositionsArray = [];
+var imagePositionsArray = [];*/
 
-function prepareElementsForSlideShow(locationsPriorityOne){
+/*function prepareElementsForSlideShow(locationsPriorityOne){
     locationCoords = [];
 
     locationsPriorityOne.forEach((location) => (
@@ -84,7 +102,7 @@ function prepareElementsForSlideShow(locationsPriorityOne){
         ));
 
         console.log(locationCoords);
-}
+}*/
 
 //#endregion
 
@@ -162,7 +180,17 @@ async function getLocationsAPI(url) {
     if (response){
         var data = await response.json();
         locationsForCityArray = new LocationsTest(data);
-        prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
+
+        if (automaticChecked == true && locationTypeChecked != ""){
+            var locationTypeId = dictLocationTypeIds[locationTypeChecked];
+            var checkBoxCheckedId = dictLocationTypes[locationTypeId] + "CB";
+
+            document.getElementById(checkBoxCheckedId).checked = true;
+            prepareMarkerElements(locationTypeId);
+            map.setView(cityCoords, 13);
+        }
+        
+        //prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
     }
 }
 
