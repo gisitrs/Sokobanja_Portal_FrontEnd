@@ -10,6 +10,7 @@ const mapLayerLabelsRS = new MapLayerLabelsRS();
 const mapLayerLabelsENG = new MapLayerLabelsENG();
 
 var locationTypeChecked = "";
+var locationIdChecked = "";
 var automaticChecked = false;
 
 const cityId = 1;
@@ -185,13 +186,36 @@ async function getLocationsAPI(url) {
             var locationTypeId = dictLocationTypeIds[locationTypeChecked];
             var checkBoxCheckedId = dictLocationTypes[locationTypeId] + "CB";
 
+            var locationXCoord = locationsForCityArray.getLocationXCoordByLocationId(locationIdChecked);
+            var locationYCoord = locationsForCityArray.getLocationYCoordByLocationId(locationIdChecked);
+
+            var midPointCoords = getMidPointCoords(cityCoords,[locationXCoord, locationYCoord]);
+
             document.getElementById(checkBoxCheckedId).checked = true;
             prepareMarkerElements(locationTypeId);
-            map.setView(cityCoords, 13);
+            map.setView(midPointCoords, 13);
         }
         
         //prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
     }
+}
+
+function getMidPointCoords(cityCoords, locationCoords){
+    var pi = Math.PI;
+    var fi1 = cityCoords[0] * (pi/180);
+    var l1 = cityCoords[1] * (pi/180);
+    var fi2 = locationCoords[0] * (pi/180);
+    var l2 = locationCoords[1] * (pi/180);
+
+    const bX = Math.cos(fi2) * Math.cos(l2 - l1);
+    const bY = Math.cos(fi2) * Math.sin(l2 - l1);
+
+    const fi3 = Math.atan2(Math.sin(fi1) + Math.sin(fi2), 
+                    Math.sqrt((Math.cos(fi1) + bX) * (Math.cos(fi1) + bX) + bY * bY));
+    
+    const l3 = l1 + Math.atan2(bY, Math.cos(fi1) + bX);
+
+    return [fi3 * (180/pi), l3 * (180/pi)];
 }
 
 async function getCitiesAPI(url) {

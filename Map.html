@@ -143,6 +143,7 @@
 
 			const languageValue = urlParams.get('language');
 			const locationLink = urlParams.get('locationLink');
+			const locationId = urlParams.get('locationId');
 			
 			/*const ssImgHeader = urlParams.get('ssImgHeader');
 			const ssImgURL = urlParams.get('ssImgURL');
@@ -164,9 +165,10 @@
 				document.getElementById('locationIdText').innerHTML = locationIdText;
 			}*/
 
-			if (locationLink != ""){
+			if (locationLink != "" && locationId != ""){
 				automaticChecked = true;
 				locationTypeChecked = locationLink;
+				locationIdChecked = locationId;
 			}
 
       		if (languageValue == "Serbian"){
