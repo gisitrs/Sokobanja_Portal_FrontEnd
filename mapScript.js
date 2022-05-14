@@ -183,21 +183,26 @@ async function getLocationsAPI(url) {
         locationsForCityArray = new LocationsTest(data);
 
         if (automaticChecked == true && locationTypeChecked != ""){
-            var locationTypeId = dictLocationTypeIds[locationTypeChecked];
-            var checkBoxCheckedId = dictLocationTypes[locationTypeId] + "CB";
-
-            var locationXCoord = locationsForCityArray.getLocationXCoordByLocationId(locationIdChecked);
-            var locationYCoord = locationsForCityArray.getLocationYCoordByLocationId(locationIdChecked);
-
-            var midPointCoords = getMidPointCoords(cityCoords,[locationXCoord, locationYCoord]);
-
-            document.getElementById(checkBoxCheckedId).checked = true;
-            prepareMarkerElements(locationTypeId);
-            map.setView(midPointCoords, 13);
+            showLocation();
         }
         
         //prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
     }
+}
+
+function showLocation(){
+    var locationTypeId = dictLocationTypeIds[locationTypeChecked];
+    var checkBoxCheckedId = dictLocationTypes[locationTypeId] + "CB";
+
+    var locationXCoord = locationsForCityArray.getLocationXCoordByLocationId(locationIdChecked);
+    var locationYCoord = locationsForCityArray.getLocationYCoordByLocationId(locationIdChecked);
+            
+    var midPointCoords = getMidPointCoords(cityCoords,[locationXCoord, locationYCoord]);
+
+    document.getElementById(checkBoxCheckedId).checked = true;
+    prepareMarkerElements(locationTypeId, locationIdChecked);
+
+    map.setView(midPointCoords, 13);
 }
 
 function getMidPointCoords(cityCoords, locationCoords){
@@ -807,7 +812,7 @@ var roadsGroup = L.layerGroup().addTo(map);
 
 function showHideMarkersforLocationType(locationTypeId, elementId){
     if (document.getElementById(elementId.id).checked == true){
-        prepareMarkerElements(locationTypeId);
+        prepareMarkerElements(locationTypeId, '0');
     }
     else { 
         locationTypesLayerGroupsArray[locationTypeId - 1].clearLayers();
@@ -832,12 +837,12 @@ function showHideRoads(){
     }
 }
 
-function prepareMarkerElements(locationTypeId){
+function prepareMarkerElements(locationTypeId, checkedLocationId){
     var locationsForLocationTypeId = locationsForCityArray.getLocationsByTypeId(locationTypeId);
     for (const location of locationsForLocationTypeId) {
         CreateMarker([parseFloat(location.x_coord), parseFloat(location.y_coord)], location.name, 
                      locationTypesLayerGroupsArray[locationTypeId - 1], markerIconsArray[locationTypeId - 1],
-                     location.image_url_location, locationTypeId, location.location_id);
+                     location.image_url_location, locationTypeId, location.location_id, checkedLocationId);
     }
 }
 
@@ -848,7 +853,8 @@ var cityLocationsIcon = L.icon({
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
-    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+    popupAnchor:  [0, -30], // point from which the popup should open relative to the iconAnchor
+    className: 'blinking'
 });
 
 var picnicAreasIcon = L.icon({
@@ -946,6 +952,15 @@ var sightsIcon = L.icon({
     popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
+var circlePulseIcon = L.divIcon({
+    // Specify a class name we can refer to in CSS.
+    className: 'css-icon',
+    html: '<div class="gps_ring"></div>'
+    // Set marker width and height
+    ,iconSize: [30,30]
+    // ,iconAnchor: [11,11]
+});
+
 var markerIconsArray = [cityLocationsIcon, picnicAreasIcon, waterSpringsIcon,
                         culturalContentIcon, bathsIcon, parksIcon, 
                         naturalAttractionsIcon, childrenFacilitiesIcon, sportsFacilitiesIcon,
@@ -954,7 +969,7 @@ var markerIconsArray = [cityLocationsIcon, picnicAreasIcon, waterSpringsIcon,
 
 /* create marker function */ 
 
-function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLocation, locationTypeId, locationId){
+function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLocation, locationTypeId, locationId, checkedLocationId){
     tabHeader = dictLocationTypes[locationTypeId];
     var locationLiId = tabHeader + "LiId";
     var locationPanelId = tabHeader + "Panel" + locationId + "Id";
@@ -978,19 +993,15 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
 
     locationsGroup.addLayer(marker);
 
-    if (locationsGroup == priorityOneLocationsLayerGroup){
-        marker.openPopup();
+    if (checkedLocationId == locationId){
+        // Create three markers and set their icons to circlePulseIcon
+        var circleMarker = L.marker(coords, {icon: circlePulseIcon}).addTo(map);
+        locationsGroup.addLayer(circleMarker);
     }
-}
 
-function createSimpleMarket(xCoord, yCoord, locationName){
-    var markerName = locationName.replace("%20", " ");
-    var marker = L.marker([xCoord, yCoord]).addTo(map);
-
-    marker.bindPopup('<b style="font-size:20px">' + markerName +'</b>',
-    {minWidth:80});
-
-    marker.openPopup();
+    /*if (locationsGroup == priorityOneLocationsLayerGroup){
+        marker.openPopup();
+    }*/
 }
 
 //#endregion

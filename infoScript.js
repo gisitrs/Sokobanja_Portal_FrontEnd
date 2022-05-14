@@ -202,26 +202,19 @@ function updateTextValuesForSelectedLanguage() {
 }
 
 function goToMapPage(locationLinkId){
-  /*var mapPageProperties = locationsForCityArray.getLocationsByPriority(1);
+  var locationLink = '';
+  var locationId = '';
+  var locationIdValue = '';
 
-  var ssImgURL = mapPageProperties[0].image_url_location;
-  var ssImgHeader = mapPageProperties[0].name;
-  var locationIdText = mapPageProperties[0].location_id;*/
-  //var objectPosition = mapPageProperties[0].image_position;
+  var url = "Map.html?language=" + currentLanguage;
 
-  var locationLink = locationLinkId.id.split("LocationLink")[0];
-  var locationId = locationLinkId.id.split("LocationLink")[1];
-  var locationIdValue = locationId.split("Id")[0];
+  if (locationLinkId != 'pL'){
+    locationLink = locationLinkId.id.split("LocationLink")[0];
+    locationId = locationLinkId.id.split("LocationLink")[1];
+    locationIdValue = locationId.split("Id")[0];
 
-  var url = "Map.html?language=" + currentLanguage +
-            "&locationLink=" + locationLink +
-            "&locationId=" + locationIdValue;
-            /*"&ssImgURL=" + ssImgURL + 
-            "&ssImgHeader=" + ssImgHeader +
-            "&locationIdText=" + locationIdText + 
-            "&xCoord=" + xCoord +
-            "&yCoord=" + yCoord +
-            "&locationName=" + locationName;*/
+    url = url + "&locationLink=" + locationLink + "&locationId=" + locationIdValue;
+  }
 
   window.location.href= url;
 }
