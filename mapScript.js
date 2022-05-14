@@ -182,7 +182,7 @@ async function getLocationsAPI(url) {
         var data = await response.json();
         locationsForCityArray = new LocationsTest(data);
 
-        if (automaticChecked == true && locationTypeChecked != ""){
+        if (automaticChecked == true && locationTypeChecked != "" && locationTypeChecked != null){
             showLocation();
         }
         
@@ -513,21 +513,32 @@ function translateLocationHeaders(){
 // zoom to location
 
 function goToPrimaryLocation(){
-	// zoomToLocation(cityCoords, 15);
     map.setView(cityCoords, 15);
 }
 
 function zoomToLocation(zoomValue, locationId){
-    var locationName = locationsForCityArray.getLocationNameByLocationId(locationId);
-    var locationImageURL = locationsForCityArray.getLocationImageURLByLocationId(locationId);
     var locationXCoord = locationsForCityArray.getLocationXCoordByLocationId(locationId);
     var locationYCoord = locationsForCityArray.getLocationYCoordByLocationId(locationId);
     var locationTypeId = locationsForCityArray.getLocationTypeIdByLocationId(locationId);
 
-    CreateMarker([locationXCoord, locationYCoord], locationName, priorityOneLocationsLayerGroup, 
-        markerIconsArray[locationTypeId - 1], locationImageURL, locationTypeId, locationId);
+    var locationType = dictLocationTypes[locationTypeId];
+    var checkedLocationCB = locationType + "CB";
+    
+    if (document.getElementById(checkedLocationCB).checked == false){
+        document.getElementById(checkedLocationCB).checked = true;
+        prepareMarkerElements(locationTypeId, locationId);
+    }
+    else {
+        createCirclePulseMarker([locationXCoord, locationYCoord], locationTypesLayerGroupsArray[locationTypeId - 1]);
+    }
 
-	map.setView([locationXCoord + 0.0012, locationYCoord], zoomValue);
+	//map.setView([locationXCoord + 0.0012, locationYCoord], zoomValue);
+    map.setView([locationXCoord, locationYCoord], zoomValue);
+}
+
+function createCirclePulseMarker(coords, locationsGroup){
+    var circleMarker = L.marker(coords, {icon: circlePulseIcon}).addTo(map);
+    locationsGroup.addLayer(circleMarker);
 }
 
 /* layers panel */
@@ -817,6 +828,8 @@ function showHideMarkersforLocationType(locationTypeId, elementId){
     else { 
         locationTypesLayerGroupsArray[locationTypeId - 1].clearLayers();
     }
+
+    map.setView(cityCoords, 13);
 }
 
 function showHideZones(){
@@ -998,10 +1011,6 @@ function CreateMarker(coords, markerName, locationsGroup, markerIcon, imageUrlLo
         var circleMarker = L.marker(coords, {icon: circlePulseIcon}).addTo(map);
         locationsGroup.addLayer(circleMarker);
     }
-
-    /*if (locationsGroup == priorityOneLocationsLayerGroup){
-        marker.openPopup();
-    }*/
 }
 
 //#endregion

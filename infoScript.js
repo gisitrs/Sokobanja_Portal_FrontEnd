@@ -209,8 +209,17 @@ function goToMapPage(locationLinkId){
   var url = "Map.html?language=" + currentLanguage;
 
   if (locationLinkId != 'pL'){
-    locationLink = locationLinkId.id.split("LocationLink")[0];
-    locationId = locationLinkId.id.split("LocationLink")[1];
+    //let linkContents = locationLinkId;
+
+    if(locationLinkId.id.includes("LocationLinkA")){
+      locationLink = locationLinkId.id.split("LocationLinkA")[0];
+      locationId = locationLinkId.id.split("LocationLinkA")[1];
+    }
+    else{
+      locationLink = locationLinkId.id.split("LocationLink")[0];
+      locationId = locationLinkId.id.split("LocationLink")[1];
+    }
+    
     locationIdValue = locationId.split("Id")[0];
 
     url = url + "&locationLink=" + locationLink + "&locationId=" + locationIdValue;
@@ -386,7 +395,7 @@ function createHtmlElements(){
       facebookLinkId = tabHeader + "FacebookLink" + location.location_id + "Id";
       facebookLink1Id = tabHeader + "FacebookLink1" + location.location_id + "Id";
       locationLinkId = tabHeader + "LocationLink" + location.location_id + "Id";
-      locationLink1Id = tabHeader + "LocationLink1" + location.location_id + "Id";
+      locationLink1Id = tabHeader + "LocationLinkA" + location.location_id + "Id";
 
       contactTextId = tabHeader + "ContactText" + location.location_id + "Id";
       contactText1Id = tabHeader + "ContactText1" + location.location_id + "Id";
