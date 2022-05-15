@@ -5,6 +5,7 @@ class MapLabelsENG {
         this.LayerGroupButtonTitle = "Show layers!";
         this.LegendMapButtonTitle = "Show map legend!";
         this.InfoPageButtonTitle = "Go to the Info page!";
+        this.HomePageButtonTitle = "Go to the Home page!";
         this.PrimeLocationButtonTitle = "Go to the primary location!";
         this.SerbianLanguageButtonTitle = "Translate on serbian!";
         this.EnglishLanguageButtonTitle = "Translate on english!";

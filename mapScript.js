@@ -293,7 +293,7 @@ async function loadWMS(layerGroup, wMSLayer){
 const ToggleMenu = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
-      container.innerHTML = `<input type="checkbox" name="" id="check">
+      container.innerHTML = `<input type="checkbox" name="" id="check" style="OVERFLOW-Y:scroll;">
                              <div class="container">
                                 <label for="check">
                                     <span class="fas fa-times" id="times" onclick="hidePanels()"></span>
@@ -314,6 +314,11 @@ const ToggleMenu = L.Control.extend({
                                     <li>
                                         <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="goToInfoPage()">
                                             <i class="fas fa-info-circle"></i>
+                                        </button>
+                                    </li>
+                                    <li>
+                                        <button id="homePageButtonId" title="Idi na Home stranu!" class="buttonClass" onclick="location.href = 'Home.html';">
+                                            <i class="fa fa-home"></i>
                                         </button>
                                     </li>
                                     <li>
@@ -447,6 +452,7 @@ function translateMapButtonLabels(labels){
     document.getElementById("layerGroupButton").title = labels.LayerGroupButtonTitle;
     document.getElementById("legendMapButton").title = labels.LegendMapButtonTitle;
     document.getElementById("infoPageButtonId").title = labels.InfoPageButtonTitle;
+    document.getElementById("homePageButtonId").title = labels.HomePageButtonTitle;
     document.getElementById("primeLocationButtonId").title = labels.PrimeLocationButtonTitle;
     document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
@@ -729,7 +735,7 @@ function changeMapLegendImage(){
 /* change page layout for the map and locations */
 
 function changePageLayout(){
-    if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == false){
+    /*if (($(document).height() <= 600 || $(document).width() <= 500) && isHiddenLocationPanel == false){
         resizeDivElements(mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, '100%', 'top', mapDivPercentageHeight);
         layout = 'vertical';
     } 
@@ -742,6 +748,23 @@ function changePageLayout(){
         layout = 'horizontal';
     }
     else if (($(document).height() > 600 || $(document).width() > 500) && isHiddenLocationPanel == true){
+        resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+        layout = 'horizontal';
+    }*/
+
+    if (($(document).height() > $(document).width()) && isHiddenLocationPanel == false){
+        resizeDivElements(mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, '100%', 'top', mapDivPercentageHeight);
+        layout = 'vertical';
+    } 
+    else if (($(document).height() > $(document).width()) && isHiddenLocationPanel == true){
+        resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
+        layout = 'vertical';
+    }
+    else if (($(document).height() <= $(document).width()) && isHiddenLocationPanel == false){
+        resizeDivElements('100%', mapDivPercentageHeight, '100%', locationsPanelPercentageHeight, 'right', mapDivPercentageHeight);
+        layout = 'horizontal';
+    }
+    else if (($(document).height() <= $(document).width()) && isHiddenLocationPanel == true){
         resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
         layout = 'horizontal';
     }

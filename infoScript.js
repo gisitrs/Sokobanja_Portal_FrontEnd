@@ -419,7 +419,7 @@ function createHtmlElements(){
 
 /* set page layout */
 function changePageLayout(){
-    if ($(document).width() <= 1000){
+    /*if ($(document).width() <= 1000){
       $('.panel-body-small-size').show(); 
       $('.panel-title').show();
 
@@ -427,6 +427,21 @@ function changePageLayout(){
       $('.col-md-9').hide();
     } 
     else if($(document).width() > 1000){
+      $('.panel-body-small-size').hide();
+      $('.panel-title').hide();
+
+      $('.header-text').show();
+      $('.col-md-9').show();
+    }*/
+
+    if ($(document).width() <= $(document).height()){
+      $('.panel-body-small-size').show(); 
+      $('.panel-title').show();
+
+      $('.header-text').hide();
+      $('.col-md-9').hide();
+    } 
+    else if($(document).width() >= $(document).height()){
       $('.panel-body-small-size').hide();
       $('.panel-title').hide();
 

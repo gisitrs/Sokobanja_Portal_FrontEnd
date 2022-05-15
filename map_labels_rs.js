@@ -5,6 +5,7 @@ class MapLabelsRS {
         this.LayerGroupButtonTitle = "Prikaži slojeve!";
         this.LegendMapButtonTitle = "Prikaži legendu!";
         this.InfoPageButtonTitle = "Idi na Info stranu!";
+        this.HomePageButtonTitle = "Idi na Home stranu!";
         this.PrimeLocationButtonTitle = "Vrati na početnu lokaciju!";
         this.SerbianLanguageButtonTitle = "Prevedi na srpski jezik!";
         this.EnglishLanguageButtonTitle = "Prevedi na engleski jezik!";
