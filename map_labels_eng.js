@@ -13,5 +13,6 @@ class MapLabelsENG {
         this.FullScreenPreview = "Full screen!";
         this.ExitFullScreenPreview = "Exit full screen!";
         this.MapPageButtonTitle = "Go to the Map page!";
+        this.MapProgressBarTitle = "Loading Zone and Road layers...";
     }
   }

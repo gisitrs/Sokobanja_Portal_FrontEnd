@@ -175,6 +175,12 @@ function showSlidesAutomatic() {
 
 async function getLocationsAPI(url) {
     
+    //activate progress bar
+    //document.getElementById("divProgressBar").style.visibility='visible';
+    var progressBarDiv = document.getElementById("divProgressBar");
+    progressBarDiv.style.height = "15px";
+    progressBarDiv.style.padding = "2px";
+
     // Storing response
     const response = await fetch(url);
     
@@ -186,6 +192,10 @@ async function getLocationsAPI(url) {
         if (automaticChecked == true && locationTypeChecked != "" && locationTypeChecked != null){
             showLocation();
         }
+
+        //document.getElementById("divProgressBar").style.visibility='hidden';
+        progressBarDiv.style.height = "0px";
+        progressBarDiv.style.padding = "0px";
         
         //prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
     }
@@ -458,6 +468,8 @@ function translateMapButtonLabels(labels){
     document.getElementById("serbianLanguageButtonId").title = labels.SerbianLanguageButtonTitle;
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
     document.getElementById("languagesButtonId").title = labels.LanguagesButtonTitle;
+    document.getElementById("languagesButtonId").title = labels.LanguagesButtonTitle;
+    document.getElementById("progressBar").title = labels.MapProgressBarTitle;
 }
 
 function translateLocationsPanelButton(){
@@ -663,6 +675,18 @@ const MapLegendPanel = L.Control.extend({
 
 map.addControl(new MapLegendPanel({ position: "topleft" }));
 
+/*const MapProgressBar = L.Control.extend({
+    onAdd: map => {
+      const container = L.DomUtil.create("div");
+      container.innerHTML = `<div id="divProgressBar" class="progress">
+                                <div id="progressBar" title="Učitavanje Zona i Puteva" class="fill a"></div>
+                             </div>`; 
+  return container;
+    }
+});
+
+map.addControl(new MapProgressBar({ position: "top" }));*/
+
 //#endregion
 
 //#region languages panel 
@@ -798,10 +822,14 @@ function showHideLocations(){
 
 function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginType, marginValue){
     var mapDiv = document.getElementById('map');
+    var progressBarDiv = document.getElementById('divProgressBar');
     var locationPanel = document.getElementById('locationPanel');
 
     mapDiv.style.height = mapHeight;
     mapDiv.style.width = mapWidth;
+
+    progressBarDiv.style.width = mapWidth;
+    
     locationPanel.style.height = panelHeight;
     locationPanel.style.width = panelWidth;
 

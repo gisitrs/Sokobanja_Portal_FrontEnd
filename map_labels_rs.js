@@ -13,5 +13,6 @@ class MapLabelsRS {
         this.FullScreenPreview = "Prikaži pun ekran!";
         this.ExitFullScreenPreview = "Izađi iz punog ekrana!";
         this.MapPageButtonTitle = "Idi na Map stranu!";
+        this.MapProgressBarTitle = "Učitavanje Zone i Putevi slojeva...";
     }
   }

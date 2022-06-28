@@ -15,9 +15,16 @@
 	<link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
 	
 	<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="mapStyle.css" />
 </head>
 <body>
+	<!-- progress bar div -->
+	<div id="divProgressBar" class="progress">
+		<div id="progressBar" title="Učitavanje Zona i Puteva" class="fill a"></div>
+	</div>
+
 	<!-- map div  -->
 	<div id='map'></div>
 
