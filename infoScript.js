@@ -27,8 +27,13 @@ var webLink1Id = "";
 
 var facebookLinkId = "";
 var facebookLink1Id = "";
+var instagramLinkId = "";
+var instagramLink1Id = "";
 var locationLinkId = "";
 var locationLink1Id = "";
+
+var facebookLinkValue = "";
+var instagramLinkValue = "";
 
 var contactTextId = "";
 var contactText1Id = "";
@@ -314,7 +319,8 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
   imageId, panelTextId, panel1TextId, webLinkId, 
   webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
   contactText1Id, locationLinkId, locationLink1Id, imageSource,
-  headerText, descriptionText, xCoord, yCoord)
+  headerText, descriptionText, xCoord, yCoord, facebookLinkValue, facebookVisibility,
+  instagramLinkId, instagramLink1Id, instagramVisibility)
   {
   var divContent = '<div class="panel panel-default">' +
                       '<div class="panel-heading">' +
@@ -336,14 +342,17 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                               '<div id="' + contactTextId + '"></div>'+
                               '</br>' +
                               '<div class="row">' +
-                                '<div class="col-md-10">' +
+                                '<div class="col-md-9">' +
                                   '<a id="' + webLink1Id + '" href=""></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
                                   '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + locationLink1Id + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
-                                  '<a id="' + facebookLinkId + '" href="#" title="" style="visibility: hidden"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
+                                  '<a id="' + facebookLinkId + '" href="' + facebookLinkValue + '" title="" style="visibility:' + facebookVisibility + '"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
+                                '</div>' +
+                                '<div class="col-md-1">' +
+                                  '<a id="' + instagramLinkId + '" href="' + instagramLinkValue + '" title="" style="visibility:' + instagramVisibility + '"><img src="./images/instagram-icon.jfif" class="img-responsive"></a>' +
                                 '</div>' +
                               '</div>' +
                             '</div>'+
@@ -357,14 +366,19 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                           '<div id="' + contactText1Id + '" class="panel-body-small-size"></div>'+
                           '</br>' + 
                           '<div class="row">' +
-                            '<div class="col-md-10">' +
-                              '<a id="' + webLinkId + '" class="panel-body-small-size" href=""></a>' +
+                            '<div class="col-xs-3">' +
+                              '<a id="' + webLinkId + '" class="panel-body-small-size" href="" style="visibility: hidden"></a>' +
                             '</div>' +
-                            '<div class="col-md-1">' +
+                           '</div>' +
+                           '<div class="row">' +
+                            '<div class="col-xs-4">' +
                                 '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + locationLinkId + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
                             '</div>' +
-                            '<div class="col-md-1">' +
-                                '<a id="' + facebookLink1Id + '" href="#" title="" style="visibility: hidden; height: 0%;" class="panel-body-small-size"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
+                            '<div class="col-xs-4">' +
+                                '<a id="' + facebookLink1Id + '" href="' + facebookLinkValue + '" title="" style="visibility:' + facebookVisibility + '; height: 0%;" class="panel-body-small-size"><img src="./images/facebook-icon.png" class="img-responsive"></a>' +
+                            '</div>' +
+                            '<div class="col-xs-4">' +
+                                '<a id="' + instagramLink1Id + '" href="' + instagramLinkValue + '" title="" style="visibility:' + instagramVisibility + '; height: 0%;" class="panel-body-small-size"><img src="./images/instagram-icon.jfif" class="img-responsive"></a>' +
                             '</div>' +
                            '</div>' +
                           '</div>' +
@@ -394,6 +408,8 @@ function createHtmlElements(){
       webLink1Id = tabHeader + "WebLink1" + location.location_id + "Id";
       facebookLinkId = tabHeader + "FacebookLink" + location.location_id + "Id";
       facebookLink1Id = tabHeader + "FacebookLink1" + location.location_id + "Id";
+      instagramLinkId = tabHeader + "InstagramLink" + location.location_id + "Id";
+      instagramLink1Id = tabHeader + "InstagramLink1" + location.location_id + "Id";
       locationLinkId = tabHeader + "LocationLink" + location.location_id + "Id";
       locationLink1Id = tabHeader + "LocationLinkA" + location.location_id + "Id";
 
@@ -402,11 +418,34 @@ function createHtmlElements(){
 
       var smallImageURL = location.image_url_location.split('.jpg')[0] + '_small.jpg';
 
+      var locationFacebookLink = location.facebook_link;
+      var facebookVisibility = 'hidden';
+
+      if (locationFacebookLink != null){
+        facebookLinkValue = locationFacebookLink;
+        facebookVisibility = 'visible';
+      }
+      else{
+        facebookLinkValue = '#';
+      }
+
+      var locationInstagramLink = location.instagram_link;
+      var instagramVisibility = 'hidden';
+
+      if (locationInstagramLink != null){
+        instagramLinkValue = locationInstagramLink;
+        instagramVisibility = 'visible';
+      }
+      else{
+        instagramLinkValue = '#';
+      }
+
       var divContent = createDivContent(dataParentId, collapseId, panelId, panel1Id, 
                                         imageId, panelTextId, panel1TextId, webLinkId, 
                                         webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
                                         contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
-                                        location.name, location.description, location.x_coord, location.y_coord);
+                                        location.name, location.description, location.x_coord, location.y_coord,
+                                        facebookLinkValue, facebookVisibility, instagramLinkId, instagramLink1Id, instagramVisibility);
 
       htmlContent = htmlContent + divContent;
 
