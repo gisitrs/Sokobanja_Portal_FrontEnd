@@ -1,5 +1,6 @@
 class MapLayerLabelsRS {
     constructor() {
+        this.CheckAllLocations = "Izaberi sve";
         this.CityLocations = "Gradske lokacije";
         this.PicnicAreas = "Izletišta";
         this.WaterSprings = "Izvorišta";

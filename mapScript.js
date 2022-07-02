@@ -35,7 +35,7 @@ var dictLocationTypes = {
     8: "childrenFacilities",
     9: "sportsFacilities",
     10: "thermalSprings",
-    11: "touristBenefits",
+    11: "touristSites",
     12: "lookouts",
     13: "sights"
   };
@@ -442,6 +442,7 @@ function translateOnLanguage(labels, mapLayerLabels){
 }
 
 function translateMapLayerLabels(mapLayerLabels){
+    document.getElementById("checkAllLocationsLB").innerHTML = mapLayerLabels.CheckAllLocations;
     document.getElementById("cityLocationsLB").innerHTML = mapLayerLabels.CityLocations;
     document.getElementById("picnicAreasLB").innerHTML = mapLayerLabels.PicnicAreas;
     document.getElementById("waterSpringsLB").innerHTML = mapLayerLabels.WaterSprings;
@@ -566,6 +567,12 @@ const LayersPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll;">
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" value="" id="checkAllLocationsCB" onclick="showHideAllLocations()">
+                                    <label class="form-check-label" for="checkAllLocationsCB" id="checkAllLocationsLB">
+                                        Izaberi sve
+                                    </label>
+                                </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideMarkersforLocationType(1, cityLocationsCB)">
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
@@ -884,6 +891,29 @@ function showHideMarkersforLocationType(locationTypeId, elementId){
     map.setView(cityCoords, 13);
 }
 
+// show or hide all locations
+function showHideAllLocations(){
+    var visibility = document.getElementById("checkAllLocationsCB").checked;
+
+    for (let i = 1; i <= 13; i++) {
+        var location = getLocation(i);
+        location.checked = visibility;
+        showHideMarkersforLocationType(i, location);
+    }
+
+    document.getElementById("zonesCB").checked = visibility;
+    document.getElementById("roadsCB").checked = visibility;
+    showHideZones();
+    showHideRoads();
+}
+
+// get locationCheckBox element for location type
+function getLocation(locationTypeId){
+    var checkBox = dictLocationTypes[locationTypeId] + "CB";
+    return document.getElementById(checkBox);
+}
+
+// show or hide zone layer
 function showHideZones(){
     if (document.getElementById("zonesCB").checked == true){
         zonesGroup.addLayer(wmsLayerZones);
@@ -893,6 +923,7 @@ function showHideZones(){
     }
 }
 
+// show or hide road layer
 function showHideRoads(){
     if (document.getElementById("roadsCB").checked == true){
         roadsGroup.addLayer(wmsLayerRoads);

@@ -1,5 +1,6 @@
 class MapLayerLabelsENG {
     constructor() {
+        this.CheckAllLocations = "Select all";
         this.CityLocations = "City locations";
         this.PicnicAreas = "Picnic areas";
         this.WaterSprings = "Water springs";
