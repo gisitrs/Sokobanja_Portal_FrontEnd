@@ -474,11 +474,20 @@ function translateMapButtonLabels(labels){
 }
 
 function translateLocationsPanelButton(){
+    var mapLegend = document.getElementById("mapLegendId");
+    var mapLegendContainer = document.getElementById("mapLegendContainerId");
+
     if (currentLanguage == appLanguages.Serbian){
         var currentMapLabels = mapLabelsRS;
+        mapLegend.src = "./images/Legend_srp.png";
+        mapLegend.style.height = "550px";
+        mapLegendContainer.style.height = "550px";
     }
     else if (currentLanguage == appLanguages.English){
         var currentMapLabels = mapLabelsENG;
+        mapLegend.src = "./images/Legend_eng.png";
+        mapLegend.style.height = "610px";
+        mapLegendContainer.style.height = "610px";
     }
 
     var imageUrl = document.getElementById("locationsButtonId").style.backgroundImage;
@@ -673,8 +682,8 @@ map.addControl(new LayersPanel({ position: "topleft" }));
 const MapLegendPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
-      container.innerHTML = `<div class="mapLegendContainer" style="margin-top:45px;">
-                                <img id="mapLegendId" src="./images/SmallLegend.jpg" alt="Map legend"></img>
+      container.innerHTML = `<div id="mapLegendContainerId" class="mapLegendContainer" style="margin-top:45px; OVERFLOW-Y:scroll;">
+                                <img id="mapLegendId" src="./images/Legend_srp.png" alt="Map legend"></img>
                             </div>`; 
   return container;
     }
@@ -756,11 +765,18 @@ function changePageLayout(){
 /* change image for map legend based on window width and height */
 
 function changeMapLegendImage(){
+    var mapLegendContainer = document.getElementById("mapLegendContainerId");
+    var mapLegend = document.getElementById("mapLegendId");
+
     if ($(document).height() <= 600 || $(document).width() <= 500){
-        document.getElementById("mapLegendId").src = "./images/SmallLegend.jpg";
+        //document.getElementById("mapLegendId").src = "./images/Legend_srp.png";
+        mapLegend.style.width = "260px;"
+        mapLegendContainer.style.width = "260px;"
     }
     else if ($(document).height() > 600 || $(document).width() > 500){
-        document.getElementById("mapLegendId").src = "./images/LegendaSlika.jpg";
+        //document.getElementById("mapLegendId").src = "./images/Legend_srp.png";
+        mapLegend.style.width = "280px;"
+        mapLegendContainer.style.width = "280px;"
     }
 }
 
