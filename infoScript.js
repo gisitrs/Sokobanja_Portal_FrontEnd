@@ -260,16 +260,41 @@ async function getLocationsAPI(url) {
           document.getElementById(locationPanelId).click();
         }
 
-        var locationTopOffset =  document.getElementById(locationPanelId).offsetTop;
+        //var locationTopOffset = document.getElementById(locationPanelId).offsetTop; "sightsPanel173IdsightsPanel173Id" 
+        var divLocationId = "test" + locationPanelId;
+        //alert(locationPanelId); 
+        
+        var locationTopOffset = document.getElementById(divLocationId).offsetTop - 50;
+        var divHeight = document.getElementById(divLocationId).offsetHeight;
+        var newLocationOffset = locationTopOffset; 
+
+        if ($(document).width() > 1000){
+          newLocationOffset = newLocationOffset - 130;
+        }
+
+        var documentHeight = $(document).height();
+        var bodyOffset = 0;
+
+        if ((locationTopOffset + divHeight) > documentHeight){
+          bodyOffset = documentHeight;
+        }
+
+        alert("Original Div offset = " + locationTopOffset + " New Div offset = " + newLocationOffset + " Div height " + divHeight  + "  Page height =  " + $(document).height());
 
         if (locationTopOffset < 300){
           locationTopOffset = 70;
         }
+
+        //locationTopOffset = $(document).height() - locationTopOffset;
         
         var locationLeftOffset = dictLocationLiIds[locationLiId];
 
         $('#tabContentId').animate({
           scrollTop: locationTopOffset
+        }, 1000);
+
+        $('html,body').animate({
+          scrollTop: bodyOffset
         }, 1000);
 
         $('#tabPanelId').animate({
@@ -322,7 +347,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
   headerText, descriptionText, xCoord, yCoord, facebookLinkValue, facebookVisibility,
   instagramLinkId, instagramLink1Id, instagramVisibility)
   {
-  var divContent = '<div class="panel panel-default">' +
+  var divContent = '<div id="test' + panelId + '" class="panel panel-default">' +
                       '<div class="panel-heading">' +
                         '<h4 class="header-text">' +
                           '<div id="' + panel1Id + '">' + headerText + '</div></a>' + 
