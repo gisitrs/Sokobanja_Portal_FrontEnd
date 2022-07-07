@@ -260,9 +260,7 @@ async function getLocationsAPI(url) {
           document.getElementById(locationPanelId).click();
         }
 
-        //var locationTopOffset = document.getElementById(locationPanelId).offsetTop; "sightsPanel173IdsightsPanel173Id" 
-        var divLocationId = "test" + locationPanelId;
-        //alert(locationPanelId); 
+        var divLocationId = "div" + locationPanelId;
         
         var locationTopOffset = document.getElementById(divLocationId).offsetTop - 50;
         var divHeight = document.getElementById(divLocationId).offsetHeight;
@@ -279,7 +277,7 @@ async function getLocationsAPI(url) {
           bodyOffset = documentHeight;
         }
 
-        alert("Original Div offset = " + locationTopOffset + " New Div offset = " + newLocationOffset + " Div height " + divHeight  + "  Page height =  " + $(document).height());
+        //alert("Original Div offset = " + locationTopOffset + " New Div offset = " + newLocationOffset + " Div height " + divHeight  + "  Page height =  " + $(document).height());
 
         if (locationTopOffset < 300){
           locationTopOffset = 70;
@@ -347,7 +345,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
   headerText, descriptionText, xCoord, yCoord, facebookLinkValue, facebookVisibility,
   instagramLinkId, instagramLink1Id, instagramVisibility)
   {
-  var divContent = '<div id="test' + panelId + '" class="panel panel-default">' +
+  var divContent = '<div id="div' + panelId + '" class="panel panel-default">' +
                       '<div class="panel-heading">' +
                         '<h4 class="header-text">' +
                           '<div id="' + panel1Id + '">' + headerText + '</div></a>' + 
