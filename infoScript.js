@@ -75,6 +75,23 @@ var dictLocationTypes = {
 };
 
 // or the shorthand way
+var dictLocationTypeIds = {
+  "cityLocations" : 1,
+  "picnicAreas" : 2,
+  "waterSprings" : 3,
+  "culturalContent" : 4,
+  "baths" :5,
+  "parks" :6,
+  "naturalAttractions" : 7,
+  "childrenFacilities" : 8,
+  "sportsFacilities" : 9,
+  "thermalSprings" : 10,
+  "touristBenefits" : 11,
+  "lookouts" : 12,
+  "sights" : 13
+};
+
+// or the shorthand way
 var dictLocationLiIds = {
   "cityLocationsLiId": 0,
   "picnicAreasLiId": 0,
@@ -166,18 +183,28 @@ function updateTextValues(){
     tabValues.forEach((location) => {
       panelTextId = tabHeader + "Panel" + location.location_id + "TextId";
       panel1TextId = tabHeader + "Panel1" + location.location_id + "TextId";
+      panelLocationNameId = tabHeader + "Panel" + location.location_id + "Id";
+      panel1LocationNameId = tabHeader + "Panel1" + location.location_id + "Id";
+
       var descriptionValue = "";
+      var locationName = "";
 
       if (currentLanguage == appLanguages.English){
         descriptionValue = location.description_eng;
+        locationName = location.name_eng;
       }
       else if (currentLanguage == appLanguages.Serbian){
         descriptionValue = location.description;
+        locationName = location.name;
       }
 
       /* update text value */
       document.getElementById(panelTextId).textContent = descriptionValue;
       document.getElementById(panel1TextId).textContent = descriptionValue;
+
+      /* update location name value */
+      document.getElementById(panelLocationNameId).textContent = locationName;
+      document.getElementById(panel1LocationNameId).textContent = locationName;
     })
   })
 }
@@ -237,6 +264,10 @@ function goToMapPage(locationLinkId){
 
 //#region get data from api
 
+function delay(time) {
+  return new Promise(resolve => setTimeout(resolve, time));
+}
+
 // Defining async function
 
 async function getLocationsAPI(url) {
@@ -249,9 +280,21 @@ async function getLocationsAPI(url) {
       var data = await response.json();
       locationsForCityArray = new LocationsTest(data);
 
-      createHtmlElements();
+      var locationId = 1;
+      var locationTypeName = "cityLocations";
+
+      if (locationPanelId != ""){
+        locationId = (locationPanelId.split("Panel")[1]).split("Id")[0];
+        locationTypeName = locationLiId.split("LiId")[0];
+      }
+
+      var selectedLocationTypeId = dictLocationTypeIds[locationTypeName];
+
+      createHtmlElements(locationId, selectedLocationTypeId);
       changePageLayout();
       setLocationTypeHeaders();
+
+      await delay(200);
 
       document.getElementById(locationLiId).click(); 
 
@@ -262,19 +305,19 @@ async function getLocationsAPI(url) {
 
         var divLocationId = "div" + locationPanelId;
         
-        var locationTopOffset = document.getElementById(divLocationId).offsetTop - 50;
+        var locationTopOffset = document.getElementById(divLocationId).offsetTop; // - 50
         var divHeight = document.getElementById(divLocationId).offsetHeight;
         var newLocationOffset = locationTopOffset; 
 
         if ($(document).width() > 1000){
-          newLocationOffset = newLocationOffset - 130;
+          newLocationOffset = newLocationOffset; // - 130
         }
 
         var documentHeight = $(document).height();
         var bodyOffset = 0;
 
         if ((locationTopOffset + divHeight) > documentHeight){
-          bodyOffset = documentHeight;
+          //bodyOffset = documentHeight;
         }
 
         //alert("Original Div offset = " + locationTopOffset + " New Div offset = " + newLocationOffset + " Div height " + divHeight  + "  Page height =  " + $(document).height());
@@ -412,13 +455,25 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
 }
 
 /* create html elements on the Info page */ 
-function createHtmlElements(){
+function createHtmlElements(locationId, selectedLocationTypeId){
   locationTypesArray.forEach((locationType) => {
     tabHeader = dictLocationTypes[locationType.id];
     dataParentId = tabHeader + "Panel";
     tabHeaderTextId = tabHeader + "Header";
     tabHeaderTextValue = tabHeader;
     tabValues = locationsForCityArray.getLocationsByTypeId(locationType.id);
+
+    if (locationType.id == selectedLocationTypeId){
+      var firstLocation = tabValues.find(function(element) {
+        return element.location_id == locationId;
+      });
+
+      var index = tabValues.indexOf(firstLocation);
+
+      tabValues.splice(index, 1);
+      tabValues.unshift(firstLocation);
+    }
+    
 
     tabValues.forEach((location) => {
       collapseId = tabHeader + "Collapse" + location.location_id;
