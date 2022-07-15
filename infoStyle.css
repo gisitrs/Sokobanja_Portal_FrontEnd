@@ -140,3 +140,9 @@ a {
     color:#034efc;
 }
 
+.spinner{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+}
+

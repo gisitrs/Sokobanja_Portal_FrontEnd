@@ -34,7 +34,11 @@ var locationLink1Id = "";
 
 var facebookLinkValue = "";
 var instagramLinkValue = "";
+var webAddressValue = "";
+var emailAddressValue = "";
 
+var emailLinkId = "";
+var emailLink1Id = "";
 var contactTextId = "";
 var contactText1Id = "";
 var dataParentId = "";
@@ -294,7 +298,9 @@ async function getLocationsAPI(url) {
       changePageLayout();
       setLocationTypeHeaders();
 
-      await delay(200);
+      $("#spinner").show();
+      await delay(900);
+      $("#spinner").hide();
 
       document.getElementById(locationLiId).click(); 
 
@@ -386,7 +392,8 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
   webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
   contactText1Id, locationLinkId, locationLink1Id, imageSource,
   headerText, descriptionText, xCoord, yCoord, facebookLinkValue, facebookVisibility,
-  instagramLinkId, instagramLink1Id, instagramVisibility)
+  instagramLinkId, instagramLink1Id, instagramVisibility, webAddressValue, webAddressVisibility,
+  emailLinkId, emailLink1Id, emailAddressValue, emailAddressVisibility)
   {
   var divContent = '<div id="div' + panelId + '" class="panel panel-default">' +
                       '<div class="panel-heading">' +
@@ -407,9 +414,12 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                               '</br>' +
                               '<div id="' + contactTextId + '"></div>'+
                               '</br>' +
-                              '<div class="row">' +
-                                '<div class="col-md-9">' +
-                                  '<a id="' + webLink1Id + '" href=""></a>' +
+                              '<div class="row">' + 
+                                '<div class="col-md-4">' +
+                                  '<a id="' + webLink1Id + '" href="' + webAddressValue + '" title="" style="visibility:' + webAddressVisibility + '">Web: ' + webAddressValue + '</a>' +
+                                '</div>' +
+                                '<div class="col-md-5">' +
+                                  '<a id="' + emailLinkId + '" href="mailto: ' + emailAddressValue + '" title="" style="visibility:' + emailAddressVisibility + '">Email: ' + emailAddressValue + '</a>' +
                                 '</div>' +
                                 '<div class="col-md-1">' +
                                   '<a id="' + locationLink1Id + '" href="javascript:goToMapPage(' + locationLink1Id + ')" title="" style="visibility: visible"><img src="./images/MapImage.png" class="img-responsive"></a>' +
@@ -432,10 +442,14 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                           '<div id="' + contactText1Id + '" class="panel-body-small-size"></div>'+
                           '</br>' + 
                           '<div class="row">' +
-                            '<div class="col-xs-3">' +
-                              '<a id="' + webLinkId + '" class="panel-body-small-size" href="" style="visibility: hidden"></a>' +
+                            '<div class="col-xs-6">' +
+                              '<a id="' + webLinkId + '" class="panel-body-small-size" href="' + webAddressValue + '" title="" style="visibility:' + webAddressVisibility + '">Web: ' + webAddressValue + '</a>' +
+                            '</div>' +
+                            '<div class="col-xs-6">' +
+                              '<a id="' + emailLink1Id + '" class="panel-body-small-size" href="mailto: ' + emailAddressValue + '" title="" style="visibility:' + emailAddressVisibility + '">Email: ' + emailAddressValue + '</a>' +
                             '</div>' +
                            '</div>' +
+                           '</br>' +
                            '<div class="row">' +
                             '<div class="col-xs-4">' +
                                 '<a id="' + locationLinkId + '" href="javascript:goToMapPage(' + locationLinkId + ')" title="" style="visibility: visible" class="panel-body-small-size"><img src="./images/MapImage.png" class="img-responsive"></a>' +
@@ -491,6 +505,8 @@ function createHtmlElements(locationId, selectedLocationTypeId){
       locationLinkId = tabHeader + "LocationLink" + location.location_id + "Id";
       locationLink1Id = tabHeader + "LocationLinkA" + location.location_id + "Id";
 
+      emailLinkId = tabHeader + "EmailLink" + location.location_id + "Id";
+      emailLink1Id = tabHeader + "EmailLink1" + location.location_id + "Id";
       contactTextId = tabHeader + "ContactText" + location.location_id + "Id";
       contactText1Id = tabHeader + "ContactText1" + location.location_id + "Id";
 
@@ -518,12 +534,35 @@ function createHtmlElements(locationId, selectedLocationTypeId){
         instagramLinkValue = '#';
       }
 
+      var webAddressValueLink = location.web_address;
+      var webAddressVisibility = 'hidden';
+
+      if (webAddressValueLink != null){
+        webAddressValue = webAddressValueLink;
+        webAddressVisibility = 'visible';
+      }
+      else{
+        webAddressValue = '#';
+      }
+
+      var emailAddressValueLink = location.email;
+      var emailAddressVisibility = 'hidden';
+
+      if (emailAddressValueLink != null){
+        emailAddressValue = emailAddressValueLink;
+        emailAddressVisibility = 'visible';
+      }
+      else{
+        emailAddressValue = '#';
+      }
+
       var divContent = createDivContent(dataParentId, collapseId, panelId, panel1Id, 
                                         imageId, panelTextId, panel1TextId, webLinkId, 
                                         webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
                                         contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
                                         location.name, location.description, location.x_coord, location.y_coord,
-                                        facebookLinkValue, facebookVisibility, instagramLinkId, instagramLink1Id, instagramVisibility);
+                                        facebookLinkValue, facebookVisibility, instagramLinkId, instagramLink1Id, instagramVisibility,
+                                        webAddressValue, webAddressVisibility, emailLinkId, emailLink1Id, emailAddressValue, emailAddressVisibility);
 
       htmlContent = htmlContent + divContent;
 
