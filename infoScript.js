@@ -41,6 +41,7 @@ var emailLinkId = "";
 var emailLink1Id = "";
 var contactTextId = "";
 var contactText1Id = "";
+var contactTextValue = "";
 var dataParentId = "";
 
 var tabParentId = "";
@@ -189,17 +190,22 @@ function updateTextValues(){
       panel1TextId = tabHeader + "Panel1" + location.location_id + "TextId";
       panelLocationNameId = tabHeader + "Panel" + location.location_id + "Id";
       panel1LocationNameId = tabHeader + "Panel1" + location.location_id + "Id";
+      contactTextId = tabHeader + "ContactText" + location.location_id + "Id";
+      contactText1Id = tabHeader + "ContactText1" + location.location_id + "Id";
 
       var descriptionValue = "";
       var locationName = "";
+      var contactText = "";
 
       if (currentLanguage == appLanguages.English){
         descriptionValue = location.description_eng;
         locationName = location.name_eng;
+        contactText = location.contact_eng;
       }
       else if (currentLanguage == appLanguages.Serbian){
         descriptionValue = location.description;
         locationName = location.name;
+        contactText = location.contact;
       }
 
       /* update text value */
@@ -209,6 +215,10 @@ function updateTextValues(){
       /* update location name value */
       document.getElementById(panelLocationNameId).textContent = locationName;
       document.getElementById(panel1LocationNameId).textContent = locationName;
+
+      /* update contact text value */
+      var a = document.getElementById(contactTextId).textContent = contactText;
+      var b = document.getElementById(contactText1Id).textContent = contactText;
     })
   })
 }
@@ -393,7 +403,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
   contactText1Id, locationLinkId, locationLink1Id, imageSource,
   headerText, descriptionText, xCoord, yCoord, facebookLinkValue, facebookVisibility,
   instagramLinkId, instagramLink1Id, instagramVisibility, webAddressValue, webAddressVisibility,
-  emailLinkId, emailLink1Id, emailAddressValue, emailAddressVisibility)
+  emailLinkId, emailLink1Id, emailAddressValue, emailAddressVisibility, contactTextValue, contactVisibility)
   {
   var divContent = '<div id="div' + panelId + '" class="panel panel-default">' +
                       '<div class="panel-heading">' +
@@ -412,7 +422,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                             '<div class="col-md-9">'+
                               '<div id="' + panel1TextId + '">' + descriptionText + '</div>'+
                               '</br>' +
-                              '<div id="' + contactTextId + '"></div>'+
+                              '<div id="' + contactTextId + '" style="visibility:' + contactVisibility + '">' + contactTextValue + '</div>'+
                               '</br>' +
                               '<div class="row">' + 
                                 '<div class="col-md-4">' +
@@ -439,7 +449,7 @@ function createDivContent(dataParentId, collapseId, panelId, panel1Id,
                         '<div class="panel-body">' +
                           '<div id="' + panelTextId + '" class="panel-body-small-size">' + descriptionText + '</div>' +
                           '</br>' +
-                          '<div id="' + contactText1Id + '" class="panel-body-small-size"></div>'+
+                          '<div id="' + contactText1Id + '" style="visibility:' + contactVisibility + '" class="panel-body-small-size">' + contactTextValue + '</div>'+
                           '</br>' + 
                           '<div class="row">' +
                             '<div class="col-xs-6">' +
@@ -556,13 +566,25 @@ function createHtmlElements(locationId, selectedLocationTypeId){
         emailAddressValue = '#';
       }
 
+      var contactTextValueLink = location.contact;
+      var contactVisibility = 'hidden';
+
+      if (contactTextValueLink != null){
+        contactTextValue = contactTextValueLink;
+        contactVisibility = 'visible';
+      }
+      else{
+        contactTextValue = '#';
+      }
+
       var divContent = createDivContent(dataParentId, collapseId, panelId, panel1Id, 
                                         imageId, panelTextId, panel1TextId, webLinkId, 
                                         webLink1Id, facebookLinkId, facebookLink1Id, contactTextId, 
                                         contactText1Id, locationLinkId, locationLink1Id, smallImageURL,
                                         location.name, location.description, location.x_coord, location.y_coord,
                                         facebookLinkValue, facebookVisibility, instagramLinkId, instagramLink1Id, instagramVisibility,
-                                        webAddressValue, webAddressVisibility, emailLinkId, emailLink1Id, emailAddressValue, emailAddressVisibility);
+                                        webAddressValue, webAddressVisibility, emailLinkId, emailLink1Id, emailAddressValue, emailAddressVisibility,
+                                        contactTextValue, contactVisibility);
 
       htmlContent = htmlContent + divContent;
 

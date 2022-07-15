@@ -23,12 +23,12 @@ SELECT location.id AS location_id,
     concat(
         CASE 
            WHEN location.address IS NOT NULL
-                THEN concat('Adresa: ', location.address, '  ')
+                THEN concat('Adresa: ', location.address, '; ')
                 ELSE NULL
         END, 
         CASE
             WHEN location.phone_number IS NOT NULL
-                THEN concat('Telefon: ', location.phone_number, '  ')
+                THEN concat('Telefon: ', location.phone_number, '; ')
                 ELSE NULL
         END,
         CASE
@@ -39,12 +39,12 @@ SELECT location.id AS location_id,
     concat(
         CASE 
            WHEN location.address IS NOT NULL
-                THEN concat('Address: ', location.address, '  ')
+                THEN concat('Address: ', location.address, '; ')
                 ELSE NULL
         END, 
         CASE
             WHEN location.phone_number IS NOT NULL
-                THEN concat('Phone: ', location.phone_number, '  ')
+                THEN concat('Phone: ', location.phone_number, '; ')
                 ELSE NULL
         END,
         CASE
