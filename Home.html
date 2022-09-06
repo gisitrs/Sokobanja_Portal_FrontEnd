@@ -19,8 +19,30 @@
 	<link rel="stylesheet" href="homeStyle.css" />
 </head>
 <body>
-    <div class="slideshow">
-		<div id="city1" class="slideshow-item">
+    <div class="slideshow-container">
+		<div class="mySlides fade">
+            <div class="numbertext">1 / 3</div>
+            <img src="images/HomePage/Sokobanja.jpg">
+            <div id="school" class="text">Sokobanja</div>
+			<div id="engSchool" class="engtext">Sokobanja</div>
+        </div>
+        <div class="mySlides fade">
+            <div class="numbertext">2 / 3</div>
+            <img src="images/HomePage/Kraljevo.jpg">
+			<div id="picnicArea" class="text">Kraljevo</div>
+			<div id="engPicnicArea" class="engtext">Kraljevo</div>
+        </div>
+		<div class="mySlides fade">
+            <div class="numbertext">3 / 3</div>
+            <img src="images/HomePage/Beograd.jpg">
+			<div id="waterSpring" class="text">Beograd</div>
+			<div id="engWaterSpring" class="engtext">Belgrade</div>
+        </div>
+
+		<a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+        <a class="next" onclick="plusSlides(1)">&#10095;</a>
+
+		<!--<div id="city1" class="slideshow-item">
 			<img src="./images/HomePage/Sokobanja.jpg" alt="" >
 			<div class="slideshow-item-text">
 				<marquee loop="1" height="18px">Klikni na sliku i poseti grad / Click on image and visit the city</marquee>
@@ -50,11 +72,13 @@
 			    </br>
 				<p>Belgrade is the capital and most populated city of the Republic of Serbia and the economic, cultural and educational center of the country. The city lies at the confluence of the Sava and the Danube.</p>
 			</div>
-		</div>
+		</div>-->
 	</div>
 
+	<script src="homeScript.js"></script>
+
 	<script>
-		$(function() {
+		/*$(function() {
     		$("body").click(function() {
 				if ($("#city1").css('opacity') > 0.1){
 					window.location.href= "Map.html";
@@ -64,7 +88,7 @@
 					alert('Grad nije trenutno dostupan / The city is not available now');
 				}
    			 });
-		});
+		});*/
 	</script>
 </body>
 </html>
