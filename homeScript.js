@@ -31,7 +31,7 @@ function showSlides(n) {
     //dots[slideIndex - 1].className += "active";
 }
 
-// Auto slide
+// Auto slides
 
 var slideIndex = 0;
 var timeoutValue = 8000;
@@ -55,6 +55,14 @@ function showSlidesAutomatic() {
         isClicked = false;
         setTimeout(showSlidesAutomatic, timeoutValue);
     }
+}
+
+function goToMapPage(){
+    window.location.href= "Map.html";
+}
+
+function alertMessage(){
+    alert('Grad nije trenutno dostupan / The city is not available now');
 }
 
 //#endregion
