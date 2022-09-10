@@ -34,7 +34,7 @@ function showSlides(n) {
 // Auto slide
 
 var slideIndex = 0;
-var timeoutValue = 4000;
+var timeoutValue = 8000;
 showSlidesAutomatic();
 
 function showSlidesAutomatic() {
