@@ -28,26 +28,38 @@ function showSlides(n) {
     }*/
 
     slides[slideIndex - 1].style.display = "block";
+    slideImageIndex = 0;
     //dots[slideIndex - 1].className += "active";
 }
 
 // Auto slides
 
 var slideIndex = 0;
-var timeoutValue = 8000;
+var timeoutValue = 9000;
 showSlidesAutomatic();
+
+var slideImageIndex = 0;
+var timeoutImageValue = 3000;
+
+showSubImagesAutomatic();
 
 function showSlidesAutomatic() {
     var i;
-    if (isClicked == false ) {
+    
+    if (isClicked == false) {
+        slideImageIndex = 0;
         var slides = document.getElementsByClassName("mySlides");
+
         for (i = 0; i < slides.length; i++){
             slides[i].style.display = "none";
         }
+
         slideIndex++;
+
         if (slideIndex > slides.length) {
             slideIndex = 1;
         }
+
         slides[slideIndex - 1].style.display = "block";
         setTimeout(showSlidesAutomatic, timeoutValue);
     }
@@ -55,6 +67,47 @@ function showSlidesAutomatic() {
         isClicked = false;
         setTimeout(showSlidesAutomatic, timeoutValue);
     }
+}
+
+function showSubImagesAutomatic() {
+    var i;
+
+    var slideSubImages = document.getElementsByClassName("subImage");
+        var slideImagesArray = [];
+        var showImagesArray = [];
+
+        switch (slideIndex) {
+            case 1:
+                slideImagesArray = [0, 1, 2, 3, 4, 5];
+                showImagesArray = [6, 12];
+            break;
+            case 2:
+                slideImagesArray = [6, 7, 8, 9, 10, 11];
+                showImagesArray = [0, 12];
+            break;
+            case 3:
+                slideImagesArray = [12, 13, 14, 15, 16, 17];
+                showImagesArray = [0, 6];
+            break;
+        }
+
+        for (i = 0; i < slideSubImages.length; i++){
+            slideSubImages[i].style.display = "none";
+        }
+
+        slideImageIndex++;
+
+        if (slideImageIndex > 6) {
+            slideImageIndex = 1;
+        }
+
+        var imageIndex = slideImagesArray[slideImageIndex - 1];
+
+        slideSubImages[imageIndex].style.display = "block";
+        slideSubImages[showImagesArray[0]].style.display = "block";
+        slideSubImages[showImagesArray[1]].style.display = "block";
+
+        setTimeout(showSubImagesAutomatic, timeoutImageValue);
 }
 
 function goToMapPage(){
