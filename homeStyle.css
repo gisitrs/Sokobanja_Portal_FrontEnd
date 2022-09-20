@@ -166,6 +166,7 @@ img {
     height: 100%;
     object-fit:cover; 
     object-position: 25%;
+    animation: zoom 15s infinite;
 }
 
 .slideshow-container {
