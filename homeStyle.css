@@ -271,12 +271,12 @@ img {
 }
 
 @-webkit-keyframes fade {
-    from {opacity: .6}
+    from {opacity: .4}
     to {opacity: 1}
 }
 
 @keyframes fade{
-    from {opacity: .6}
+    from {opacity: .4}
     to {opacity: 1}
 }
 
@@ -304,5 +304,17 @@ img {
 
     #belgradeMainPhotoId {
         object-position: 80%;
+    }
+
+    #sokobanjaMainPhotoId1 {
+        object-position: 70%;
+    }
+
+    #kraljevoMainPhotoId1 {
+        object-position: 70%;
+    }
+
+    #belgradeMainPhotoId1 {
+        object-position: 50%;
     }
 }

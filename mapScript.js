@@ -177,9 +177,9 @@ async function getLocationsAPI(url) {
     
     //activate progress bar
     //document.getElementById("divProgressBar").style.visibility='visible';
-    var progressBarDiv = document.getElementById("divProgressBar");
-    progressBarDiv.style.height = "15px";
-    progressBarDiv.style.padding = "2px";
+    //var progressBarDiv = document.getElementById("divProgressBar");
+    //progressBarDiv.style.height = "15px";
+    //progressBarDiv.style.padding = "2px";
 
     // Storing response
     const response = await fetch(url);
@@ -194,8 +194,8 @@ async function getLocationsAPI(url) {
         }
 
         //document.getElementById("divProgressBar").style.visibility='hidden';
-        progressBarDiv.style.height = "0px";
-        progressBarDiv.style.padding = "0px";
+        //progressBarDiv.style.height = "0px";
+        //progressBarDiv.style.padding = "0px";
         
         //prepareElementsForSlideShow(locationsForCityArray.getLocationsByPriority(1));
     }
@@ -470,7 +470,7 @@ function translateMapButtonLabels(labels){
     document.getElementById("englishLanguageButtonId").title = labels.EnglishLanguageButtonTitle;
     document.getElementById("languagesButtonId").title = labels.LanguagesButtonTitle;
     document.getElementById("languagesButtonId").title = labels.LanguagesButtonTitle;
-    document.getElementById("progressBar").title = labels.MapProgressBarTitle;
+    //document.getElementById("progressBar").title = labels.MapProgressBarTitle;
 }
 
 function translateLocationsPanelButton(){
@@ -845,13 +845,13 @@ function showHideLocations(){
 
 function resizeDivElements(mapHeight, mapWidth, panelHeight, panelWidth, marginType, marginValue){
     var mapDiv = document.getElementById('map');
-    var progressBarDiv = document.getElementById('divProgressBar');
+    //var progressBarDiv = document.getElementById('divProgressBar');
     var locationPanel = document.getElementById('locationPanel');
 
     mapDiv.style.height = mapHeight;
     mapDiv.style.width = mapWidth;
 
-    progressBarDiv.style.width = mapWidth;
+    //progressBarDiv.style.width = mapWidth;
     
     locationPanel.style.height = panelHeight;
     locationPanel.style.width = panelWidth;
