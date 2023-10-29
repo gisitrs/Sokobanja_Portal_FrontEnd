@@ -41,10 +41,10 @@ showSlidesAutomatic();
 var slideImageIndex = 0;
 var timeoutImageValue = 3000;
 
-showSubImagesAutomatic();
+//showSubImagesAutomatic();
 
 function showSlidesAutomatic() {
-    var i;
+    /*var i;
     
     if (isClicked == false) {
         slideImageIndex = 0;
@@ -66,7 +66,18 @@ function showSlidesAutomatic() {
     else {
         isClicked = false;
         setTimeout(showSlidesAutomatic, timeoutValue);
+    }*/
+    let i;
+    let slides = document.getElementsByClassName("mySlides");
+
+    for (i = 0; i < slides.length; i++) {
+      slides[i].style.display = "none";  
     }
+
+    slideIndex++;
+    if (slideIndex > slides.length) {slideIndex = 1} 
+    slides[slideIndex-1].style.display = "block";  
+    setTimeout(showSlidesAutomatic, 3500); // Change image every 3.5 seconds
 }
 
 function showSubImagesAutomatic() {

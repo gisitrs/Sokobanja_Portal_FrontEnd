@@ -456,8 +456,8 @@ function translateMapLayerLabels(mapLayerLabels){
     document.getElementById("touristSitesLB").innerHTML = mapLayerLabels.TouristSides;
     document.getElementById("lookoutsLB").innerHTML = mapLayerLabels.Lookouts;
     document.getElementById("sightsLB").innerHTML = mapLayerLabels.Sights;
-    document.getElementById("zonesLB").innerHTML = mapLayerLabels.Zones;
-    document.getElementById("roadsLB").innerHTML = mapLayerLabels.Roads;
+    //document.getElementById("zonesLB").innerHTML = mapLayerLabels.Zones;
+    //document.getElementById("roadsLB").innerHTML = mapLayerLabels.Roads;
 }
 
 function translateMapButtonLabels(labels){
@@ -660,24 +660,26 @@ const LayersPanel = L.Control.extend({
                                         Znamenitosti
                                     </label>
                                 </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="zonesCB" onclick="showHideZones()">
-                                    <label class="form-check-label" for="sightsCB" id="zonesLB">
-                                        Zone
-                                    </label>
-                                </div>
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" value="" id="roadsCB" onclick="showHideRoads()">
-                                    <label class="form-check-label" for="sightsCB" id="roadsLB">
-                                        Putevi
-                                    </label>
-                                </div>
                             </div>`; 
   return container;
     }
 });
 
 map.addControl(new LayersPanel({ position: "topleft" }));
+
+/*<div class="form-check">
+    <input class="form-check-input" type="checkbox" value="" id="zonesCB" onclick="showHideZones()">
+    <label class="form-check-label" for="sightsCB" id="zonesLB">
+        Zone
+    </label>
+</div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" value="" id="roadsCB" onclick="showHideRoads()">
+        <label class="form-check-label" for="sightsCB" id="roadsLB">
+            Putevi
+        </label>
+</div>*/
+
 
 const MapLegendPanel = L.Control.extend({
     onAdd: map => {
@@ -917,10 +919,10 @@ function showHideAllLocations(){
         showHideMarkersforLocationType(i, location);
     }
 
-    document.getElementById("zonesCB").checked = visibility;
+    /*document.getElementById("zonesCB").checked = visibility;
     document.getElementById("roadsCB").checked = visibility;
     showHideZones();
-    showHideRoads();
+    showHideRoads();*/
 }
 
 // get locationCheckBox element for location type
@@ -930,24 +932,24 @@ function getLocation(locationTypeId){
 }
 
 // show or hide zone layer
-function showHideZones(){
+/*function showHideZones(){
     if (document.getElementById("zonesCB").checked == true){
         zonesGroup.addLayer(wmsLayerZones);
     }
     else { 
         zonesGroup.clearLayers();
     }
-}
+}*/
 
 // show or hide road layer
-function showHideRoads(){
+/*function showHideRoads(){
     if (document.getElementById("roadsCB").checked == true){
         roadsGroup.addLayer(wmsLayerRoads);
     }
     else { 
         roadsGroup.clearLayers();
     }
-}
+}*/
 
 function prepareMarkerElements(locationTypeId, checkedLocationId){
     var locationsForLocationTypeId = locationsForCityArray.getLocationsByTypeId(locationTypeId);
