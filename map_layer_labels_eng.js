@@ -25,5 +25,6 @@ class MapLayerLabelsENG {
         this.ThermalSpringsShort = "Spa";
         this.PicnicAreasShort = "Picnic";
         this.WaterSpringsShort = "Springs";
+        this.LegendMapButtonTitle = "Map button";
     }
   }

@@ -25,5 +25,6 @@ class MapLayerLabelsRS {
         this.ThermalSpringsShort = "Terme";
         this.PicnicAreasShort = "Izletišta";
         this.WaterSpringsShort = "Izvorišta";
+        this.LegendMapButtonTitle = "Map dugme";
     }
   }

@@ -307,39 +307,39 @@ const ToggleMenu = L.Control.extend({
       container.innerHTML = `<input type="checkbox" name="" id="check" style="OVERFLOW-Y:scroll;">
                              <div class="container">
                                 <label for="check">
-                                    <span class="fas fa-times" id="times" onclick="hidePanels()"></span>
-                                    <span class="fas fa-bars" id="bars"></span>
+                                    <span id="times" onclick="hidePanels()"><img class="menuIcons" style="margin-left: -96px" src="images/MapPage/MenuIcons/ExitBarIcon.png"></span>
+                                    <span id="bars"><img class="menuIcons" src="images/MapPage/MenuIcons/MenuIcon.png" style="margin-left: -8px"></img></span>
                                 </label>
-                                <div class="head"><i class="fas fa-bars" style="padding-left:8px;"></i></div>
+                                <!-- <div class="head"><span id="times" onclick="hidePanels()"><img class="menuIcons" src="images/MapPage/MenuIcons/ExitBarIcon.png"></span></div> -->
                                 <div class="toggleMenu">
                                     <li>
                                        <button id="layerGroupButton" class="buttonClass" title="Prikaži slojeve!" onclick="showLayersPanel()">
-                                          <i class="fas fa-layer-group"></i>
+                                       <img class="menuIcons" src="images/MapPage/MenuIcons/SelectLayerIcon.png">
                                         </button>
                                     </li>
-                                    <li>
+                                    <!--<li>
                                         <button id="legendMapButton" title="Prikaži legendu!" class="buttonClass" onclick="showMapLegendPanel()">
                                             <i class="fas fa-map"></i>
                                         </button>
-                                    </li>
+                                    </li>-->
                                     <li>
                                         <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="goToInfoPage()">
-                                            <i class="fas fa-info-circle"></i>
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/InfoIcon.png">
                                         </button>
                                     </li>
                                     <li>
                                         <button id="homePageButtonId" title="Idi na Home stranu!" class="buttonClass" onclick="location.href = 'Home.html';">
-                                            <i class="fa fa-home"></i>
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/HomeIcon.png">
                                         </button>
                                     </li>
                                     <li>
                                         <button id="primeLocationButtonId" title="Vrati na početnu lokaciju!" class="buttonClass" onclick="goToPrimaryLocation()">
-                                            <i class="fas fa-map-marked-alt"></i>
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/MapIcon.png">
                                         </button>
                                     </li>
                                     <li>
                                         <button id="languagesButtonId" title="Izaberi jezik!" class="buttonClass" onclick="showLanguagesPanel()">
-                                            <i class="fas fa-language"></i> 
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/LanguageIcon.png">
                                         </button>
                                     </li>
                                 </div>
@@ -462,7 +462,7 @@ function translateMapLayerLabels(mapLayerLabels){
 
 function translateMapButtonLabels(labels){
     document.getElementById("layerGroupButton").title = labels.LayerGroupButtonTitle;
-    document.getElementById("legendMapButton").title = labels.LegendMapButtonTitle;
+    //document.getElementById("legendMapButton").title = labels.LegendMapButtonTitle;
     document.getElementById("infoPageButtonId").title = labels.InfoPageButtonTitle;
     document.getElementById("homePageButtonId").title = labels.HomePageButtonTitle;
     document.getElementById("primeLocationButtonId").title = labels.PrimeLocationButtonTitle;
@@ -714,11 +714,11 @@ const LanguagesPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="languagesContainer">
-                                <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" style="border: none;" onclick="translateOnSerbian()">
-                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 4px;"></img> 
+                                <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" style="border: none; width:25px; height:25px;" onclick="translateOnSerbian()">
+                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 5px; width:25px; height:25px;"></img> 
                                 </button>
-                                <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" style="border: none;" onclick="translateOnEnglish()">
-                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 4px; margin-left: 3px;"></img>
+                                <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" style="border: none; width:25px; height:25px;" onclick="translateOnEnglish()">
+                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 5px; margin-left: 10px; width:25px; height:25px;"></img>
                                 </button>
                             </div>`; 
   return container;
