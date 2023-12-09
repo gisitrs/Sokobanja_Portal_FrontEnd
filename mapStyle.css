@@ -270,6 +270,7 @@ img {
     z-index: 1;
     transition: 0.5s ease;
     transform: translateX(-90px);
+    top: -13px;
 }
 
 
@@ -433,9 +434,9 @@ span{
 
     position: absolute;
     width: 262px;
-    height: 476px;
+    height: 623px;
     left: 40px;
-    top: 40px;
+    top: 28px;
 
     background: #EAEEE5;
     border: 0.5px solid #3E7E55;
@@ -477,19 +478,51 @@ span{
 }
 
 .layersContainer label {
-    padding: 15px 10px 10px 10px;
+    /*padding: 15px 10px 10px 10px;
     font-size: 16px;
     letter-spacing: 1px;
     color: #0d53fb;
-    font-weight: bold;
+    font-weight: bold;*/
+
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 19px;
+
+    margin-left: 50px;
+
+    color: #3E7E55;
 }
 
 input.form-check-input {
-    width : 18px;
-    height : 18px;
-    margin-left: 40px;
-    margin-top: 22px;
+    width : 32px;
+    height : 32px;
+    margin-left: 6px;
+    margin-top: 6px;
     /*content: url("images/MapPage/MenuIcons/EmptyCheckBoxIcon.png");*/
+    
+    /*position: absolute;
+    width: 32px;
+    height: 32px;
+    margin-left: 40px;
+    margin-top: 22px;*/
+
+    background: #EAEEE5;
+    border: 0.5px solid #7ABD87;
+    border-radius: 3px;
+}
+
+.form-check-label {
+    margin-top: 10px;
+}
+
+.layersContainerImages {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    margin-left: 6px;
+    margin-top: 6px;
 }
 
 .mapLegendContainer img {
@@ -509,6 +542,12 @@ input.form-check-input {
 .leaflet-touch .leaflet-control-geocoder-icon{
     width: 35px;
     height: 35px;
+}
+
+.form-control {
+    width: 35px;
+    height: 35px;
+    top: -9px;
 }
 
 /*#endregion */

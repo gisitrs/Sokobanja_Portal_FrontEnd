@@ -584,78 +584,91 @@ const LayersPanel = L.Control.extend({
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideMarkersforLocationType(1, cityLocationsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
                                         Gradske lokacije
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB" onclick="showHideMarkersforLocationType(2, picnicAreasCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="picnicAreasCB" id="picnicAreasLB">
                                         Izletišta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="waterSpringsCB" onclick="showHideMarkersforLocationType(3, waterSpringsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="waterSpringsCB" id="waterSpringsLB">
                                         Izvorišta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="culturalContentCB" onclick="showHideMarkersforLocationType(4, culturalContentCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="culturalContentCB" id="culturalContentLB">
                                         Kulturni sadržaji
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="bathsCB" onclick="showHideMarkersforLocationType(5, bathsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="bathsCB" id="bathsLB">
                                         Kupališta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="parksCB" onclick="showHideMarkersforLocationType(6, parksCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="parksCB" id="parksLB">
                                         Parkovi
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="naturalAttractionsCB" onclick="showHideMarkersforLocationType(7, naturalAttractionsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="naturalAttractionsCB" id="naturalAttractionsLB">
                                         Prirodne atrakcije
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="childrenFacilitiesCB" onclick="showHideMarkersforLocationType(8, childrenFacilitiesCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="childrenFacilitiesCB" id="childrenFacilitiesLB">
                                         Sadržaji za decu
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="sportsFacilitiesCB" onclick="showHideMarkersforLocationType(9, sportsFacilitiesCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="sportsFacilitiesCB" id="sportsFacilitiesLB">
                                         Sportski sadržaji
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="thermalSpringsCB" onclick="showHideMarkersforLocationType(10, thermalSpringsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="thermalSpringsCB" id="thermalSpringsLB">
                                         Termalna izvorišta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="touristSitesCB" onclick="showHideMarkersforLocationType(11, touristSitesCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="touristSitesCB" id="touristSitesLB">
                                         Turističke pogod
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="lookoutsCB" onclick="showHideMarkersforLocationType(12, lookoutsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="lookoutsCB" id="lookoutsLB">
                                         Vidikovci
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="sightsCB" onclick="showHideMarkersforLocationType(13, sightsCB)">
+                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
                                     <label class="form-check-label" for="sightsCB" id="sightsLB">
                                         Znamenitosti
                                     </label>
