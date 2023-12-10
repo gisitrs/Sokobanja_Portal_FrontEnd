@@ -2,6 +2,7 @@
 
 /* objects for specific classes*/ 
 
+//Small changes
 // small update
 //const locations = new Locations();
 const mapLabelsRS = new MapLabelsRS();
