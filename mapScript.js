@@ -493,7 +493,7 @@ function translateLocationsPanelButton(){
 
     var imageUrl = document.getElementById("locationsButtonId").style.backgroundImage;
 
-    if (imageUrl == 'url("./images/fullscreen.png")'){
+    if (imageUrl == 'url("./images/fullscreen.svg")'){
         document.getElementById("locationsButtonId").title = currentMapLabels.FullScreenPreview;
     }
     else {
@@ -760,7 +760,7 @@ const Coordinates = L.Control.extend({
                                         title="Prikaži pun ekran!" 
                                         class="showHideLocations" 
                                         onclick="showHideLocations()" 
-                                        style="background: url('./images/fullscreen.png') no-repeat;">
+                                        style="background: url('./images/fullscreen.svg') no-repeat;">
                                 </button>`;
     return container;
     }
@@ -841,14 +841,14 @@ function changePageLayout(){
 function showHideLocations(){
     if (isHiddenLocationPanel == false){
         resizeDivElements('100%', '100%', '0%', '0%', 'none', '0%');
-        document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/Exit-full-screen.png')";
+        document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/Exit-full-screen.svg')";
         document.getElementById("locationPanel").style.visibility='hidden';
         translateLocationsPanelButton();
         isHiddenLocationPanel = true;
     }
     else {
         isHiddenLocationPanel = false;
-        document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/fullscreen.png')";
+        document.getElementById("locationsButtonId").style.backgroundImage = "url('./images/fullscreen.svg')";
         document.getElementById("locationPanel").style.visibility='visible';
         translateLocationsPanelButton();
         changePageLayout();
