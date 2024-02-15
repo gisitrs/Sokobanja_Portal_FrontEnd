@@ -315,7 +315,7 @@ const ToggleMenu = L.Control.extend({
                                 <div class="toggleMenu">
                                     <li>
                                        <button id="layerGroupButton" class="buttonClass" title="Prikaži slojeve!" onclick="showLayersPanel()">
-                                       <img class="menuIcons" src="images/MapPage/MenuIcons/SelectLayerIcon.png">
+                                       <img class="menuIcons" src="images/MapPage/MenuIcons/SelectLayerIcon.svg">
                                         </button>
                                     </li>
                                     <!--<li>
@@ -585,7 +585,7 @@ const LayersPanel = L.Control.extend({
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideMarkersforLocationType(1, cityLocationsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/rest-area.svg"/>
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
                                         Gradske lokacije
                                     </label>
