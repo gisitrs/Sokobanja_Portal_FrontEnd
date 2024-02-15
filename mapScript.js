@@ -308,8 +308,8 @@ const ToggleMenu = L.Control.extend({
       container.innerHTML = `<input type="checkbox" name="" id="check" style="OVERFLOW-Y:scroll;">
                              <div class="container">
                                 <label for="check">
-                                    <span id="times" onclick="hidePanels()"><img class="menuIcons" style="margin-left: -96px" src="images/MapPage/MenuIcons/ExitBarIcon.png"></span>
-                                    <span id="bars"><img class="menuIcons" src="images/MapPage/MenuIcons/MenuIcon.png" style="margin-left: -8px"></img></span>
+                                    <span id="times" onclick="hidePanels()"><img class="menuIcons" style="margin-left: -96px" src="images/MapPage/MenuIcons/ExitBarIcon.svg"></span>
+                                    <span id="bars"><img class="menuIcons" src="images/MapPage/MenuIcons/MenuIcon.svg" style="margin-left: -8px"></img></span>
                                 </label>
                                 <!-- <div class="head"><span id="times" onclick="hidePanels()"><img class="menuIcons" src="images/MapPage/MenuIcons/ExitBarIcon.png"></span></div> -->
                                 <div class="toggleMenu">
@@ -325,22 +325,22 @@ const ToggleMenu = L.Control.extend({
                                     </li>-->
                                     <li>
                                         <button id="infoPageButtonId" title="Idi na Info stranu!" class="buttonClass" onclick="goToInfoPage()">
-                                            <img class="menuIcons" src="images/MapPage/MenuIcons/InfoIcon.png">
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/InfoIcon.svg">
                                         </button>
                                     </li>
                                     <li>
                                         <button id="homePageButtonId" title="Idi na Home stranu!" class="buttonClass" onclick="location.href = 'Home.html';">
-                                            <img class="menuIcons" src="images/MapPage/MenuIcons/HomeIcon.png">
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/HomeIcon.svg">
                                         </button>
                                     </li>
                                     <li>
                                         <button id="primeLocationButtonId" title="Vrati na početnu lokaciju!" class="buttonClass" onclick="goToPrimaryLocation()">
-                                            <img class="menuIcons" src="images/MapPage/MenuIcons/MapIcon.png">
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/MapIcon.svg">
                                         </button>
                                     </li>
                                     <li>
                                         <button id="languagesButtonId" title="Izaberi jezik!" class="buttonClass" onclick="showLanguagesPanel()">
-                                            <img class="menuIcons" src="images/MapPage/MenuIcons/LanguageIcon.png">
+                                            <img class="menuIcons" src="images/MapPage/MenuIcons/LanguageIcon.svg">
                                         </button>
                                     </li>
                                 </div>
@@ -585,91 +585,91 @@ const LayersPanel = L.Control.extend({
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="cityLocationsCB" onclick="showHideMarkersforLocationType(1, cityLocationsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area.svg"/>
+                                    <img class="layersContainerImages" src="images/Markers/CityLocations.svg"/>
                                     <label class="form-check-label" for="cityLocationsCB" id="cityLocationsLB">
                                         Gradske lokacije
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="picnicAreasCB" onclick="showHideMarkersforLocationType(2, picnicAreasCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/PicnicAreas.svg"/>
                                     <label class="form-check-label" for="picnicAreasCB" id="picnicAreasLB">
                                         Izletišta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="waterSpringsCB" onclick="showHideMarkersforLocationType(3, waterSpringsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/WaterSprings.svg"/>
                                     <label class="form-check-label" for="waterSpringsCB" id="waterSpringsLB">
                                         Izvorišta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="culturalContentCB" onclick="showHideMarkersforLocationType(4, culturalContentCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/CulturalContent.svg"/>
                                     <label class="form-check-label" for="culturalContentCB" id="culturalContentLB">
                                         Kulturni sadržaji
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="bathsCB" onclick="showHideMarkersforLocationType(5, bathsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/Baths.svg"/>
                                     <label class="form-check-label" for="bathsCB" id="bathsLB">
                                         Kupališta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="parksCB" onclick="showHideMarkersforLocationType(6, parksCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/Parks.svg"/>
                                     <label class="form-check-label" for="parksCB" id="parksLB">
                                         Parkovi
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="naturalAttractionsCB" onclick="showHideMarkersforLocationType(7, naturalAttractionsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/NaturalAttractions.svg"/>
                                     <label class="form-check-label" for="naturalAttractionsCB" id="naturalAttractionsLB">
                                         Prirodne atrakcije
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="childrenFacilitiesCB" onclick="showHideMarkersforLocationType(8, childrenFacilitiesCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/ChildrenFacilities.svg"/>
                                     <label class="form-check-label" for="childrenFacilitiesCB" id="childrenFacilitiesLB">
                                         Sadržaji za decu
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="sportsFacilitiesCB" onclick="showHideMarkersforLocationType(9, sportsFacilitiesCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/SportsFacilities.svg"/>
                                     <label class="form-check-label" for="sportsFacilitiesCB" id="sportsFacilitiesLB">
                                         Sportski sadržaji
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="thermalSpringsCB" onclick="showHideMarkersforLocationType(10, thermalSpringsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/ThermalSprings.svg"/>
                                     <label class="form-check-label" for="thermalSpringsCB" id="thermalSpringsLB">
                                         Termalna izvorišta
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="touristSitesCB" onclick="showHideMarkersforLocationType(11, touristSitesCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/TouristSites.svg"/>
                                     <label class="form-check-label" for="touristSitesCB" id="touristSitesLB">
                                         Turističke pogod
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="lookoutsCB" onclick="showHideMarkersforLocationType(12, lookoutsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/Lookouts.svg"/>
                                     <label class="form-check-label" for="lookoutsCB" id="lookoutsLB">
                                         Vidikovci
                                     </label>
                                 </div>
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="sightsCB" onclick="showHideMarkersforLocationType(13, sightsCB)">
-                                    <img class="layersContainerImages" src="images/Markers/rest-area 1.png"/>
+                                    <img class="layersContainerImages" src="images/Markers/Sights.svg"/>
                                     <label class="form-check-label" for="sightsCB" id="sightsLB">
                                         Znamenitosti
                                     </label>
@@ -729,10 +729,10 @@ const LanguagesPanel = L.Control.extend({
       const container = L.DomUtil.create("div");
       container.innerHTML = `<div class="languagesContainer">
                                 <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" style="border: none; width:25px; height:25px;" onclick="translateOnSerbian()">
-                                    <img src="./images/Serbia-Flag-icon.png" alt="" class="image-flag" style="margin-top: 5px; width:25px; height:25px;"></img> 
+                                    <img src="./images/Serbia-Flag-icon.svg" alt="" class="image-flag" style="margin-top: 5px; width:25px; height:25px;"></img> 
                                 </button>
                                 <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" style="border: none; width:25px; height:25px;" onclick="translateOnEnglish()">
-                                    <img src="./images/GBR-flag-icon.png" alt="" class="image-flag" style="margin-top: 5px; margin-left: 10px; width:25px; height:25px;"></img>
+                                    <img src="./images/GBR-flag-icon.svg" alt="" class="image-flag" style="margin-top: 5px; margin-left: 10px; width:25px; height:25px;"></img>
                                 </button>
                             </div>`; 
   return container;
@@ -977,7 +977,7 @@ function prepareMarkerElements(locationTypeId, checkedLocationId){
 /* initialize variables for icons for map markers */
 
 var cityLocationsIcon = L.icon({
-    iconUrl: './images/Markers/CityLocations.png',
+    iconUrl: './images/Markers/CityLocations.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -986,7 +986,7 @@ var cityLocationsIcon = L.icon({
 });
 
 var picnicAreasIcon = L.icon({
-    iconUrl: './images/Markers/PicnicAreas.png',
+    iconUrl: './images/Markers/PicnicAreas.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -994,7 +994,7 @@ var picnicAreasIcon = L.icon({
 });
 
 var waterSpringsIcon = L.icon({
-    iconUrl: './images/Markers/WaterSprings.png',
+    iconUrl: './images/Markers/WaterSprings.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1002,7 +1002,7 @@ var waterSpringsIcon = L.icon({
 });
 
 var culturalContentIcon = L.icon({
-    iconUrl: './images/Markers/CulturalContent.png',
+    iconUrl: './images/Markers/CulturalContent.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1010,7 +1010,7 @@ var culturalContentIcon = L.icon({
 });
 
 var bathsIcon = L.icon({
-    iconUrl: './images/Markers/Baths.png',
+    iconUrl: './images/Markers/Baths.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1018,7 +1018,7 @@ var bathsIcon = L.icon({
 });
 
 var parksIcon = L.icon({
-    iconUrl: './images/Markers/Parks.png',
+    iconUrl: './images/Markers/Parks.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1026,14 +1026,14 @@ var parksIcon = L.icon({
 });
 
 var naturalAttractionsIcon = L.icon({
-    iconUrl: './images/Markers/NaturalAttractions.png',
+    iconUrl: './images/Markers/NaturalAttractions.svg',
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
     popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
 var childrenFacilitiesIcon = L.icon({
-    iconUrl: './images/Markers/ChildrenFacilities.png',
+    iconUrl: './images/Markers/ChildrenFacilities.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1041,7 +1041,7 @@ var childrenFacilitiesIcon = L.icon({
 });
 
 var sportsFacilitiesIcon = L.icon({
-    iconUrl: './images/Markers/SportsFacilities.png',
+    iconUrl: './images/Markers/SportsFacilities.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1049,7 +1049,7 @@ var sportsFacilitiesIcon = L.icon({
 });
 
 var thermalSpringsIcon = L.icon({
-    iconUrl: './images/Markers/ThermalSprings.png',
+    iconUrl: './images/Markers/ThermalSprings.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1057,7 +1057,7 @@ var thermalSpringsIcon = L.icon({
 });
 
 var touristSitesIcon = L.icon({
-    iconUrl: './images/Markers/CityLocations.png',
+    iconUrl: './images/Markers/CityLocations.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1065,7 +1065,7 @@ var touristSitesIcon = L.icon({
 });
 
 var lookoutsIcon = L.icon({
-    iconUrl: './images/Markers/Lookouts.png',
+    iconUrl: './images/Markers/Lookouts.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location
@@ -1073,7 +1073,7 @@ var lookoutsIcon = L.icon({
 });
 
 var sightsIcon = L.icon({
-    iconUrl: './images/Markers/Sights.png',
+    iconUrl: './images/Markers/Sights.svg',
 
     iconSize:     [32, 37], // size of the icon
     iconAnchor:   [16, 37], // point of the icon which will correspond to marker's location

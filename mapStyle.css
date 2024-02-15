@@ -469,7 +469,7 @@ span{
     width: 70px;
     height: 40px;
     left: 0px;
-    top: 0px;
+    top: -13px;
 
     background: #EAEEE5;
     border: 1px solid #3E7E55;
@@ -484,14 +484,15 @@ span{
     letter-spacing: 1px;
     color: #0d53fb;
     font-weight: bold;*/
-
+    position: absolute;
     font-family: 'Inter';
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
     line-height: 19px;
 
-    margin-left: 50px;
+    margin-left: 52px;
+    margin-top: 13px;
 
     color: #3E7E55;
 }
@@ -520,10 +521,10 @@ input.form-check-input {
 
 .layersContainerImages {
     position: absolute;
-    width: 32px;
-    height: 32px;
+    width: 40px;
+    height: 40px;
     margin-left: 6px;
-    margin-top: 6px;
+    margin-top: 3px;
 }
 
 .mapLegendContainer img {
