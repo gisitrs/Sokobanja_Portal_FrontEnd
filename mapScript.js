@@ -7,6 +7,7 @@
 //const locations = new Locations();
 const mapLabelsRS = new MapLabelsRS();
 const mapLabelsENG = new MapLabelsENG();
+const locationsAPI = new LocationsAPI();
 
 const mapLayerLabelsRS = new MapLayerLabelsRS();
 const mapLayerLabelsENG = new MapLayerLabelsENG();
@@ -183,11 +184,11 @@ async function getLocationsAPI(url) {
     //progressBarDiv.style.padding = "2px";
 
     // Storing response
-    const response = await fetch(url);
+    const response =  locationsAPI.Result //await fetch(url);
     
     // Storing data in form of JSON
     if (response){
-        var data = await response.json();
+        var data = response; //await response.json();
         locationsForCityArray = new LocationsTest(data);
 
         if (automaticChecked == true && locationTypeChecked != "" && locationTypeChecked != null){
