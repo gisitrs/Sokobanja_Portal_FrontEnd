@@ -2,12 +2,16 @@
 p {
     font-size:15px;
     text-align: center;
+    font-family: 'Inter';
+    color: #3E7E55;
 }
 
 *{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Inter';
+    color: #3E7E55;
 }
 
 header{
@@ -125,7 +129,8 @@ a {
 }*/
 
 .panel-title{
-    color:#034efc;
+    color:#3E7E55;
+    font-family: 'Inter';
 }
 
 .spinner{
