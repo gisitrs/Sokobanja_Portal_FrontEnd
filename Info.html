@@ -33,44 +33,49 @@
 
 <body>
 <header>
-  <nav class="navbar">
-    <!-- <a href="#" class="nav-branding">DEV.</a> translateOnSerbian() -->
-    <ul class="nav-menu" id="navMenuId">
-      <li class="nav-item">
-        <a href="#" class="nav-link" >
-          <button id="serbianLanguageButtonId" class="buttonClass" style="margin-left: 80px;" title="Prevedi na srpski jezik!" onclick="translateOnSerbian()">
-            <img src="./images/Serbia-Flag-icon.svg" style="padding: 0px 10px 0px 10px"/>
-          </button>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link" >
-          <button id="englishLanguageButtonId" class="buttonClass" style="margin-left: 15px;" title="Prevedi na engleski jezik!" onclick="translateOnEnglish()">
-            <img src="./images/GBR-flag-icon.svg" style="padding-right: 5px; padding-left: 5px;"/>
-          </button>
-        </a>
-      </li>
-      <li class="nav-item">
-        <a href="#" class="nav-link">
-          <button type="button" id="mapLegendButtonId" class="buttonClass" style="margin-left: 15px;" title="Idi na Map stranu!" onclick="goToMapPage('pL')">
-            <i class="fas fa-map-marked-alt" ></i>
-          </button>
-        </a>
-      </li>
-    </ul>
+  <!--<nav class="navbar">
+     <a href="#" class="nav-branding">DEV.</a> translateOnSerbian() 
     <div class="hamburger" id="hamburgerMenuId">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
-  </nav>
+  </nav> -->
+
+  <ul class="nav-menu" id="navMenuId">
+    <li> 
+      <button id="homePageLocationButtonId" title="Vrati na početnu stranu!" class="buttonClass" onclick="location.href = 'Home.html';">
+         <img class="menuIcons" src="images/MapPage/MenuIcons/HomeIcon.svg">
+      </button>
+    </li> 
+    <li> 
+      <button id="selectLanguageButtonId" title="Izaberi jezik!" class="buttonClass" onclick="showLanguagesPanel()">
+         <img class="menuIcons" src="images/MapPage/MenuIcons/LanguageIcon.svg">
+      </button>
+    </li>
+    <li>
+      <div class="languagesContainer">
+        <button id="serbianLanguageButtonId" title="Prevedi na srpski jezik!" class="buttonClass" style="border: none; width:25px; height:25px; margin-top:7px;" onclick="translateOnSerbian()">
+            <img src="./images/Serbia-Flag-icon.svg" alt="" class="image-flag" style=" margin-left:5px; width:25px; height:25px;"></img> 
+        </button>
+        <button id="englishLanguageButtonId" title="Prevedi na engleski jezik!" class="buttonClass" style="border: none; margin-left: 5px; width:25px; height:25px; margin-top:7px;" onclick="translateOnEnglish()">
+            <img src="./images/GBR-flag-icon.svg" alt="" class="image-flag" style=" margin-left: 10px; width:25px; height:25px;"></img>
+        </button>
+    </div>
+    </li>
+    <li> 
+      <button id="mapPageLocationButtonId" title="Vrati na map stranu!" class="buttonClass" onclick="location.href = 'Map.html';" style="margin-left:-15px;">
+         <img class="menuIcons" src="images/MapPage/MenuIcons/MapIcon.svg">
+      </button>
+    </li>
+  </ul>
 
 </header>
 
 <div class="container" id="main_container">
   <!-- panel with locations  -->
 
-  <ul id="tabPanelId" class="nav nav-pills" style="OVERFLOW-X:auto; display:flex; max-height: 115px;">
+  <ul id="tabPanelId" class="nav nav-pills" style="OVERFLOW-X:auto; display:flex; max-height: 115px; margin-top:60px;">
   </ul>
   
   <div id="tabContentId" class="tab-content" style="OVERFLOW-Y:auto; display:flex; max-height: 500px;">
@@ -199,13 +204,13 @@
 
       /* settings for header design */
 
-      const hamburger = document.getElementById("hamburgerMenuId");
+      /*const hamburger = document.getElementById("hamburgerMenuId");
       const navMenu = document.getElementById("navMenuId");
 
       hamburger.addEventListener("click", () => {
         hamburger.classList.toggle("active");
         navMenu.classList.toggle("active");
-      });
+      });*/
 
       var documentHeight = $(document).height();
       var documentWidth = $(document).width();

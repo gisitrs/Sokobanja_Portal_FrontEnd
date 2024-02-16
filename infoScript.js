@@ -630,4 +630,25 @@ function changePageLayout(){
 
 //#endregion
 
+//#region languages panel 
+/* languages panel */
+
+function showLanguagesPanel() {
+  var visibilityValue = document.getElementsByClassName('languagesContainer')[0].style.visibility;
+  var mapButton = document.getElementById('mapPageLocationButtonId');
+  var newVisibility = 'hidden';
+
+  if(visibilityValue == 'hidden') {
+    newVisibility = 'visible';
+    mapButton.style.marginLeft = '55px';
+  }
+  else {
+    mapButton.style.marginLeft = '-15px';
+  }
+
+  document.getElementsByClassName('languagesContainer')[0].style.visibility = newVisibility;
+}
+
+//#endregion
+
 // end of file
