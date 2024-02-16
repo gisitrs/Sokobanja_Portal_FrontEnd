@@ -184,8 +184,8 @@ async function getLocationsAPI(url) {
     //progressBarDiv.style.padding = "2px";
 
     // Storing response
-    const response =  locationsAPI.Result //await fetch(url);
-    
+    const response =  await locationsAPI.Result; //await fetch(url);
+
     // Storing data in form of JSON
     if (response){
         var data = response; //await response.json();

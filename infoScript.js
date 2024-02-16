@@ -1,6 +1,8 @@
 //#region initialize objects and variables
 
 /* objects for specific classes*/ 
+var locationsAPI = new LocationsAPI();
+var locationTypes = new LocationTypesAPI();
 
 var layerLabelsRS = new MapLayerLabelsRS();
 var layerLabelsENG = new MapLayerLabelsENG();
@@ -287,11 +289,11 @@ function delay(time) {
 async function getLocationsAPI(url) {
     
   // Storing response
-  const response = await fetch(url);
+  const response = locationsAPI.Result; //await fetch(url);
   
   // Storing data in form of JSON
   if (response){
-      var data = await response.json();
+      var data = response; //await response.json();
       locationsForCityArray = new LocationsTest(data);
 
       var locationId = 1;
@@ -366,11 +368,11 @@ async function getLocationsAPI(url) {
 async function getLocationTypesAPI(url) {
   
   // Storing response
-  const response = await fetch(url);
+  const response = locationTypes.Result; //await fetch(url);
   
   // Storing data in form of JSON
   if (response){
-      var data = await response.json();
+      var data = response; //await response.json();
       locationTypesArray = data;
   }
 }
