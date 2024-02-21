@@ -577,7 +577,7 @@ function createCirclePulseMarker(coords, locationsGroup){
 const LayersPanel = L.Control.extend({
     onAdd: map => {
       const container = L.DomUtil.create("div");
-      container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll;">
+      container.innerHTML = `<div class="layersContainer" style="OVERFLOW-Y:scroll; height:400px;">
                                 <div class="form-check">
                                     <input class="form-check-input" type="checkbox" value="" id="checkAllLocationsCB" onclick="showHideAllLocations()">
                                     <label class="form-check-label" for="checkAllLocationsCB" id="checkAllLocationsLB">

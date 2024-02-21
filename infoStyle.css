@@ -178,3 +178,8 @@ a {
 .nav-pills li.active a:hover{
     background-color: #FEDEBC;
 }
+
+.nav-pills li.active a {
+    background-color: #FEDEBC;
+}
+
