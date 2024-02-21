@@ -174,3 +174,7 @@ a {
     border-radius: 3px;
     display: flex;
 }
+
+.nav-pills li.active a:hover{
+    background-color: #FEDEBC;
+}

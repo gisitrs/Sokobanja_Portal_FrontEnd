@@ -383,18 +383,18 @@ async function getLocationTypesAPI(url) {
 
 //#region create toggle and pill menu '<li><a data-toggle="pill" id="touristGuidesLiId" href="#touristGuides">' + textTab3 + '</a></li>' '<li><a data-toggle="pill" id="restaurantsLiId" href="#restaurants">' + textTab1 + '</a></li>'
 function createTabContent(){
-  var divContent = '<li><a data-toggle="pill" id="cityLocationsLiId" href="#cityLocations" title="Gradske lokacije"><img src="./images/Markers/CityLocations.svg" width="47" /><p id="cityLocationsLbId">Lokacije</p></a></li>' +
-                   '<li><a data-toggle="pill" id="picnicAreasLiId" href="#picnicAreas" title="Izletišta"><img src="./images/Markers/PicnicAreas.svg" width="47" /><p id="picnicAreasLbId">Izletišta</p></a></li>' + 
-                   '<li><a data-toggle="pill" id="waterSpringsLiId" href="#waterSprings" title="Izvorišta"><img src="./images/Markers/WaterSprings.svg" width="47" /><p id="waterSpringsLbId">Izvorišta</p></a></li>' +
-                   '<li><a data-toggle="pill" id="culturalContentLiId" href="#culturalContent" title="Kulturni sadržaj"><img src="./images/Markers/CulturalContent.svg" width="47"/><p id="culturalContentLbId">Kultura</p></a></li>' +
-                   '<li><a data-toggle="pill" id="bathsLiId" href="#baths" title="Kupališta"><img src="./images/Markers/Baths.svg" width="47" /><p id="bathsLbId">Kupališta</p></a></li>' +
-                   '<li><a data-toggle="pill" id="parksLiId" href="#parks" title="Parkovi"><img src="./images/Markers/Parks.svg" width="47" /><p id="parksLbId">Parkovi</p></a></li>' +
-                   '<li><a data-toggle="pill" id="naturalAttractionsLiId" href="#naturalAttractions" title="Prirodne atrakcije"><img src="./images/Markers/NaturalAttractions.svg" width="47"/><p id="naturalAttractionsLbId">Atrakcije</p></a></li>' +
-                   '<li><a data-toggle="pill" id="childrenFacilitiesLiId" href="#childrenFacilities" title="Dečiji sadržaji"><img src="./images/Markers/ChildrenFacilities.svg" width="47" /><p id="childrenFacilitiesLbId">Igrališta</p></a></li>' +
-                   '<li><a data-toggle="pill" id="sportsFacilitiesLiId" href="#sportsFacilities" title="Sportski sadržaji"><img src="./images/Markers/SportsFacilities.svg" width="47" /><p id="sportsFacilitiesLbId">Sport</p></a></li>' + 
-                   '<li><a data-toggle="pill" id="thermalSpringsLiId" href="#thermalSprings" title="Termalna izvorišta"><img src="./images/Markers/ThermalSprings.svg" width="47" /><p id="thermalSpringsLbId">Spa</p></a></li>' +
-                   '<li><a data-toggle="pill" id="lookoutsLiId" href="#lookouts" title="Vidikovci"><img src="./images/Markers/Lookouts.svg" width="47"/><p id="lookoutsLbId">Vidikovci</p></a></li>' +
-                   '<li><a data-toggle="pill" id="sightsLiId" href="#sights" title="Znamenitosti"><img src="./images/Markers/Sights.svg" width="47" /><p id="sightsLbId">Znamenitosti</p></a></li>';
+  var divContent = '<li><a data-toggle="pill" id="cityLocationsLiId" href="#cityLocations" title="Gradske lokacije"><img src="./images/Markers/CityLocations.svg" width="47" /><p id="cityLocationsLbId" style="margin: 0 0 0 0">Lokacije</p></a></li>' +
+                   '<li><a data-toggle="pill" id="picnicAreasLiId" href="#picnicAreas" title="Izletišta"><img src="./images/Markers/PicnicAreas.svg" width="47" /><p id="picnicAreasLbId" style="margin: 0 0 0 0">Izletišta</p></a></li>' + 
+                   '<li><a data-toggle="pill" id="waterSpringsLiId" href="#waterSprings" title="Izvorišta"><img src="./images/Markers/WaterSprings.svg" width="47" /><p id="waterSpringsLbId" style="margin: 0 0 0 0">Izvorišta</p></a></li>' +
+                   '<li><a data-toggle="pill" id="culturalContentLiId" href="#culturalContent" title="Kulturni sadržaj"><img src="./images/Markers/CulturalContent.svg" width="47"/><p id="culturalContentLbId" style="margin: 0 0 0 0">Kultura</p></a></li>' +
+                   '<li><a data-toggle="pill" id="bathsLiId" href="#baths" title="Kupališta"><img src="./images/Markers/Baths.svg" width="47" /><p id="bathsLbId" style="margin: 0 0 0 0">Kupališta</p></a></li>' +
+                   '<li><a data-toggle="pill" id="parksLiId" href="#parks" title="Parkovi"><img src="./images/Markers/Parks.svg" width="47" /><p id="parksLbId" style="margin: 0 0 0 0">Parkovi</p></a></li>' +
+                   '<li><a data-toggle="pill" id="naturalAttractionsLiId" href="#naturalAttractions" title="Prirodne atrakcije"><img src="./images/Markers/NaturalAttractions.svg" width="47"/><p id="naturalAttractionsLbId" style="margin: 0 0 0 0">Atrakcije</p></a></li>' +
+                   '<li><a data-toggle="pill" id="childrenFacilitiesLiId" href="#childrenFacilities" title="Dečiji sadržaji"><img src="./images/Markers/ChildrenFacilities.svg" width="47" /><p id="childrenFacilitiesLbId" style="margin: 0 0 0 0">Igrališta</p></a></li>' +
+                   '<li><a data-toggle="pill" id="sportsFacilitiesLiId" href="#sportsFacilities" title="Sportski sadržaji"><img src="./images/Markers/SportsFacilities.svg" width="47" /><p id="sportsFacilitiesLbId" style="margin: 0 0 0 0">Sport</p></a></li>' + 
+                   '<li><a data-toggle="pill" id="thermalSpringsLiId" href="#thermalSprings" title="Termalna izvorišta"><img src="./images/Markers/ThermalSprings.svg" width="47" /><p id="thermalSpringsLbId" style="margin: 0 0 0 0">Spa</p></a></li>' +
+                   '<li><a data-toggle="pill" id="lookoutsLiId" href="#lookouts" title="Vidikovci"><img src="./images/Markers/Lookouts.svg" width="47"/><p id="lookoutsLbId" style="margin: 0 0 0 0">Vidikovci</p></a></li>' +
+                   '<li><a data-toggle="pill" id="sightsLiId" href="#sights" title="Znamenitosti"><img src="./images/Markers/Sights.svg" width="47" /><p id="sightsLbId" style="margin: 0 0 0 0">Znamenitosti</p></a></li>';
     return divContent;
 }
 
